@@ -13,10 +13,9 @@ const Hero = () => {
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
             <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Transform Your Future
+              Upskill at the Speed of AI
             </span>
             <br />
-            <span className="text-gray-900">with AI-Powered Learning</span>
           </h1>
 
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
