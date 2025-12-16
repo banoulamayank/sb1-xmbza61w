@@ -18,7 +18,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <img
-              src="logo.png"
+              src="src/components/logo.png"
               alt="AI"
               className="h-12 w-auto"
             />
