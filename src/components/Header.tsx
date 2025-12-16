@@ -18,7 +18,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <img
-              src="/whatsapp_image_2025-12-12_at_12.07.16_am-removebg-preview.png"
+              src="AI Loop Logo.png"
               alt="AI Loop"
               className="h-12 w-auto"
             />
