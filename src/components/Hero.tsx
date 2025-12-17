@@ -2,7 +2,7 @@ import { ArrowRight, Play } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
+    <section className="pt-48 pb-20 px-6 bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
       <div className="container mx-auto">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-block mb-6">
