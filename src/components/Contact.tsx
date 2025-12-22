@@ -47,8 +47,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 mb-1">Location</div>
-                    <div className="text-gray-600">123 Learning Street</div>
-                    <div className="text-gray-600">San Francisco, CA 94105</div>
+                    <div className="text-gray-600">New Delhi, India</div>
                   </div>
                 </div>
               </div>
