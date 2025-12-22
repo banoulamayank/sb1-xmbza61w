@@ -27,8 +27,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 mb-1">Email</div>
-                    <div className="text-gray-600">contact@ailoop.com</div>
-                    <div className="text-gray-600">support@ailoop.com</div>
+                    <div className="text-gray-600">connectwithailoop@gmail.com</div>
                   </div>
                 </div>
 
@@ -38,8 +37,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 mb-1">Phone</div>
-                    <div className="text-gray-600">+1 (555) 123-4567</div>
-                    <div className="text-gray-600">Mon-Fri 9am-6pm EST</div>
+                    <div className="text-gray-600">+91 7701922376</div>
                   </div>
                 </div>
 
