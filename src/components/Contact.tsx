@@ -1,6 +1,118 @@
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { useState, FormEvent } from 'react';
+
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface FormStatus {
+  type: 'idle' | 'loading' | 'success' | 'error';
+  message: string;
+}
 
 const Contact = () => {
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
+  const [status, setStatus] = useState<FormStatus>({
+    type: 'idle',
+    message: ''
+  });
+
+  // Replace this URL with your Google Apps Script Web App URL
+  const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setStatus({
+        type: 'error',
+        message: 'Please fill in all fields'
+      });
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setStatus({
+        type: 'error',
+        message: 'Please enter a valid email address'
+      });
+      return;
+    }
+
+    if (!GOOGLE_SCRIPT_URL) {
+      setStatus({
+        type: 'error',
+        message: 'Google Sheets integration not configured. Please add VITE_GOOGLE_SCRIPT_URL to your .env file.'
+      });
+      return;
+    }
+
+    setStatus({ type: 'loading', message: 'Sending...' });
+
+    try {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          timestamp: new Date().toISOString()
+        })
+      });
+
+      // Note: With 'no-cors' mode, we can't read the response
+      // We assume success if no error is thrown
+      setStatus({
+        type: 'success',
+        message: 'Thank you! Your message has been sent successfully.'
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setStatus({ type: 'idle', message: '' });
+      }, 5000);
+
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: 'Failed to send message. Please try again or contact us directly at connectwithailoop@gmail.com'
+      });
+    }
+  };
+
   return (
     <section id="contact" className="py-20 px-6 bg-white">
       <div className="container mx-auto">
@@ -77,13 +189,17 @@ const Contact = () => {
           </div>
 
           <div>
-            <form className="bg-white border-2 border-gray-100 rounded-2xl p-8 hover:border-cyan-500 transition-colors duration-300">
+            <form onSubmit={handleSubmit} className="bg-white border-2 border-gray-100 rounded-2xl p-8 hover:border-cyan-500 transition-colors duration-300">
               <div className="mb-6">
                 <label className="block text-gray-700 font-semibold mb-2">Full Name</label>
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-cyan-500 focus:outline-none transition-colors duration-300"
                   placeholder="John Doe"
+                  disabled={status.type === 'loading'}
                 />
               </div>
 
@@ -91,8 +207,12 @@ const Contact = () => {
                 <label className="block text-gray-700 font-semibold mb-2">Email Address</label>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-cyan-500 focus:outline-none transition-colors duration-300"
                   placeholder="john@example.com"
+                  disabled={status.type === 'loading'}
                 />
               </div>
 
@@ -100,25 +220,44 @@ const Contact = () => {
                 <label className="block text-gray-700 font-semibold mb-2">Subject</label>
                 <input
                   type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-cyan-500 focus:outline-none transition-colors duration-300"
                   placeholder="How can we help?"
+                  disabled={status.type === 'loading'}
                 />
               </div>
 
               <div className="mb-6">
                 <label className="block text-gray-700 font-semibold mb-2">Message</label>
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   rows={5}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-cyan-500 focus:outline-none transition-colors duration-300 resize-none"
                   placeholder="Tell us more about your inquiry..."
+                  disabled={status.type === 'loading'}
                 ></textarea>
               </div>
 
+              {status.message && (
+                <div className={`mb-6 p-4 rounded-xl ${
+                  status.type === 'success' ? 'bg-green-50 text-green-700 border-2 border-green-200' :
+                  status.type === 'error' ? 'bg-red-50 text-red-700 border-2 border-red-200' :
+                  'bg-blue-50 text-blue-700 border-2 border-blue-200'
+                }`}>
+                  {status.message}
+                </div>
+              )}
+
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2"
+                disabled={status.type === 'loading'}
+                className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none"
               >
-                <span>Send Message</span>
+                <span>{status.type === 'loading' ? 'Sending...' : 'Send Message'}</span>
                 <Send size={20} />
               </button>
             </form>
