@@ -19,11 +19,13 @@ const Header = () => {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <img
-              src={logo}
-              alt="AI"
-              className="h-36 w-auto"
-            />
+            <Link to="/" className="cursor-pointer">
+              <img
+                src={logo}
+                alt="AI"
+                className="h-36 w-auto"
+              />
+            </Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
