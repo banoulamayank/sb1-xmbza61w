@@ -1,24 +1,21 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import VideoTutorials from './components/VideoTutorials';
-import Features from './components/Features';
-import Stats from './components/Stats';
-import Courses from './components/Courses';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
+import VideoTutorialsPage from './pages/VideoTutorialsPage';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <Hero />
-      <VideoTutorials />
-      <Features />
-      <Stats />
-      <Courses />
-      <Contact />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="min-h-screen bg-white">
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/video-tutorials" element={<VideoTutorialsPage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 
