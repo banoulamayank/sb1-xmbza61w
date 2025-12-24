@@ -13,7 +13,7 @@ interface VideoItem {
 
 const VideoTutorials = () => {
   // Define your video categories
-  const categories = ['All', 'Programming', 'Web Development', 'Data Science', 'Mobile Development', 'Other'];
+  const categories = ['All', 'ChatGPT Tutorials', 'Google Gemini Tutorials', 'AI Roadmap', 'Video Generation Tools', 'Image Generation Tools', 'Productivity Tutorials'];
 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -23,51 +23,59 @@ const VideoTutorials = () => {
   const videos: VideoItem[] = [
     {
       id: '1',
-      title: 'Getting Started with React',
-      description: 'Learn the basics of React and build your first component',
+      title: 'Getting Started with ChatGPT',
+      description: 'Learn the basics of ChatGPT and how to use it effectively',
       youtubeId: 'SqcY0GlETPk', // Replace with your actual video ID
-      category: 'Web Development',
+      category: 'ChatGPT Tutorials',
       duration: '15:30',
     },
     {
       id: '2',
-      title: 'JavaScript ES6 Features',
-      description: 'Master modern JavaScript with ES6+ features',
+      title: 'Advanced ChatGPT Prompts',
+      description: 'Master prompt engineering for better AI responses',
       youtubeId: 'NCwa_xi0Uuc', // Replace with your actual video ID
-      category: 'Programming',
+      category: 'ChatGPT Tutorials',
       duration: '22:45',
     },
     {
       id: '3',
-      title: 'Python for Beginners',
-      description: 'Start your journey with Python programming',
+      title: 'Google Gemini Overview',
+      description: 'Explore Google Gemini AI capabilities and features',
       youtubeId: 'rfscVS0vtbw', // Replace with your actual video ID
-      category: 'Programming',
+      category: 'Google Gemini Tutorials',
       duration: '18:20',
     },
     {
       id: '4',
-      title: 'Data Visualization with Python',
-      description: 'Learn to create stunning visualizations using Python libraries',
+      title: 'AI Career Roadmap 2024',
+      description: 'Your complete guide to building a career in AI',
       youtubeId: '8rrOdmLNIr0', // Replace with your actual video ID
-      category: 'Data Science',
+      category: 'AI Roadmap',
       duration: '25:15',
     },
     {
       id: '5',
-      title: 'Building Mobile Apps with React Native',
-      description: 'Create cross-platform mobile applications',
+      title: 'AI Video Generation Tools',
+      description: 'Create amazing videos using AI-powered tools',
       youtubeId: '0-S5a0eXPoc', // Replace with your actual video ID
-      category: 'Mobile Development',
+      category: 'Video Generation Tools',
       duration: '30:00',
     },
     {
       id: '6',
-      title: 'Advanced TypeScript',
-      description: 'Deep dive into TypeScript advanced concepts',
+      title: 'AI Image Creation with Midjourney',
+      description: 'Generate stunning images with AI image generation',
       youtubeId: 'ahCwqrYpIuM', // Replace with your actual video ID
-      category: 'Web Development',
+      category: 'Image Generation Tools',
       duration: '28:40',
+    },
+    {
+      id: '7',
+      title: 'Boost Your Productivity with AI',
+      description: 'Leverage AI tools to enhance your workflow and efficiency',
+      youtubeId: 'ahCwqrYpIuM', // Replace with your actual video ID
+      category: 'Productivity Tutorials',
+      duration: '20:15',
     },
     // Add more videos as needed
   ];
