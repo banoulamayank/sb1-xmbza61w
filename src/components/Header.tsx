@@ -16,13 +16,13 @@ const Header = () => {
 
   return (
     <header className="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-      <nav className="container mx-auto px-6 py-4">
+      <nav className="container mx-auto px-6 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <img
               src={logo}
               alt="AI"
-              className="h-36 w-auto"
+              className="h-25 w-auto"
             />
           </div>
 
@@ -46,7 +46,7 @@ const Header = () => {
                 </a>
               )
             ))}
-            <button className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">
+            <button className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-6 py-1.5 rounded-full hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">
               Get Started
             </button>
           </div>
@@ -82,7 +82,7 @@ const Header = () => {
                 </a>
               )
             ))}
-            <button className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">
+            <button className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-6 py-1.5 rounded-full hover:shadow-lg transition-all duration-300">
               Get Started
             </button>
           </div>
