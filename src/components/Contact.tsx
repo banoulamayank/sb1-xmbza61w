@@ -217,14 +217,14 @@ const Contact = () => {
               </div>
 
               <div className="mb-6">
-                <label className="block text-gray-700 font-semibold mb-2">Subject</label>
+                <label className="block text-gray-700 font-semibold mb-2">Phone</label>
                 <input
-                  type="text"
+                  type="tel"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-cyan-500 focus:outline-none transition-colors duration-300"
-                  placeholder="How can we help?"
+                  placeholder="+91 1234567890"
                   disabled={status.type === 'loading'}
                 />
               </div>
