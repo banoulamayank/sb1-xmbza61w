@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Video, Play, Filter } from 'lucide-react';
+import { Video, Play, Filter, ArrowLeft, Home } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface VideoItem {
   id: string;
@@ -12,8 +13,18 @@ interface VideoItem {
 }
 
 const VideoTutorials = () => {
-  // Define your video categories
-  const categories = ['All', 'Programming', 'Web Development', 'Data Science', 'Mobile Development', 'Other'];
+  const navigate = useNavigate();
+
+  // Define your AI-focused video categories
+  const categories = [
+    'All',
+    'ChatGPT Tutorials',
+    'Google Gemini Tutorials',
+    'AI Roadmap',
+    'Video Generation Tools',
+    'Image Generation Tools',
+    'Productivity Tutorials'
+  ];
 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -23,51 +34,67 @@ const VideoTutorials = () => {
   const videos: VideoItem[] = [
     {
       id: '1',
-      title: 'Getting Started with React',
-      description: 'Learn the basics of React and build your first component',
-      youtubeId: 'SqcY0GlETPk', // Replace with your actual video ID
-      category: 'Web Development',
+      title: 'ChatGPT Complete Beginner Guide',
+      description: 'Master ChatGPT from scratch - Learn prompts, tips, and best practices',
+      youtubeId: 'JTxsNm9IdYU', // Replace with your actual video ID
+      category: 'ChatGPT Tutorials',
       duration: '15:30',
     },
     {
       id: '2',
-      title: 'JavaScript ES6 Features',
-      description: 'Master modern JavaScript with ES6+ features',
-      youtubeId: 'NCwa_xi0Uuc', // Replace with your actual video ID
-      category: 'Programming',
+      title: 'Advanced ChatGPT Prompt Engineering',
+      description: 'Take your ChatGPT skills to the next level with advanced prompting techniques',
+      youtubeId: 'jC4v5AS4RIM', // Replace with your actual video ID
+      category: 'ChatGPT Tutorials',
       duration: '22:45',
     },
     {
       id: '3',
-      title: 'Python for Beginners',
-      description: 'Start your journey with Python programming',
-      youtubeId: 'rfscVS0vtbw', // Replace with your actual video ID
-      category: 'Programming',
+      title: 'Google Gemini AI - Complete Tutorial',
+      description: 'Everything you need to know about Google Gemini AI',
+      youtubeId: 'UIZAiXYceBI', // Replace with your actual video ID
+      category: 'Google Gemini Tutorials',
       duration: '18:20',
     },
     {
       id: '4',
-      title: 'Data Visualization with Python',
-      description: 'Learn to create stunning visualizations using Python libraries',
-      youtubeId: '8rrOdmLNIr0', // Replace with your actual video ID
-      category: 'Data Science',
+      title: 'AI Career Roadmap 2024',
+      description: 'Complete roadmap to start your career in AI and Machine Learning',
+      youtubeId: 'pHiMN_gy9mk', // Replace with your actual video ID
+      category: 'AI Roadmap',
       duration: '25:15',
     },
     {
       id: '5',
-      title: 'Building Mobile Apps with React Native',
-      description: 'Create cross-platform mobile applications',
-      youtubeId: '0-S5a0eXPoc', // Replace with your actual video ID
-      category: 'Mobile Development',
+      title: 'Create Videos with AI - Runway ML Tutorial',
+      description: 'Learn how to generate stunning videos using AI-powered tools',
+      youtubeId: '0CqTBT85LuI', // Replace with your actual video ID
+      category: 'Video Generation Tools',
       duration: '30:00',
     },
     {
       id: '6',
-      title: 'Advanced TypeScript',
-      description: 'Deep dive into TypeScript advanced concepts',
-      youtubeId: 'ahCwqrYpIuM', // Replace with your actual video ID
-      category: 'Web Development',
+      title: 'Midjourney AI Art - Complete Guide',
+      description: 'Create amazing AI-generated images with Midjourney',
+      youtubeId: 'F420GKjG73U', // Replace with your actual video ID
+      category: 'Image Generation Tools',
       duration: '28:40',
+    },
+    {
+      id: '7',
+      title: 'AI Tools for Productivity',
+      description: 'Boost your productivity with these amazing AI tools',
+      youtubeId: 'SsuAi0Ro7Qo', // Replace with your actual video ID
+      category: 'Productivity Tutorials',
+      duration: '20:15',
+    },
+    {
+      id: '8',
+      title: 'DALL-E 3 Image Generation Tutorial',
+      description: 'Master DALL-E 3 for creating professional AI images',
+      youtubeId: 'GlGnl-OjJx4', // Replace with your actual video ID
+      category: 'Image Generation Tools',
+      duration: '17:30',
     },
     // Add more videos as needed
   ];
@@ -78,22 +105,45 @@ const VideoTutorials = () => {
     : videos.filter(video => video.category === selectedCategory);
 
   return (
-    <section id="tutorials" className="py-20 px-6 bg-gray-50">
-      <div className="container mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Video className="w-12 h-12 text-blue-600" />
-            <h2 className="text-4xl md:text-5xl font-bold">
-              <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Video Tutorials
-              </span>
-            </h2>
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation Bar */}
+      <div className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => navigate('/')}
+              className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors font-medium"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              Back to Home
+            </button>
+            <button
+              onClick={() => navigate('/')}
+              className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              <Home className="w-5 h-5" />
+            </button>
           </div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Learn at your own pace with our comprehensive video tutorials covering various topics
-          </p>
         </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="py-20 px-6">
+        <div className="container mx-auto">
+          {/* Page Header */}
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Video className="w-12 h-12 text-blue-600" />
+              <h1 className="text-4xl md:text-5xl font-bold">
+                <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  AI Video Tutorials
+                </span>
+              </h1>
+            </div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Master AI tools and technologies with our comprehensive video tutorials
+            </p>
+          </div>
 
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
@@ -182,8 +232,9 @@ const VideoTutorials = () => {
             <p className="text-gray-500 text-lg">No videos found in this category</p>
           </div>
         )}
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
