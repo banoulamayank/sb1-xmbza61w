@@ -103,11 +103,35 @@ const VideoTutorials = () => {
     },
     {
       id: '11',
-      title: 'Boost Your Productivity with AI',
-      description: 'Leverage AI tools to enhance your workflow and efficiency',
-      youtubeId: 'ahCwqrYpIuM', // Replace with your actual video ID
+      title: ' Heygen AI Video Generator 2026',
+      description: 'Explore Heygen AI capabilities and features',
+      youtubeId: 'S3_2VMpD_vo', // Replace with your actual video ID
+      category: 'Video Generation Tools',
+      duration: '09:15',
+    },
+      {
+      id: '12',
+      title: 'ChatGPT Image Generator Model - Image 1.5 2026',
+      description: 'Learn the basics of ChatGPT Image 1.5 and how to use it effectively',
+      youtubeId: 'Hg6PFwBdTwg', // Replace with your actual video ID
+      category: 'Image Generation Tools',
+      duration: '10:09',
+    },
+    {
+      id: '13',
+      title: 'ChatGPT AI Agents Tutorial 2026',
+      description: 'Your complete guide to building ChatGPT AI Agents',
+      youtubeId: 'L12PYcIcaj8', // Replace with your actual video ID
       category: 'Productivity Tutorials',
-      duration: '20:15',
+      duration: '18:05',
+    },
+    {
+      id: '14',
+      title: ' New ChatGPT Apps You Must Know 2026',
+      description: 'Explore Chatgpt apps for productivity',
+      youtubeId: 'd9ZAsI6Cnl4', // Replace with your actual video ID
+      category: 'Productivity Tutorials',
+      duration: '06:04',
     },
     // Add more videos as needed
   ];
