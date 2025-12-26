@@ -1,7 +1,74 @@
-import { ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Latest 5 videos
+  const latestVideos = [
+    {
+      id: '1',
+      title: 'ChatGPT Image Generator Model - Image 1.5 2026',
+      youtubeId: 'Hg6PFwBdTwg',
+    },
+    {
+      id: '2',
+      title: 'Claude OPUS 4.5, Gemini 3 Pro, or Chatgpt 5.1 2026',
+      youtubeId: 'WUXR-H9FUVw',
+    },
+    {
+      id: '3',
+      title: 'ChatGPT 5.2 Tutorial With Demo 2026',
+      youtubeId: '1HJAZU94OpY',
+    },
+    {
+      id: '4',
+      title: 'ChatGPT AI Agents Tutorial 2026',
+      youtubeId: 'L12PYcIcaj8',
+    },
+    {
+      id: '5',
+      title: 'Google Flow Tutorial 2026',
+      youtubeId: 'rXNCPen0Lzs',
+    },
+  ];
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      setCurrentVideoIndex((prevIndex) =>
+        prevIndex === latestVideos.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, latestVideos.length]);
+
+  const goToPrevious = () => {
+    setCurrentVideoIndex((prevIndex) =>
+      prevIndex === 0 ? latestVideos.length - 1 : prevIndex - 1
+    );
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  };
+
+  const goToNext = () => {
+    setCurrentVideoIndex((prevIndex) =>
+      prevIndex === latestVideos.length - 1 ? 0 : prevIndex + 1
+    );
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentVideoIndex(index);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  };
+
   return (
     <section className="pt-48 pb-20 px-6 bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
       <div className="container mx-auto">
@@ -18,16 +85,55 @@ const Hero = () => {
             and stay updated with the latest job opportunities in tech.
           </p>
 
-          {/* Featured Video */}
-          <div className="mb-10 max-w-3xl mx-auto">
-            <div className="relative aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="Featured Video Tutorial"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+          {/* Video Slider */}
+          <div className="mb-10 max-w-4xl mx-auto">
+            <div className="relative">
+              <div className="relative aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
+                <iframe
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${latestVideos[currentVideoIndex].youtubeId}`}
+                  title={latestVideos[currentVideoIndex].title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={goToPrevious}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 z-10"
+                aria-label="Previous video"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button
+                onClick={goToNext}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 z-10"
+                aria-label="Next video"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </div>
+
+            {/* Video Title */}
+            <h3 className="mt-4 text-lg font-semibold text-gray-800">
+              {latestVideos[currentVideoIndex].title}
+            </h3>
+
+            {/* Dots Navigation */}
+            <div className="flex justify-center items-center space-x-2 mt-4">
+              {latestVideos.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`transition-all duration-300 rounded-full ${
+                    currentVideoIndex === index
+                      ? 'w-8 h-2 bg-gradient-to-r from-cyan-500 to-blue-600'
+                      : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to video ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
 
