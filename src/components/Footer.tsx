@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Linkedin, Youtube, Instagram } from 'lucide-react';
+import logo from './logo.png';
 
 const Footer = () => {
   return (
@@ -7,11 +8,13 @@ const Footer = () => {
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
-            <img
-              src="/whatsapp_image_2025-12-12_at_12.07.16_am-removebg-preview.png"
-              alt="AI Loop"
-              className="h-12 w-auto mb-4"
-            />
+            <Link to="/">
+              <img
+                src={logo}
+                alt="AI Loop"
+                className="h-12 w-auto mb-4 cursor-pointer"
+              />
+            </Link>
             <p className="text-gray-400 mb-4 leading-relaxed">
               Empowering learners worldwide with cutting-edge technology education and career opportunities.
             </p>
