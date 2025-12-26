@@ -26,21 +26,6 @@ const Hero = () => {
               </button>
             </Link>
           </div>
-
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">10K+</div>
-              <div className="text-gray-600 mt-1">Learners</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">200+</div>
-              <div className="text-gray-600 mt-1">Video Tutorials</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent">95%</div>
-              <div className="text-gray-600 mt-1">Success Rate</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
