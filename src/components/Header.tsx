@@ -9,8 +9,8 @@ const Header = () => {
   const navItems = [
     { name: 'Video Tutorials', href: '/video-tutorials', isRoute: true },
     { name: 'Articles', href: '/articles', isRoute: true },
-    { name: 'Job Updates', href: '#jobs', isRoute: false },
-    { name: 'Contact Us', href: '#contact', isRoute: false },
+    { name: 'Job Updates', href: '/#jobs', isRoute: false },
+    { name: 'Contact Us', href: '/#contact', isRoute: false },
   ];
 
   return (
