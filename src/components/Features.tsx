@@ -1,4 +1,4 @@
-import { Video, BookOpen, Briefcase, FileText, ArrowRight } from 'lucide-react';
+import { Video, BookOpen, Briefcase, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Features = () => {
@@ -48,34 +48,38 @@ const Features = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              id={feature.id}
-              className="group bg-white p-8 rounded-2xl border-2 border-gray-100 hover:border-transparent hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
-            >
-              <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                <feature.icon size={32} className="text-white" />
+          {features.map((feature, index) => {
+            const content = (
+              <div
+                key={index}
+                id={feature.id}
+                className="group bg-white p-8 rounded-2xl border-2 border-gray-100 hover:border-transparent hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 cursor-pointer"
+              >
+                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon size={32} className="text-white" />
+                </div>
+
+                <h3 className="text-xl font-bold mb-3 text-gray-900">
+                  {feature.title}
+                </h3>
+
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
+            );
 
-              <h3 className="text-xl font-bold mb-3 text-gray-900">
-                {feature.title}
-              </h3>
+            // Link Video Tutorials card to video tutorials page
+            if (feature.id === 'tutorials') {
+              return (
+                <Link key={index} to="/video-tutorials">
+                  {content}
+                </Link>
+              );
+            }
 
-              <p className="text-gray-600 leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Link to="/video-tutorials">
-            <button className="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2 mx-auto">
-              <span>Start Now</span>
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
-            </button>
-          </Link>
+            return content;
+          })}
         </div>
       </div>
     </section>
