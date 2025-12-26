@@ -22,25 +22,29 @@ const Stats = () => {
       icon: Users,
       value: '10K+',
       label: 'Subscribers',
-      gradient: 'from-cyan-500 to-blue-600'
+      gradient: 'from-cyan-500 to-blue-600',
+      animation: 'animate-pulse-slow'
     },
     {
       icon: Eye,
       value: '500K+',
       label: 'Total Views',
-      gradient: 'from-blue-600 to-purple-600'
+      gradient: 'from-blue-600 to-purple-600',
+      animation: 'animate-float'
     },
     {
       icon: Video,
       value: '200+',
       label: 'Videos',
-      gradient: 'from-purple-600 to-orange-500'
+      gradient: 'from-purple-600 to-orange-500',
+      animation: 'animate-wiggle'
     },
     {
       icon: TrendingUp,
       value: '95%',
       label: 'Engagement Rate',
-      gradient: 'from-orange-500 to-cyan-500'
+      gradient: 'from-orange-500 to-cyan-500',
+      animation: 'animate-float'
     }
   ];
 
@@ -51,25 +55,29 @@ const Stats = () => {
           icon: Users,
           value: formatNumber(youtubeStats.subscriberCount) + '+',
           label: 'Subscribers',
-          gradient: 'from-cyan-500 to-blue-600'
+          gradient: 'from-cyan-500 to-blue-600',
+          animation: 'animate-pulse-slow'
         },
         {
           icon: Eye,
           value: formatNumber(youtubeStats.viewCount),
           label: 'Total Views',
-          gradient: 'from-blue-600 to-purple-600'
+          gradient: 'from-blue-600 to-purple-600',
+          animation: 'animate-float'
         },
         {
           icon: Video,
           value: youtubeStats.videoCount,
           label: 'Videos',
-          gradient: 'from-purple-600 to-orange-500'
+          gradient: 'from-purple-600 to-orange-500',
+          animation: 'animate-wiggle'
         },
         {
           icon: TrendingUp,
           value: '95%',
           label: 'Engagement Rate',
-          gradient: 'from-orange-500 to-cyan-500'
+          gradient: 'from-orange-500 to-cyan-500',
+          animation: 'animate-float'
         }
       ]
     : fallbackStats;
@@ -90,10 +98,10 @@ const Stats = () => {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-white/10 backdrop-blur-lg p-8 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center"
+              className="bg-white/10 backdrop-blur-lg p-8 rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 text-center group"
             >
-              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mb-6 mx-auto">
-                <stat.icon size={32} className="text-white" />
+              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                <stat.icon size={32} className={`text-white ${stat.animation}`} />
               </div>
 
               <div className="text-4xl font-bold mb-2 text-white">
