@@ -12,7 +12,7 @@ const Testimonials = () => {
       company: 'Tech Innovations',
       rating: 5,
       image: 'https://ui-avatars.com/api/?name=Ratnam+Sirsat&background=0D8ABC&color=fff&size=200&bold=true',
-      text: 'AI Loop transformed my career! The courses are incredibly well-structured and the instructors are top-notch. I landed my dream job within 3 months of completing the Full Stack program.'
+      text: 'The video tutorials are crystal clear and easy to follow! Each concept is explained step-by-step with real coding examples. I can pause, rewind, and learn at my own pace. Absolutely love it!'
     },
     {
       name: 'Kaushal Bisht',
@@ -20,7 +20,7 @@ const Testimonials = () => {
       company: 'Analytics Pro',
       rating: 5,
       image: 'https://ui-avatars.com/api/?name=Kaushal+Bisht&background=6366F1&color=fff&size=200&bold=true',
-      text: 'The AI & Machine Learning course exceeded all my expectations. The hands-on projects and real-world applications helped me understand complex concepts with ease. Highly recommended!'
+      text: 'These video tutorials are a game-changer! The visual explanations make complex AI concepts so much easier to understand. The instructor\'s teaching style is engaging and practical.'
     },
     {
       name: 'Shiwani Jha',
@@ -28,7 +28,7 @@ const Testimonials = () => {
       company: 'Digital Solutions',
       rating: 5,
       image: 'https://ui-avatars.com/api/?name=Shiwani+Jha&background=EC4899&color=fff&size=200&bold=true',
-      text: 'Best investment I\'ve made in my education! The interactive learning environment and supportive community made learning enjoyable and effective. I\'m now confident in my development skills.'
+      text: 'Best video tutorials I\'ve ever watched! The production quality is excellent, and the content is perfectly structured. I learned full-stack development from scratch with these videos.'
     },
     {
       name: 'Anubhav Sharma',
@@ -36,7 +36,7 @@ const Testimonials = () => {
       company: 'AI Dynamics',
       rating: 5,
       image: 'https://ui-avatars.com/api/?name=Anubhav+Sharma&background=10B981&color=fff&size=200&bold=true',
-      text: 'Outstanding platform! The curriculum is cutting-edge and the mentorship is invaluable. AI Loop helped me transition from a different field into machine learning seamlessly.'
+      text: 'The video quality and audio are top-notch! Every tutorial is well-organized with clear objectives. I appreciate how each video builds upon the previous one. Highly recommended!'
     },
     {
       name: 'Aditya Chamoli',
@@ -44,7 +44,7 @@ const Testimonials = () => {
       company: 'Cloud Systems',
       rating: 5,
       image: 'https://ui-avatars.com/api/?name=Aditya+Chamoli&background=F59E0B&color=fff&size=200&bold=true',
-      text: 'The quality of content and the depth of knowledge shared in the courses is exceptional. I appreciate how the courses are constantly updated with the latest industry trends.'
+      text: 'These tutorials are incredibly detailed yet easy to digest. The instructor explains everything thoroughly with live coding sessions. I can watch and code along simultaneously!'
     },
     {
       name: 'Sagar Bisht',
@@ -52,7 +52,7 @@ const Testimonials = () => {
       company: 'Infrastructure Inc',
       rating: 5,
       image: 'https://ui-avatars.com/api/?name=Sagar+Bisht&background=EF4444&color=fff&size=200&bold=true',
-      text: 'AI Loop\'s practical approach to teaching made all the difference. The projects I built during the course became key highlights in my portfolio and impressed my current employer.'
+      text: 'Perfect for visual learners like me! The video tutorials break down complicated topics into bite-sized, understandable chunks. The examples are practical and industry-relevant.'
     },
     {
       name: 'Mrityunjay Joshi',
@@ -60,7 +60,7 @@ const Testimonials = () => {
       company: 'Insights Corp',
       rating: 5,
       image: 'https://ui-avatars.com/api/?name=Mrityunjay+Joshi&background=8B5CF6&color=fff&size=200&bold=true',
-      text: 'From the comprehensive curriculum to the responsive support team, everything about AI Loop is world-class. The Data Science course gave me the skills I needed to excel in my career.'
+      text: 'Amazing video content! The tutorials are comprehensive and the instructor\'s explanations are crystal clear. I finally understand data science concepts that seemed impossible before.'
     },
     {
       name: 'Bhumitra Nayal',
@@ -68,21 +68,32 @@ const Testimonials = () => {
       company: 'Creative Digital',
       rating: 5,
       image: 'https://ui-avatars.com/api/?name=Bhumitra+Nayal&background=06B6D4&color=fff&size=200&bold=true',
-      text: 'The best online learning experience I\'ve had! The interactive sessions, real-world projects, and career guidance made my learning journey smooth and rewarding. Truly life-changing!'
+      text: 'The best investment in my learning journey! These video tutorials are professionally made with excellent pacing. The real-world projects helped me build a strong portfolio.'
+    },
+    {
+      name: 'Priya Mehta',
+      role: 'UI/UX Designer',
+      company: 'Design Studio',
+      rating: 5,
+      image: 'https://ui-avatars.com/api/?name=Priya+Mehta&background=DB2777&color=fff&size=200&bold=true',
+      text: 'Outstanding video tutorials with practical examples! The visual demonstrations make learning design principles and coding so much easier. I can\'t recommend these enough!'
     }
   ];
+
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil(testimonials.length / itemsPerPage);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
-        prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+        prevIndex === totalPages - 1 ? 0 : prevIndex + 1
       );
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, testimonials.length]);
+  }, [isAutoPlaying, totalPages]);
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
@@ -92,7 +103,7 @@ const Testimonials = () => {
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
+      prevIndex === 0 ? totalPages - 1 : prevIndex - 1
     );
     setIsAutoPlaying(false);
     setTimeout(() => setIsAutoPlaying(true), 10000);
@@ -100,7 +111,7 @@ const Testimonials = () => {
 
   const goToNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+      prevIndex === totalPages - 1 ? 0 : prevIndex + 1
     );
     setIsAutoPlaying(false);
     setTimeout(() => setIsAutoPlaying(true), 10000);
@@ -112,68 +123,75 @@ const Testimonials = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-              What Our Students Say
+              Video Tutorial Reviews
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join thousands of successful learners who transformed their careers with AI Loop
+            See what our students say about our comprehensive video tutorials
           </p>
         </div>
 
-        <div className="relative max-w-5xl mx-auto">
+        <div className="relative max-w-7xl mx-auto">
           {/* Main Slider */}
-          <div className="relative overflow-hidden rounded-3xl bg-white shadow-2xl">
+          <div className="relative overflow-hidden rounded-3xl bg-white shadow-2xl p-8 md:p-12">
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="min-w-full px-8 md:px-16 py-12 md:py-16"
-                >
-                  <div className="flex flex-col items-center text-center">
-                    {/* Quote Icon */}
-                    <div className="mb-6">
-                      <Quote size={48} className="text-cyan-500 opacity-30" />
-                    </div>
+              {Array.from({ length: totalPages }).map((_, pageIndex) => (
+                <div key={pageIndex} className="min-w-full">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {testimonials
+                      .slice(pageIndex * itemsPerPage, (pageIndex + 1) * itemsPerPage)
+                      .map((testimonial, index) => (
+                        <div
+                          key={index}
+                          className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50 hover:shadow-lg transition-shadow duration-300"
+                        >
+                          {/* Quote Icon */}
+                          <div className="mb-4">
+                            <Quote size={32} className="text-cyan-500 opacity-30" />
+                          </div>
 
-                    {/* Profile Image */}
-                    <div className="mb-6">
-                      <div className="relative">
-                        <img
-                          src={testimonial.image}
-                          alt={testimonial.name}
-                          className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover ring-4 ring-cyan-500 ring-offset-4"
-                        />
-                      </div>
-                    </div>
+                          {/* Profile Image */}
+                          <div className="mb-4">
+                            <img
+                              src={testimonial.image}
+                              alt={testimonial.name}
+                              className="w-20 h-20 rounded-full object-cover ring-4 ring-cyan-500 ring-offset-2"
+                            />
+                          </div>
 
-                    {/* Rating */}
-                    <div className="flex items-center space-x-1 mb-6">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star
-                          key={i}
-                          size={20}
-                          className="text-yellow-400 fill-yellow-400"
-                        />
+                          {/* Rating */}
+                          <div className="flex items-center space-x-1 mb-4">
+                            {[...Array(testimonial.rating)].map((_, i) => (
+                              <Star
+                                key={i}
+                                size={16}
+                                className="text-yellow-400 fill-yellow-400"
+                              />
+                            ))}
+                          </div>
+
+                          {/* Testimonial Text */}
+                          <p className="text-sm md:text-base text-gray-700 mb-6 leading-relaxed italic flex-grow">
+                            "{testimonial.text}"
+                          </p>
+
+                          {/* Author Info */}
+                          <div>
+                            <h4 className="text-lg font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent mb-1">
+                              {testimonial.name}
+                            </h4>
+                            <p className="text-sm text-gray-600">
+                              {testimonial.role}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {testimonial.company}
+                            </p>
+                          </div>
+                        </div>
                       ))}
-                    </div>
-
-                    {/* Testimonial Text */}
-                    <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl leading-relaxed italic">
-                      "{testimonial.text}"
-                    </p>
-
-                    {/* Author Info */}
-                    <div>
-                      <h4 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-gray-600">
-                        {testimonial.role} at {testimonial.company}
-                      </p>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -198,7 +216,7 @@ const Testimonials = () => {
 
           {/* Dots Navigation */}
           <div className="flex justify-center items-center space-x-3 mt-8">
-            {testimonials.map((_, index) => (
+            {Array.from({ length: totalPages }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
@@ -207,7 +225,7 @@ const Testimonials = () => {
                     ? 'w-12 h-3 bg-gradient-to-r from-cyan-500 to-blue-600'
                     : 'w-3 h-3 bg-gray-300 hover:bg-gray-400'
                 }`}
-                aria-label={`Go to testimonial ${index + 1}`}
+                aria-label={`Go to page ${index + 1}`}
               />
             ))}
           </div>
