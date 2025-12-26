@@ -18,6 +18,19 @@ const Hero = () => {
             and stay updated with the latest job opportunities in tech.
           </p>
 
+          {/* Featured Video */}
+          <div className="mb-10 max-w-3xl mx-auto">
+            <div className="relative aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="Featured Video Tutorial"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/video-tutorials">
               <button className="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 flex items-center space-x-2 animate-pulse-slow">
