@@ -80,7 +80,7 @@ const VideoTutorials = () => {
     {
       id: '8',
       title: 'Gogle Firebase Studio 2026',
-      description: 'Google's Firebase Studio - Create Apps In Seconds',
+      description: 'Google Firebase Studio - Create Apps In Seconds',
       youtubeId: 'kAT_s86yjVw', // Replace with your actual video ID
       category: 'Google Gemini Tutorials',
       duration: '07:06',
