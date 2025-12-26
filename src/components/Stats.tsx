@@ -114,7 +114,7 @@ const Stats = () => {
         {youtubeStats && (
           <div className="text-center mt-8">
             <p className="text-cyan-100 text-sm">
-              ✓ Live data from YouTube API
+              ✓ Live data from YouTube
             </p>
           </div>
         )}
