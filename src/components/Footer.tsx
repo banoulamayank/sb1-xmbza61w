@@ -12,7 +12,7 @@ const Footer = () => {
               <img
                 src={logo}
                 alt="AI Loop"
-                className="h-12 w-auto mb-4 cursor-pointer"
+                className="h-24 w-auto mb-4 cursor-pointer"
               />
             </Link>
             <p className="text-gray-400 mb-4 leading-relaxed">
