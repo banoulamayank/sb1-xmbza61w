@@ -1,22 +1,32 @@
 # Google Sheets Integration Setup Guide
 
-This guide will help you set up the Google Sheets integration for your contact form.
+This guide will help you set up the Google Sheets integration for your contact form and newsletter subscriptions.
 
 ## Overview
 
-The contact form sends data to a Google Apps Script web app, which then writes the data to a Google Sheet. This is a free, serverless solution that requires no backend infrastructure.
+Both the contact form and newsletter subscription send data to a Google Apps Script web app, which then writes the data to a Google Sheet. This is a free, serverless solution that requires no backend infrastructure.
 
 ## Step 1: Create a Google Sheet
 
 1. Go to [Google Sheets](https://sheets.google.com)
 2. Create a new spreadsheet
-3. Name it something like "AI Loop - Contact Form Submissions"
-4. In the first row, add these headers:
+3. Name it something like "AI Loop - Website Submissions"
+4. Create **two sheets** within this spreadsheet:
+   - **Sheet 1**: "Contact Form" - for contact form submissions
+   - **Sheet 2**: "Newsletter" - for newsletter subscriptions
+
+### Sheet 1: Contact Form
+In the first row, add these headers:
    - A1: `Timestamp`
    - B1: `Name`
    - C1: `Email`
    - D1: `Subject`
    - E1: `Message`
+
+### Sheet 2: Newsletter
+In the first row, add these headers:
+   - A1: `Timestamp`
+   - B1: `Email`
 
 ## Step 2: Create Google Apps Script
 
@@ -27,20 +37,46 @@ The contact form sends data to a Google Apps Script web app, which then writes t
 ```javascript
 function doPost(e) {
   try {
-    // Get the active spreadsheet
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-
     // Parse the incoming data
     var data = JSON.parse(e.postData.contents);
+    var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
 
-    // Append a new row with the form data
-    sheet.appendRow([
-      data.timestamp,
-      data.name,
-      data.email,
-      data.subject,
-      data.message
-    ]);
+    // Check if this is a newsletter subscription or contact form submission
+    if (data.type === 'newsletter') {
+      // Handle newsletter subscription
+      var newsletterSheet = spreadsheet.getSheetByName('Newsletter');
+
+      // If Newsletter sheet doesn't exist, create it
+      if (!newsletterSheet) {
+        newsletterSheet = spreadsheet.insertSheet('Newsletter');
+        newsletterSheet.appendRow(['Timestamp', 'Email']);
+      }
+
+      // Append newsletter subscription
+      newsletterSheet.appendRow([
+        data.timestamp,
+        data.email
+      ]);
+
+    } else {
+      // Handle contact form submission
+      var contactSheet = spreadsheet.getSheetByName('Contact Form');
+
+      // If Contact Form sheet doesn't exist, create it
+      if (!contactSheet) {
+        contactSheet = spreadsheet.insertSheet('Contact Form');
+        contactSheet.appendRow(['Timestamp', 'Name', 'Email', 'Subject', 'Message']);
+      }
+
+      // Append contact form data
+      contactSheet.appendRow([
+        data.timestamp,
+        data.name,
+        data.email,
+        data.subject,
+        data.message
+      ]);
+    }
 
     // Return success response
     return ContentService
@@ -56,7 +92,7 @@ function doPost(e) {
 }
 ```
 
-4. Click the **Save** icon (💾) and name your project (e.g., "Contact Form Handler")
+4. Click the **Save** icon (💾) and name your project (e.g., "Website Forms Handler")
 
 ## Step 3: Deploy the Script as a Web App
 
@@ -93,15 +129,23 @@ npm run dev
 
 ## Step 5: Test the Integration
 
+### Testing Contact Form
 1. Open your website and navigate to the contact form
 2. Fill in all the fields:
    - Full Name
    - Email Address
-   - Subject
+   - Phone
    - Message
 3. Click "Send Message"
 4. You should see a success message: "Thank you! Your message has been sent successfully."
-5. Check your Google Sheet - a new row should appear with the submitted data
+5. Check your Google Sheet's "Contact Form" tab - a new row should appear with the submitted data
+
+### Testing Newsletter Subscription
+1. Scroll to the footer of your website
+2. Enter an email address in the Newsletter field
+3. Click "Subscribe"
+4. You should see a success message: "Successfully subscribed!"
+5. Check your Google Sheet's "Newsletter" tab - a new row should appear with the email and timestamp
 
 ## Troubleshooting
 
