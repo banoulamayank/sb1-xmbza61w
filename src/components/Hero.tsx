@@ -14,7 +14,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Master cutting-edge technologies with expert-led courses, video tutorials,
+            Master cutting-edge technologies with video tutorials
             and stay updated with the latest job opportunities in tech.
           </p>
 
@@ -27,18 +27,14 @@ const Hero = () => {
             </Link>
           </div>
 
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="text-3xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">10K+</div>
-              <div className="text-gray-600 mt-1">Students</div>
+              <div className="text-gray-600 mt-1">Learners</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">500+</div>
-              <div className="text-gray-600 mt-1">Courses</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-orange-500 bg-clip-text text-transparent">100+</div>
-              <div className="text-gray-600 mt-1">Instructors</div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">200+</div>
+              <div className="text-gray-600 mt-1">Video Tutorials</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold bg-gradient-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent">95%</div>

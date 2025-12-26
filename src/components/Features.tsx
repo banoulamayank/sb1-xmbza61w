@@ -1,4 +1,4 @@
-import { Video, BookOpen, Briefcase, FileText } from 'lucide-react';
+import { Video, Briefcase, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Features = () => {
@@ -11,24 +11,17 @@ const Features = () => {
       id: 'tutorials'
     },
     {
-      icon: BookOpen,
-      title: 'Comprehensive Courses',
-      description: 'Structured learning paths designed to take you from beginner to professional.',
-      gradient: 'from-blue-600 to-purple-600',
-      id: 'courses'
-    },
-    {
       icon: Briefcase,
       title: 'Job Updates',
       description: 'Get notified about the latest job opportunities matching your skillset.',
-      gradient: 'from-purple-600 to-orange-500',
+      gradient: 'from-blue-600 to-purple-600',
       id: 'jobs'
     },
     {
       icon: FileText,
       title: 'Expert Articles',
       description: 'Read insightful articles and stay updated with industry trends and best practices.',
-      gradient: 'from-orange-500 to-cyan-500',
+      gradient: 'from-purple-600 to-cyan-500',
       id: 'articles'
     },
   ];
@@ -47,7 +40,7 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => {
             const content = (
               <div
