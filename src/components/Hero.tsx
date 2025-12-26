@@ -1,4 +1,5 @@
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -18,15 +19,12 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2">
-              <span>Explore Courses</span>
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
-            </button>
-
-            <button className="group bg-white text-gray-700 px-8 py-4 rounded-full font-semibold border-2 border-gray-200 hover:border-cyan-500 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2">
-              <Play size={20} className="text-cyan-500" />
-              <span>Watch Demo</span>
-            </button>
+            <Link to="/video-tutorials">
+              <button className="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2">
+                <span>Start Now</span>
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+              </button>
+            </Link>
           </div>
 
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">

@@ -1,4 +1,5 @@
-import { Video, BookOpen, Briefcase, FileText } from 'lucide-react';
+import { Video, BookOpen, Briefcase, FileText, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Features = () => {
   const features = [
@@ -66,6 +67,15 @@ const Features = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link to="/video-tutorials">
+            <button className="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2 mx-auto">
+              <span>Start Now</span>
+              <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+            </button>
+          </Link>
         </div>
       </div>
     </section>

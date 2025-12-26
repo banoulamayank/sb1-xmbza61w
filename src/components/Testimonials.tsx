@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -233,9 +234,11 @@ const Testimonials = () => {
 
         {/* CTA Button */}
         <div className="text-center mt-12">
-          <button className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
-            Start Your Journey Today
-          </button>
+          <Link to="/video-tutorials">
+            <button className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+              Start Your Journey Today
+            </button>
+          </Link>
         </div>
       </div>
     </section>
