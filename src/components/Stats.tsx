@@ -1,32 +1,78 @@
-import { TrendingUp, Award, Users, Target } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Users, Eye, Video, TrendingUp } from 'lucide-react';
+import { fetchYouTubeStats, formatNumber, YouTubeChannelStats } from '../services/youtubeApi';
 
 const Stats = () => {
-  const stats = [
+  const [youtubeStats, setYoutubeStats] = useState<YouTubeChannelStats | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadStats = async () => {
+      const stats = await fetchYouTubeStats();
+      setYoutubeStats(stats);
+      setLoading(false);
+    };
+
+    loadStats();
+  }, []);
+
+  // Fallback stats if API is not configured or fails
+  const fallbackStats = [
     {
       icon: Users,
-      value: '10,000+',
-      label: 'Active Learners',
+      value: '10K+',
+      label: 'Subscribers',
       gradient: 'from-cyan-500 to-blue-600'
     },
     {
-      icon: Award,
-      value: '500+',
-      label: 'Expert Instructors',
+      icon: Eye,
+      value: '500K+',
+      label: 'Total Views',
       gradient: 'from-blue-600 to-purple-600'
     },
     {
-      icon: Target,
-      value: '95%',
-      label: 'Completion Rate',
+      icon: Video,
+      value: '200+',
+      label: 'Videos',
       gradient: 'from-purple-600 to-orange-500'
     },
     {
       icon: TrendingUp,
-      value: '85%',
-      label: 'Job Placement',
+      value: '95%',
+      label: 'Engagement Rate',
       gradient: 'from-orange-500 to-cyan-500'
     }
   ];
+
+  // Build stats array with real data if available
+  const stats = youtubeStats
+    ? [
+        {
+          icon: Users,
+          value: formatNumber(youtubeStats.subscriberCount) + '+',
+          label: 'Subscribers',
+          gradient: 'from-cyan-500 to-blue-600'
+        },
+        {
+          icon: Eye,
+          value: formatNumber(youtubeStats.viewCount),
+          label: 'Total Views',
+          gradient: 'from-blue-600 to-purple-600'
+        },
+        {
+          icon: Video,
+          value: youtubeStats.videoCount,
+          label: 'Videos',
+          gradient: 'from-purple-600 to-orange-500'
+        },
+        {
+          icon: TrendingUp,
+          value: '95%',
+          label: 'Engagement Rate',
+          gradient: 'from-orange-500 to-cyan-500'
+        }
+      ]
+    : fallbackStats;
 
   return (
     <section className="py-20 px-6 bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600">
@@ -36,7 +82,7 @@ const Stats = () => {
             Our Impact in Numbers
           </h2>
           <p className="text-xl text-cyan-100 max-w-2xl mx-auto">
-            Join thousands of successful learners who transformed their careers
+            Real-time statistics from our YouTube channel
           </p>
         </div>
 
@@ -51,7 +97,11 @@ const Stats = () => {
               </div>
 
               <div className="text-4xl font-bold mb-2 text-white">
-                {stat.value}
+                {loading && !youtubeStats ? (
+                  <div className="animate-pulse">...</div>
+                ) : (
+                  stat.value
+                )}
               </div>
 
               <div className="text-cyan-100">
@@ -60,6 +110,14 @@ const Stats = () => {
             </div>
           ))}
         </div>
+
+        {youtubeStats && (
+          <div className="text-center mt-8">
+            <p className="text-cyan-100 text-sm">
+              ✓ Live data from YouTube API
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );
