@@ -134,21 +134,20 @@ const Testimonials = () => {
         <div className="relative max-w-7xl mx-auto">
           {/* Main Slider */}
           <div className="relative overflow-hidden rounded-3xl bg-white shadow-2xl p-8 md:p-12">
-            <div className="overflow-hidden">
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-              >
-                {Array.from({ length: totalPages }).map((_, pageIndex) => (
-                  <div key={pageIndex} className="min-w-full flex-shrink-0 px-1">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      {testimonials
-                        .slice(pageIndex * itemsPerPage, (pageIndex + 1) * itemsPerPage)
-                        .map((testimonial, index) => (
-                          <div
-                            key={index}
-                            className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50 hover:shadow-lg transition-shadow duration-300"
-                          >
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {Array.from({ length: totalPages }).map((_, pageIndex) => (
+                <div key={pageIndex} className="min-w-full">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {testimonials
+                      .slice(pageIndex * itemsPerPage, (pageIndex + 1) * itemsPerPage)
+                      .map((testimonial, index) => (
+                        <div
+                          key={index}
+                          className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50 hover:shadow-lg transition-shadow duration-300"
+                        >
                           {/* Quote Icon */}
                           <div className="mb-4">
                             <Quote size={32} className="text-cyan-500 opacity-30" />
@@ -193,10 +192,9 @@ const Testimonials = () => {
                           </div>
                         </div>
                       ))}
-                    </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
 
             {/* Navigation Arrows */}
