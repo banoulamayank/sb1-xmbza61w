@@ -82,7 +82,7 @@ const Stats = () => {
             Our Impact in Numbers
           </h2>
           <p className="text-xl text-cyan-100 max-w-2xl mx-auto">
-            Real-time statistics from our YouTube channel
+            Real-time stats from our YouTube channel
           </p>
         </div>
 
@@ -110,14 +110,6 @@ const Stats = () => {
             </div>
           ))}
         </div>
-
-        {youtubeStats && (
-          <div className="text-center mt-8">
-            <p className="text-cyan-100 text-sm">
-              ✓ Live data from YouTube
-            </p>
-          </div>
-        )}
       </div>
     </section>
   );
