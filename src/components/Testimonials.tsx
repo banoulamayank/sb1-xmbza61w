@@ -133,13 +133,13 @@ const Testimonials = () => {
 
         <div className="relative max-w-7xl mx-auto">
           {/* Main Slider */}
-          <div className="relative overflow-hidden rounded-3xl bg-white shadow-2xl p-8 md:p-12">
+          <div className="relative overflow-hidden rounded-3xl bg-white shadow-2xl">
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
               {Array.from({ length: totalPages }).map((_, pageIndex) => (
-                <div key={pageIndex} className="min-w-full">
+                <div key={pageIndex} className="min-w-full px-8 md:px-12 py-8 md:py-12">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {testimonials
                       .slice(pageIndex * itemsPerPage, (pageIndex + 1) * itemsPerPage)
