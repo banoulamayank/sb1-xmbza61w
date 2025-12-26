@@ -192,20 +192,45 @@ const VideoTutorials = () => {
                 key={video.id}
                 className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
               >
-                {/* YouTube Video Embed */}
-                <div className="relative aspect-video bg-gray-900">
-                  <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${video.youtubeId}`}
-                    title={video.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+                {/* YouTube Video Thumbnail - Click to Watch */}
+                <a
+                  href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative aspect-video bg-gray-900 block overflow-hidden"
+                >
+                  {/* YouTube Thumbnail */}
+                  <img
+                    src={video.thumbnail || `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
+                    alt={video.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    onError={(e) => {
+                      // Fallback to standard quality thumbnail if maxresdefault doesn't exist
+                      e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
+                    }}
                   />
+
+                  {/* Dark Overlay */}
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors"></div>
+
+                  {/* Play Button Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transform transition-all duration-300 shadow-2xl">
+                      <Play className="w-10 h-10 text-white ml-1" fill="currentColor" />
+                    </div>
+                  </div>
+
                   {/* Duration Badge */}
                   <div className="absolute top-3 right-3 bg-black/80 text-white px-3 py-1 rounded-lg text-sm font-medium backdrop-blur-sm">
                     {video.duration}
                   </div>
-                </div>
+
+                  {/* Watch on YouTube Badge */}
+                  <div className="absolute bottom-3 left-3 bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2">
+                    <Play className="w-4 h-4" fill="currentColor" />
+                    Watch on YouTube
+                  </div>
+                </a>
 
                 {/* Video Info */}
                 <div className="p-6">
