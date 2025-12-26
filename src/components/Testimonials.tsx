@@ -12,7 +12,7 @@ const Testimonials = () => {
       role: 'Software Engineer',
       company: 'Tech Innovations',
       rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Ratnam+Sirsat&background=0D8ABC&color=fff&size=200&bold=true',
+      image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'The video tutorials are crystal clear and easy to follow! Each concept is explained step-by-step with real coding examples. I can pause, rewind, and learn at my own pace. Absolutely love it!'
     },
     {
@@ -20,7 +20,7 @@ const Testimonials = () => {
       role: 'Data Scientist',
       company: 'Analytics Pro',
       rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Kaushal+Bisht&background=6366F1&color=fff&size=200&bold=true',
+      image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'These video tutorials are a game-changer! The visual explanations make complex AI concepts so much easier to understand. The instructor\'s teaching style is engaging and practical.'
     },
     {
@@ -28,7 +28,7 @@ const Testimonials = () => {
       role: 'Full Stack Developer',
       company: 'Digital Solutions',
       rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Shiwani+Jha&background=EC4899&color=fff&size=200&bold=true',
+      image: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'Best video tutorials I\'ve ever watched! The production quality is excellent, and the content is perfectly structured. I learned full-stack development from scratch with these videos.'
     },
     {
@@ -36,7 +36,7 @@ const Testimonials = () => {
       role: 'ML Engineer',
       company: 'AI Dynamics',
       rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Anubhav+Sharma&background=10B981&color=fff&size=200&bold=true',
+      image: 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'The video quality and audio are top-notch! Every tutorial is well-organized with clear objectives. I appreciate how each video builds upon the previous one. Highly recommended!'
     },
     {
@@ -44,7 +44,7 @@ const Testimonials = () => {
       role: 'Backend Developer',
       company: 'Cloud Systems',
       rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Aditya+Chamoli&background=F59E0B&color=fff&size=200&bold=true',
+      image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'These tutorials are incredibly detailed yet easy to digest. The instructor explains everything thoroughly with live coding sessions. I can watch and code along simultaneously!'
     },
     {
@@ -52,7 +52,7 @@ const Testimonials = () => {
       role: 'DevOps Engineer',
       company: 'Infrastructure Inc',
       rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Sagar+Bisht&background=EF4444&color=fff&size=200&bold=true',
+      image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'Perfect for visual learners like me! The video tutorials break down complicated topics into bite-sized, understandable chunks. The examples are practical and industry-relevant.'
     },
     {
@@ -60,7 +60,7 @@ const Testimonials = () => {
       role: 'Data Analyst',
       company: 'Insights Corp',
       rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Mrityunjay+Joshi&background=8B5CF6&color=fff&size=200&bold=true',
+      image: 'https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'Amazing video content! The tutorials are comprehensive and the instructor\'s explanations are crystal clear. I finally understand data science concepts that seemed impossible before.'
     },
     {
@@ -68,7 +68,7 @@ const Testimonials = () => {
       role: 'Frontend Developer',
       company: 'Creative Digital',
       rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Bhumitra+Nayal&background=06B6D4&color=fff&size=200&bold=true',
+      image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'The best investment in my learning journey! These video tutorials are professionally made with excellent pacing. The real-world projects helped me build a strong portfolio.'
     },
     {
@@ -76,7 +76,7 @@ const Testimonials = () => {
       role: 'UI/UX Designer',
       company: 'Design Studio',
       rating: 5,
-      image: 'https://ui-avatars.com/api/?name=Priya+Mehta&background=DB2777&color=fff&size=200&bold=true',
+      image: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'Outstanding video tutorials with practical examples! The visual demonstrations make learning design principles and coding so much easier. I can\'t recommend these enough!'
     }
   ];
