@@ -52,7 +52,7 @@ const Testimonials = () => {
       role: 'DevOps Engineer',
       company: 'Infrastructure Inc',
       rating: 5,
-      image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
+      image: 'https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'Perfect for visual learners like me! The video tutorials break down complicated topics into bite-sized, understandable chunks. The examples are practical and industry-relevant.'
     },
     {
@@ -60,7 +60,7 @@ const Testimonials = () => {
       role: 'Data Analyst',
       company: 'Insights Corp',
       rating: 5,
-      image: 'https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
+      image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'Amazing video content! The tutorials are comprehensive and the instructor\'s explanations are crystal clear. I finally understand data science concepts that seemed impossible before.'
     },
     {
@@ -68,7 +68,7 @@ const Testimonials = () => {
       role: 'Frontend Developer',
       company: 'Creative Digital',
       rating: 5,
-      image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
+      image: 'https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'The best investment in my learning journey! These video tutorials are professionally made with excellent pacing. The real-world projects helped me build a strong portfolio.'
     },
     {
