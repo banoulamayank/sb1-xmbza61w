@@ -72,11 +72,11 @@ const Testimonials = () => {
       text: 'The best investment in my learning journey! These video tutorials are professionally made with excellent pacing. The real-world projects helped me build a strong portfolio.'
     },
     {
-      name: 'Priya Mehta',
+      name: 'Hari Shankar',
       role: 'UI/UX Designer',
       company: 'Design Studio',
       rating: 5,
-      image: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
+      image: 'https://images.pexels.com/photos/1933873/pexels-photo-1933873.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
       text: 'Outstanding video tutorials with practical examples! The visual demonstrations make learning design principles and coding so much easier. I can\'t recommend these enough!'
     }
   ];
