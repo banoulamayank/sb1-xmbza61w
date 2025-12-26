@@ -88,15 +88,33 @@ const Hero = () => {
           {/* Video Slider */}
           <div className="mb-10 max-w-4xl mx-auto">
             <div className="relative">
-              <div className="relative aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
-                <iframe
-                  className="w-full h-full"
-                  src={`https://www.youtube.com/embed/${latestVideos[currentVideoIndex].youtubeId}`}
-                  title={latestVideos[currentVideoIndex].title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
+              <a
+                href={`https://www.youtube.com/watch?v=${latestVideos[currentVideoIndex].youtubeId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block relative aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
+              >
+                {/* YouTube Thumbnail */}
+                <img
+                  src={`https://img.youtube.com/vi/${latestVideos[currentVideoIndex].youtubeId}/maxresdefault.jpg`}
+                  alt={latestVideos[currentVideoIndex].title}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Play Button Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-all duration-300">
+                  <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Click to watch hint */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  Click to watch on YouTube
+                </div>
+              </a>
 
               {/* Navigation Arrows */}
               <button
