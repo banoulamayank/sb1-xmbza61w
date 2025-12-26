@@ -20,15 +20,21 @@ interface ArticleModalProps {
     readTime: string;
     category: string;
     type: string;
+    thumbnail?: string;
     content: ArticleContent;
     keywords: string[];
   } | null;
 }
 
 const ArticleModal: React.FC<ArticleModalProps> = ({ isOpen, onClose, article }) => {
+  const [imageError, setImageError] = React.useState(false);
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      setImageError(false);
+      setImageLoaded(false);
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -61,12 +67,36 @@ const ArticleModal: React.FC<ArticleModalProps> = ({ isOpen, onClose, article })
         onClick={(e) => e.stopPropagation()}
       >
         {/* Cover Image */}
-        <div className="relative h-64 md:h-80 overflow-hidden rounded-t-2xl">
-          <img
-            src={article.thumbnail}
-            alt={article.title}
-            className="w-full h-full object-cover"
-          />
+        <div className="relative h-64 md:h-80 overflow-hidden rounded-t-2xl bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600">
+          {article.thumbnail && !imageError ? (
+            <>
+              {!imageLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-white text-6xl font-bold opacity-30">
+                    {article.category.charAt(0)}
+                  </div>
+                </div>
+              )}
+              <img
+                src={article.thumbnail}
+                alt={article.title}
+                className={`w-full h-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                onLoad={() => setImageLoaded(true)}
+                onError={() => setImageError(true)}
+              />
+            </>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600">
+              <div className="text-center text-white p-8">
+                <div className="text-7xl font-bold mb-4 opacity-90">
+                  {article.category.split(' ').map(word => word.charAt(0)).join('')}
+                </div>
+                <div className="text-xl opacity-75 font-medium">
+                  {article.type}
+                </div>
+              </div>
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
         </div>
 

@@ -48,6 +48,9 @@ const featuredArticles: ArticleItem[] = [
 ];
 
 const ArticlesPreview = () => {
+  const [imageErrors, setImageErrors] = React.useState<{ [key: string]: boolean }>({});
+  const [imageLoaded, setImageLoaded] = React.useState<{ [key: string]: boolean }>({});
+
   const getTypeStyles = (type: ArticleItem['type']) => {
     switch (type) {
       case 'Article':
@@ -59,6 +62,14 @@ const ArticlesPreview = () => {
       default:
         return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
     }
+  };
+
+  const handleImageError = (articleId: string) => {
+    setImageErrors(prev => ({ ...prev, [articleId]: true }));
+  };
+
+  const handleImageLoad = (articleId: string) => {
+    setImageLoaded(prev => ({ ...prev, [articleId]: true }));
   };
 
   return (
@@ -89,12 +100,37 @@ const ArticlesPreview = () => {
               to="/articles"
               className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={article.thumbnail}
-                  alt={article.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
-                />
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600">
+                {!imageErrors[article.id] ? (
+                  <>
+                    {!imageLoaded[article.id] && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-white text-4xl font-bold opacity-30">
+                          {article.category.charAt(0)}
+                        </div>
+                      </div>
+                    )}
+                    <img
+                      src={article.thumbnail}
+                      alt={article.title}
+                      className={`w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300 ${imageLoaded[article.id] ? 'opacity-100' : 'opacity-0'}`}
+                      onLoad={() => handleImageLoad(article.id)}
+                      onError={() => handleImageError(article.id)}
+                      loading="lazy"
+                    />
+                  </>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600">
+                    <div className="text-center text-white p-6">
+                      <div className="text-5xl font-bold mb-2 opacity-90">
+                        {article.category.split(' ').map(word => word.charAt(0)).join('')}
+                      </div>
+                      <div className="text-sm opacity-75 font-medium">
+                        {article.type}
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
               <div className="p-6">
