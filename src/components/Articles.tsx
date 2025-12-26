@@ -54,49 +54,79 @@ export default function Articles() {
     setTimeout(() => setSelectedArticle(null), 300);
   };
 
-  const ArticleCard = ({ article }: { article: FullArticle }) => (
-    <div
-      className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
-      onClick={() => handleArticleClick(article)}
-    >
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={article.thumbnail}
-          alt={article.title}
-          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-        <div className="absolute bottom-4 left-4 right-4">
-          <button className="w-full py-2 px-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg font-semibold text-gray-900 dark:text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:translate-y-0 translate-y-2">
-            Read Full Article
-          </button>
-        </div>
-      </div>
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-3">
-          <span className={`px-3 py-1 rounded-full text-xs font-medium ${getTypeStyles(article.type)}`}>
-            {article.type}
-          </span>
-          <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
-            <Calendar className="w-4 h-4 mr-1" />
-            {article.date}
+  const ArticleCard = ({ article }: { article: FullArticle }) => {
+    const [imageError, setImageError] = React.useState(false);
+    const [imageLoaded, setImageLoaded] = React.useState(false);
+
+    return (
+      <div
+        className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+        onClick={() => handleArticleClick(article)}
+      >
+        <div className="relative h-48 overflow-hidden bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600">
+          {!imageError ? (
+            <>
+              {!imageLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-white text-4xl font-bold opacity-30">
+                    {article.category.charAt(0)}
+                  </div>
+                </div>
+              )}
+              <img
+                src={article.thumbnail}
+                alt={article.title}
+                className={`w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                onLoad={() => setImageLoaded(true)}
+                onError={() => setImageError(true)}
+                loading="lazy"
+              />
+            </>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600">
+              <div className="text-center text-white p-6">
+                <div className="text-5xl font-bold mb-2 opacity-90">
+                  {article.category.split(' ').map(word => word.charAt(0)).join('')}
+                </div>
+                <div className="text-sm opacity-75 font-medium">
+                  {article.type}
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div className="absolute bottom-4 left-4 right-4">
+            <button className="w-full py-2 px-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg font-semibold text-gray-900 dark:text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:translate-y-0 translate-y-2">
+              Read Full Article
+            </button>
           </div>
         </div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-          {article.title}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-          {article.description}
-        </p>
-        {article.readTime && (
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-            <BookOpen className="w-4 h-4 mr-1" />
-            {article.readTime}
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-3">
+            <span className={`px-3 py-1 rounded-full text-xs font-medium ${getTypeStyles(article.type)}`}>
+              {article.type}
+            </span>
+            <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
+              <Calendar className="w-4 h-4 mr-1" />
+              {article.date}
+            </div>
           </div>
-        )}
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            {article.title}
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+            {article.description}
+          </p>
+          {article.readTime && (
+            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+              <BookOpen className="w-4 h-4 mr-1" />
+              {article.readTime}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-16">
