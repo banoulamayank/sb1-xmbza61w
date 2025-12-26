@@ -60,8 +60,18 @@ const ArticleModal: React.FC<ArticleModalProps> = ({ isOpen, onClose, article })
         className="relative w-full max-w-4xl my-8 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl transform transition-all"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Cover Image */}
+        <div className="relative h-64 md:h-80 overflow-hidden rounded-t-2xl">
+          <img
+            src={article.thumbnail}
+            alt={article.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        </div>
+
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 rounded-t-2xl">
+        <div className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-start justify-between p-6">
             <div className="flex-1 pr-8">
               <div className="flex items-center gap-2 mb-3">
@@ -104,7 +114,7 @@ const ArticleModal: React.FC<ArticleModalProps> = ({ isOpen, onClose, article })
         <div className="p-6 md:p-8 overflow-y-auto max-h-[calc(90vh-200px)]">
           {/* Introduction */}
           <div className="mb-8">
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
               {article.content.intro}
             </p>
           </div>
@@ -144,13 +154,13 @@ const ArticleModal: React.FC<ArticleModalProps> = ({ isOpen, onClose, article })
           </div>
 
           {/* Conclusion */}
-          <div className="mt-12 p-6 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl border border-green-200 dark:border-green-800">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mt-12 p-6 md:p-8 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl border border-green-200 dark:border-green-800">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">
               Conclusion
             </h2>
-            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+            <div className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line space-y-4">
               {article.content.conclusion}
-            </p>
+            </div>
           </div>
 
           {/* YouTube CTA */}
