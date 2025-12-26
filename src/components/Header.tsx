@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Instagram, Youtube } from 'lucide-react';
 import logo from './logo.png';
 
 const Header = () => {
@@ -47,9 +47,26 @@ const Header = () => {
                 </a>
               )
             ))}
-            <button className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">
-              Get Started
-            </button>
+            <div className="flex items-center space-x-4">
+              <a
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 hover:text-pink-600 transition-colors duration-300"
+                aria-label="Instagram"
+              >
+                <Instagram size={24} />
+              </a>
+              <a
+                href="https://www.youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 hover:text-red-600 transition-colors duration-300"
+                aria-label="YouTube"
+              >
+                <Youtube size={24} />
+              </a>
+            </div>
           </div>
 
           <button
@@ -83,9 +100,26 @@ const Header = () => {
                 </a>
               )
             ))}
-            <button className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300">
-              Get Started
-            </button>
+            <div className="flex items-center space-x-6 pt-2">
+              <a
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 hover:text-pink-600 transition-colors duration-300"
+                aria-label="Instagram"
+              >
+                <Instagram size={28} />
+              </a>
+              <a
+                href="https://www.youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 hover:text-red-600 transition-colors duration-300"
+                aria-label="YouTube"
+              >
+                <Youtube size={28} />
+              </a>
+            </div>
           </div>
         )}
       </nav>
