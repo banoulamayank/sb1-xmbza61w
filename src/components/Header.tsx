@@ -49,7 +49,7 @@ const Header = () => {
             ))}
             <div className="flex items-center space-x-4">
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/ailoop.co.in?igsh=YmEyNmJ0OHB1dHk%3D&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative p-2 rounded-full bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 hover:scale-110 hover:rotate-6 transform transition-all duration-300 animate-pulse-slow shadow-lg hover:shadow-xl"
@@ -58,7 +58,7 @@ const Header = () => {
                 <Instagram size={20} className="text-white" />
               </a>
               <a
-                href="https://www.youtube.com"
+                href="https://www.youtube.com/@AILooop"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative p-2 rounded-full bg-gradient-to-br from-red-600 to-red-500 hover:scale-110 hover:-rotate-6 transform transition-all duration-300 animate-pulse-slow shadow-lg hover:shadow-xl"
@@ -102,7 +102,7 @@ const Header = () => {
             ))}
             <div className="flex items-center space-x-6 pt-2">
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/ailoop.co.in?igsh=YmEyNmJ0OHB1dHk%3D&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative p-2 rounded-full bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 hover:scale-110 hover:rotate-6 transform transition-all duration-300 animate-pulse-slow shadow-lg hover:shadow-xl"
@@ -111,7 +111,7 @@ const Header = () => {
                 <Instagram size={24} className="text-white" />
               </a>
               <a
-                href="https://www.youtube.com"
+                href="https://www.youtube.com/@AILooop"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative p-2 rounded-full bg-gradient-to-br from-red-600 to-red-500 hover:scale-110 hover:-rotate-6 transform transition-all duration-300 animate-pulse-slow shadow-lg hover:shadow-xl"
