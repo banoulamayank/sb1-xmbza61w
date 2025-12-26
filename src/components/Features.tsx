@@ -8,21 +8,24 @@ const Features = () => {
       title: 'Video Tutorials',
       description: 'Learn at your own pace with high-quality video content from industry experts.',
       gradient: 'from-cyan-500 to-blue-600',
-      id: 'tutorials'
+      id: 'tutorials',
+      animation: 'animate-pulse-slow'
     },
     {
       icon: Briefcase,
       title: 'Job Updates',
       description: 'Get notified about the latest job opportunities matching your skillset.',
       gradient: 'from-blue-600 to-purple-600',
-      id: 'jobs'
+      id: 'jobs',
+      animation: 'animate-float'
     },
     {
       icon: FileText,
       title: 'Expert Articles',
       description: 'Read insightful articles and stay updated with industry trends and best practices.',
       gradient: 'from-purple-600 to-cyan-500',
-      id: 'articles'
+      id: 'articles',
+      animation: 'animate-wiggle'
     },
   ];
 
@@ -49,7 +52,7 @@ const Features = () => {
                 className="group bg-white p-8 rounded-2xl border-2 border-gray-100 hover:border-transparent hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 cursor-pointer"
               >
                 <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon size={32} className="text-white" />
+                  <feature.icon size={32} className={`text-white ${feature.animation}`} />
                 </div>
 
                 <h3 className="text-xl font-bold mb-3 text-gray-900">

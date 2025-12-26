@@ -134,8 +134,8 @@ const Contact = () => {
 
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Mail size={20} className="text-white" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-300">
+                    <Mail size={20} className="text-white animate-pulse-slow" />
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 mb-1">Email</div>
@@ -144,8 +144,8 @@ const Contact = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Phone size={20} className="text-white" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-300">
+                    <Phone size={20} className="text-white animate-wiggle" />
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 mb-1">Phone</div>
@@ -154,8 +154,8 @@ const Contact = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <MapPin size={20} className="text-white" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-300">
+                    <MapPin size={20} className="text-white animate-float" />
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 mb-1">Location</div>
@@ -255,10 +255,10 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={status.type === 'loading'}
-                className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none"
+                className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none group"
               >
                 <span>{status.type === 'loading' ? 'Sending...' : 'Send Message'}</span>
-                <Send size={20} />
+                <Send size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
               </button>
             </form>
           </div>
