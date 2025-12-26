@@ -20,9 +20,9 @@ const Hero = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/video-tutorials">
-              <button className="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center space-x-2">
+              <button className="group bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 flex items-center space-x-2 animate-pulse-slow">
                 <span>Start Now</span>
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+                <ArrowRight className="group-hover:translate-x-2 transition-transform duration-300 animate-float" size={20} />
               </button>
             </Link>
           </div>
