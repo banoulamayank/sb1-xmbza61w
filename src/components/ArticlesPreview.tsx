@@ -19,7 +19,7 @@ const featuredArticles: ArticleItem[] = [
     id: '1',
     title: 'ChatGPT Prompt Engineering: Complete Guide',
     description: 'Master the art of prompt engineering to get the best results from ChatGPT',
-    category: 'ChatGPT Tutorials',
+    category: 'ChatGPT Articles',
     type: 'Guide',
     date: 'Dec 20, 2025',
     thumbnail: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop',

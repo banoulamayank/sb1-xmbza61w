@@ -14,12 +14,12 @@ interface ArticleItem {
 
 // Sample articles data with categories matching video tutorials
 const articlesData: ArticleItem[] = [
-  // ChatGPT Tutorials Articles
+  // ChatGPT Articles
   {
     id: '1',
     title: 'ChatGPT Prompt Engineering: Complete Guide',
     description: 'Master the art of prompt engineering to get the best results from ChatGPT',
-    category: 'ChatGPT Tutorials',
+    category: 'ChatGPT Articles',
     type: 'Guide',
     date: 'Dec 20, 2025',
     thumbnail: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop',
@@ -29,7 +29,7 @@ const articlesData: ArticleItem[] = [
     id: '2',
     title: 'Advanced ChatGPT Techniques for Developers',
     description: 'Learn advanced techniques to integrate ChatGPT into your development workflow',
-    category: 'ChatGPT Tutorials',
+    category: 'ChatGPT Articles',
     type: 'Article',
     date: 'Dec 18, 2025',
     thumbnail: 'https://images.unsplash.com/photo-1676277791608-ac5cf6d5e60c?w=800&auto=format&fit=crop',
@@ -39,19 +39,19 @@ const articlesData: ArticleItem[] = [
     id: '3',
     title: 'ChatGPT API Integration Best Practices',
     description: 'Best practices for integrating ChatGPT API in production applications',
-    category: 'ChatGPT Tutorials',
+    category: 'ChatGPT Articles',
     type: 'Article',
     date: 'Dec 15, 2025',
     thumbnail: 'https://images.unsplash.com/photo-1675271591293-9b2f078e5c0e?w=800&auto=format&fit=crop',
     readTime: '12 min read'
   },
 
-  // Google Gemini Tutorials Articles
+  // Google Gemini Articles
   {
     id: '4',
     title: 'Getting Started with Google Gemini AI',
     description: 'A comprehensive guide to understanding and using Google Gemini AI',
-    category: 'Google Gemini Tutorials',
+    category: 'Google Gemini Articles',
     type: 'Guide',
     date: 'Dec 22, 2025',
     thumbnail: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop',
@@ -61,7 +61,7 @@ const articlesData: ArticleItem[] = [
     id: '5',
     title: 'Gemini Pro vs ChatGPT: Detailed Comparison',
     description: 'In-depth comparison of capabilities, features, and use cases',
-    category: 'Google Gemini Tutorials',
+    category: 'Google Gemini Articles',
     type: 'Article',
     date: 'Dec 19, 2025',
     thumbnail: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&auto=format&fit=crop',
@@ -134,12 +134,12 @@ const articlesData: ArticleItem[] = [
     readTime: '12 min read'
   },
 
-  // Productivity Tutorials Articles
+  // Productivity Articles
   {
     id: '12',
     title: 'AI Tools to 10x Your Productivity in 2026',
     description: 'Discover AI tools that can dramatically boost your productivity',
-    category: 'Productivity Tutorials',
+    category: 'Productivity Articles',
     type: 'Article',
     date: 'Dec 26, 2025',
     thumbnail: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&auto=format&fit=crop',
@@ -149,7 +149,7 @@ const articlesData: ArticleItem[] = [
     id: '13',
     title: 'Automating Workflows with AI: Complete Guide',
     description: 'Learn how to automate repetitive tasks using AI-powered tools',
-    category: 'Productivity Tutorials',
+    category: 'Productivity Articles',
     type: 'Ebook',
     date: 'Dec 14, 2025',
     thumbnail: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop',
@@ -159,12 +159,12 @@ const articlesData: ArticleItem[] = [
 
 const categories = [
   'All',
-  'ChatGPT Tutorials',
-  'Google Gemini Tutorials',
+  'ChatGPT Articles',
+  'Google Gemini Articles',
   'AI Roadmap',
   'Video Generation Tools',
   'Image Generation Tools',
-  'Productivity Tutorials',
+  'Productivity Articles',
 ];
 
 export default function Articles() {
