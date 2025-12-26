@@ -74,6 +74,15 @@ const Features = () => {
               );
             }
 
+            // Link Articles card to articles page
+            if (feature.id === 'articles') {
+              return (
+                <Link key={index} to="/articles">
+                  {content}
+                </Link>
+              );
+            }
+
             return content;
           })}
         </div>
