@@ -23,11 +23,11 @@ const VideoTutorials = () => {
   const videos: VideoItem[] = [
     {
       id: '1',
-      title: 'Getting Started with ChatGPT',
-      description: 'Learn the basics of ChatGPT and how to use it effectively',
-      youtubeId: 'SqcY0GlETPk', // Replace with your actual video ID
+      title: 'ChatGPT Image Generator Model - Image 1.5',
+      description: 'Learn the basics of ChatGPT Image 1.5 and how to use it effectively',
+      youtubeId: 'Hg6PFwBdTwg', // Replace with your actual video ID
       category: 'ChatGPT Tutorials',
-      duration: '15:30',
+      duration: '10:09',
     },
     {
       id: '2',
