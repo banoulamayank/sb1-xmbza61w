@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300 pt-16 pb-8 px-6">
       <div className="container mx-auto">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
           <div>
             <Link to="/">
               <img
@@ -41,21 +41,9 @@ const Footer = () => {
             <h3 className="text-white font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li><Link to="/video-tutorials" className="hover:text-cyan-400 transition-colors">Video Tutorials</Link></li>
-              <li><a href="#courses" className="hover:text-cyan-400 transition-colors">Courses</a></li>
               <li><a href="#jobs" className="hover:text-cyan-400 transition-colors">Job Updates</a></li>
               <li><a href="#articles" className="hover:text-cyan-400 transition-colors">Articles</a></li>
               <li><a href="#contact" className="hover:text-cyan-400 transition-colors">Contact Us</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-white font-bold mb-4">Popular Courses</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">AI & Machine Learning</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">Web Development</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">Data Science</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">Cloud Computing</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">Cybersecurity</a></li>
             </ul>
           </div>
 
