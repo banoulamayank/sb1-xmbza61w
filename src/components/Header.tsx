@@ -52,19 +52,19 @@ const Header = () => {
                 href="https://www.instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-700 hover:text-pink-600 transition-colors duration-300"
+                className="group relative p-2 rounded-full bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 hover:scale-110 hover:rotate-6 transform transition-all duration-300 animate-pulse-slow shadow-lg hover:shadow-xl"
                 aria-label="Instagram"
               >
-                <Instagram size={24} />
+                <Instagram size={20} className="text-white" />
               </a>
               <a
                 href="https://www.youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-700 hover:text-red-600 transition-colors duration-300"
+                className="group relative p-2 rounded-full bg-gradient-to-br from-red-600 to-red-500 hover:scale-110 hover:-rotate-6 transform transition-all duration-300 animate-pulse-slow shadow-lg hover:shadow-xl"
                 aria-label="YouTube"
               >
-                <Youtube size={24} />
+                <Youtube size={20} className="text-white" />
               </a>
             </div>
           </div>
@@ -105,19 +105,19 @@ const Header = () => {
                 href="https://www.instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-700 hover:text-pink-600 transition-colors duration-300"
+                className="group relative p-2 rounded-full bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 hover:scale-110 hover:rotate-6 transform transition-all duration-300 animate-pulse-slow shadow-lg hover:shadow-xl"
                 aria-label="Instagram"
               >
-                <Instagram size={28} />
+                <Instagram size={24} className="text-white" />
               </a>
               <a
                 href="https://www.youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-700 hover:text-red-600 transition-colors duration-300"
+                className="group relative p-2 rounded-full bg-gradient-to-br from-red-600 to-red-500 hover:scale-110 hover:-rotate-6 transform transition-all duration-300 animate-pulse-slow shadow-lg hover:shadow-xl"
                 aria-label="YouTube"
               >
-                <Youtube size={28} />
+                <Youtube size={24} className="text-white" />
               </a>
             </div>
           </div>
