@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Briefcase, MapPin, Clock, DollarSign, Building2, ExternalLink, Loader2 } from 'lucide-react';
+import { Briefcase, MapPin, Clock, DollarSign, Building2, ExternalLink, Loader2, Search } from 'lucide-react';
 
 interface Job {
   id: string;
@@ -15,8 +15,6 @@ interface Job {
   category: string;
   applicationUrl?: string;
 }
-
-const categories = ['All Jobs', 'Technology', 'Marketing', 'Sales', 'Design', 'Management', 'Content'];
 
 // Free Job API Configuration
 // This component fetches real-time jobs from multiple free job APIs:
@@ -228,9 +226,9 @@ const parseRemotiveJobs = (data: any): Job[] => {
       if (respList.length > 0) responsibilities = respList;
     }
 
-    // Get a good preview of the description (first 800 chars for detail view)
-    const descriptionPreview = cleanDescription.length > 800
-      ? cleanDescription.substring(0, 800) + '...'
+    // Get a detailed description (first 2000 chars for detail view)
+    const descriptionPreview = cleanDescription.length > 2000
+      ? cleanDescription.substring(0, 2000) + '...'
       : cleanDescription;
 
     return {
@@ -295,9 +293,9 @@ const parseArbeitnowJobs = (data: any): Job[] => {
       if (respList.length > 0) responsibilities = respList;
     }
 
-    // Get a good preview of the description (first 800 chars for detail view)
-    const descriptionPreview = cleanDescription.length > 800
-      ? cleanDescription.substring(0, 800) + '...'
+    // Get a detailed description (first 2000 chars for detail view)
+    const descriptionPreview = cleanDescription.length > 2000
+      ? cleanDescription.substring(0, 2000) + '...'
       : cleanDescription;
 
     return {
@@ -318,7 +316,7 @@ const parseArbeitnowJobs = (data: any): Job[] => {
 };
 
 const JobUpdates: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All Jobs');
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [jobs, setJobs] = useState<Job[]>(sampleJobs);
   const [loading, setLoading] = useState(false);
@@ -395,9 +393,19 @@ const JobUpdates: React.FC = () => {
     return () => clearInterval(refreshInterval);
   }, []);
 
-  const filteredJobs = selectedCategory === 'All Jobs'
-    ? jobs
-    : jobs.filter(job => job.category === selectedCategory);
+  // Filter jobs based on search query
+  const filteredJobs = jobs.filter(job => {
+    if (!searchQuery.trim()) return true;
+
+    const query = searchQuery.toLowerCase();
+    return (
+      job.title.toLowerCase().includes(query) ||
+      job.company.toLowerCase().includes(query) ||
+      job.location.toLowerCase().includes(query) ||
+      job.description.toLowerCase().includes(query) ||
+      job.category.toLowerCase().includes(query)
+    );
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -429,22 +437,30 @@ const JobUpdates: React.FC = () => {
           )}
         </div>
 
-        {/* Category Filter */}
+        {/* Search Bar */}
         <div className="max-w-7xl mx-auto mb-8">
-          <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2.5 rounded-full font-medium transition-all duration-300 transform hover:scale-105 ${
-                  selectedCategory === category
-                    ? 'bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
+          <div className="max-w-2xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search by job title, company, location, or keywords..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-blue-500 focus:outline-none shadow-md hover:shadow-lg transition-all duration-300"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <span className="text-xl">×</span>
+                </button>
+              )}
+            </div>
+            <p className="text-sm text-gray-500 mt-2 text-center">
+              {filteredJobs.length} {filteredJobs.length === 1 ? 'job' : 'jobs'} found
+            </p>
           </div>
         </div>
 
@@ -613,7 +629,7 @@ const JobUpdates: React.FC = () => {
 
                   {/* Apply Button - Bottom */}
                   {selectedJob.applicationUrl && (
-                    <div className="mb-6 pb-6 border-b border-gray-200">
+                    <div className="mb-6">
                       <a
                         href={selectedJob.applicationUrl}
                         target="_blank"
@@ -628,22 +644,6 @@ const JobUpdates: React.FC = () => {
                       </p>
                     </div>
                   )}
-
-                  {/* Google Jobs Integration Placeholder */}
-                  <div className="mt-4 p-6 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl border border-blue-200">
-                    <p className="text-sm text-gray-600 mb-3">
-                      Find more jobs on Google:
-                    </p>
-                    <a
-                      href={`https://www.google.com/search?q=${encodeURIComponent(selectedJob.title + ' jobs in India')}&ibp=htl;jobs`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors"
-                    >
-                      Search on Google Jobs
-                      <ExternalLink className="w-4 h-4 ml-1" />
-                    </a>
-                  </div>
                 </div>
               ) : (
                 <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
@@ -658,28 +658,6 @@ const JobUpdates: React.FC = () => {
                   </p>
                 </div>
               )}
-            </div>
-          </div>
-        </div>
-
-        {/* Google Jobs Embed Section */}
-        <div className="max-w-7xl mx-auto mt-12">
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Browse More Jobs on Google
-              </span>
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Search for real-time job opportunities across India using Google Jobs
-            </p>
-            <div className="relative w-full h-[600px] rounded-xl overflow-hidden border border-gray-200">
-              <iframe
-                src="https://www.google.com/search?q=jobs+in+india&ibp=htl;jobs"
-                className="w-full h-full"
-                title="Google Jobs Search"
-                style={{ border: 'none' }}
-              />
             </div>
           </div>
         </div>
