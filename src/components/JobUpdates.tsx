@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Briefcase, MapPin, Clock, DollarSign, Building2, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Briefcase, MapPin, Clock, DollarSign, Building2, ExternalLink, Loader2 } from 'lucide-react';
 
 interface Job {
   id: string;
@@ -18,7 +18,20 @@ interface Job {
 
 const categories = ['All Jobs', 'Technology', 'Marketing', 'Sales', 'Design', 'Management', 'Content'];
 
-// Sample jobs data - this can be replaced with real-time data from Google Sheets or API
+// Google Sheets Configuration
+// To use real-time data from Google Sheets:
+// 1. Create a Google Sheet with your job data
+// 2. Go to File > Share > Publish to web > Choose "Comma-separated values (.csv)"
+// 3. Copy the URL and replace GOOGLE_SHEETS_CSV_URL below
+// 4. Or use Google Sheets API (see README-JOBS.md for detailed instructions)
+
+const GOOGLE_SHEETS_CSV_URL = ''; // Add your published Google Sheets CSV URL here
+
+// Alternative: Use Google Sheets API with a public sheet
+// Format: https://sheets.googleapis.com/v4/spreadsheets/{SPREADSHEET_ID}/values/{RANGE}?key={API_KEY}
+const GOOGLE_SHEETS_API_URL = ''; // Add your Google Sheets API URL here
+
+// Sample jobs data - used as fallback when no real-time data is available
 const sampleJobs: Job[] = [
   {
     id: '1',
@@ -161,13 +174,123 @@ const sampleJobs: Job[] = [
   }
 ];
 
+// Helper function to parse CSV data into Job objects
+const parseCSVToJobs = (csv: string): Job[] => {
+  const lines = csv.split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  const jobs: Job[] = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+
+    const values = lines[i].split(',').map(v => v.trim());
+    const job: any = {};
+
+    headers.forEach((header, index) => {
+      const value = values[index] || '';
+      if (header === 'requirements' || header === 'responsibilities') {
+        job[header] = value.split('|').map(item => item.trim());
+      } else {
+        job[header] = value;
+      }
+    });
+
+    if (job.title && job.company) {
+      jobs.push(job as Job);
+    }
+  }
+
+  return jobs;
+};
+
+// Helper function to parse Google Sheets API response
+const parseGoogleSheetsAPI = (data: any): Job[] => {
+  if (!data.values || data.values.length < 2) return [];
+
+  const headers = data.values[0];
+  const jobs: Job[] = [];
+
+  for (let i = 1; i < data.values.length; i++) {
+    const row = data.values[i];
+    const job: any = {};
+
+    headers.forEach((header: string, index: number) => {
+      const value = row[index] || '';
+      if (header === 'requirements' || header === 'responsibilities') {
+        job[header] = value.split('|').map((item: string) => item.trim());
+      } else {
+        job[header] = value;
+      }
+    });
+
+    if (job.title && job.company) {
+      jobs.push(job as Job);
+    }
+  }
+
+  return jobs;
+};
+
 const JobUpdates: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All Jobs');
-  const [selectedJob, setSelectedJob] = useState<Job | null>(sampleJobs[0]);
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [jobs, setJobs] = useState<Job[]>(sampleJobs);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch jobs data from Google Sheets on component mount
+  useEffect(() => {
+    const fetchJobs = async () => {
+      // Only fetch if a URL is configured
+      if (!GOOGLE_SHEETS_CSV_URL && !GOOGLE_SHEETS_API_URL) {
+        setSelectedJob(sampleJobs[0]);
+        return;
+      }
+
+      setLoading(true);
+      setError(null);
+
+      try {
+        let fetchedJobs: Job[] = [];
+
+        if (GOOGLE_SHEETS_API_URL) {
+          // Fetch from Google Sheets API
+          const response = await fetch(GOOGLE_SHEETS_API_URL);
+          if (!response.ok) throw new Error('Failed to fetch from Google Sheets API');
+          const data = await response.json();
+          fetchedJobs = parseGoogleSheetsAPI(data);
+        } else if (GOOGLE_SHEETS_CSV_URL) {
+          // Fetch from published CSV
+          const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+          if (!response.ok) throw new Error('Failed to fetch from Google Sheets CSV');
+          const csvText = await response.text();
+          fetchedJobs = parseCSVToJobs(csvText);
+        }
+
+        if (fetchedJobs.length > 0) {
+          setJobs(fetchedJobs);
+          setSelectedJob(fetchedJobs[0]);
+        } else {
+          // Fallback to sample data if no jobs found
+          setJobs(sampleJobs);
+          setSelectedJob(sampleJobs[0]);
+        }
+      } catch (err) {
+        console.error('Error fetching jobs:', err);
+        setError('Failed to load jobs. Showing sample data.');
+        setJobs(sampleJobs);
+        setSelectedJob(sampleJobs[0]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJobs();
+  }, []);
 
   const filteredJobs = selectedCategory === 'All Jobs'
-    ? sampleJobs
-    : sampleJobs.filter(job => job.category === selectedCategory);
+    ? jobs
+    : jobs.filter(job => job.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -182,6 +305,21 @@ const JobUpdates: React.FC = () => {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Discover exciting career opportunities and find your dream job
           </p>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mt-4 max-w-2xl mx-auto bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <p className="text-yellow-800 text-sm">{error}</p>
+            </div>
+          )}
+
+          {/* Loading Indicator */}
+          {loading && (
+            <div className="mt-4 flex items-center justify-center gap-2">
+              <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+              <span className="text-gray-600">Loading latest jobs...</span>
+            </div>
+          )}
         </div>
 
         {/* Category Filter */}
