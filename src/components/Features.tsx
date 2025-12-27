@@ -74,6 +74,15 @@ const Features = () => {
               );
             }
 
+            // Link Job Updates card to job updates page
+            if (feature.id === 'jobs') {
+              return (
+                <Link key={index} to="/job-updates">
+                  {content}
+                </Link>
+              );
+            }
+
             // Link Articles card to articles page
             if (feature.id === 'articles') {
               return (
