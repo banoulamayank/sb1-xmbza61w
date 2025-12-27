@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Briefcase, MapPin, Clock, DollarSign, Building2, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Briefcase, MapPin, Clock, DollarSign, Building2, ExternalLink, Loader2 } from 'lucide-react';
 
 interface Job {
   id: string;
@@ -18,7 +18,18 @@ interface Job {
 
 const categories = ['All Jobs', 'Technology', 'Marketing', 'Sales', 'Design', 'Management', 'Content'];
 
-// Sample jobs data - this can be replaced with real-time data from Google Sheets or API
+// Free Job API Configuration
+// This component fetches real-time jobs from multiple free job APIs:
+// 1. Remotive.io API - Remote jobs (https://remotive.com/api)
+// 2. Arbeitnow API - Tech jobs (https://arbeitnow.com/api)
+// No API keys required! These are completely free public APIs.
+
+const JOB_APIS = {
+  REMOTIVE: 'https://remotive.com/api/remote-jobs?limit=50',
+  ARBEITNOW: 'https://www.arbeitnow.com/api/job-board-api',
+};
+
+// Sample jobs data - used as fallback when no real-time data is available
 const sampleJobs: Job[] = [
   {
     id: '1',
@@ -161,13 +172,157 @@ const sampleJobs: Job[] = [
   }
 ];
 
+// Helper function to categorize jobs based on title and description
+const categorizeJob = (title: string, description: string): string => {
+  const text = (title + ' ' + description).toLowerCase();
+
+  if (text.match(/marketing|seo|content marketing|brand|campaign/i)) return 'Marketing';
+  if (text.match(/sales|business development|account executive/i)) return 'Sales';
+  if (text.match(/design|ui|ux|graphic|figma|adobe/i)) return 'Design';
+  if (text.match(/manager|director|lead|head|vp|ceo|cto/i)) return 'Management';
+  if (text.match(/writer|content|copywriter|editor|blog/i)) return 'Content';
+  if (text.match(/developer|engineer|programmer|software|tech|frontend|backend|full-stack/i)) return 'Technology';
+
+  return 'Technology'; // Default category
+};
+
+// Helper function to parse Remotive API response
+const parseRemotiveJobs = (data: any): Job[] => {
+  if (!data.jobs || !Array.isArray(data.jobs)) return [];
+
+  return data.jobs.slice(0, 20).map((job: any, index: number) => {
+    const description = job.description || 'No description available';
+    const cleanDescription = description.replace(/<[^>]*>/g, '').substring(0, 300) + '...';
+
+    return {
+      id: `remotive-${job.id || index}`,
+      title: job.title || 'Untitled Position',
+      company: job.company_name || 'Company Not Listed',
+      location: 'Remote',
+      type: job.job_type || 'Full-time',
+      salary: job.salary || undefined,
+      postedDate: job.publication_date ? new Date(job.publication_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
+      category: job.category || categorizeJob(job.title || '', description),
+      description: cleanDescription,
+      requirements: [
+        'Check job posting for detailed requirements',
+        'Remote work experience preferred',
+        'Strong communication skills'
+      ],
+      responsibilities: [
+        'Check job posting for detailed responsibilities'
+      ],
+      applicationUrl: job.url || `https://remotive.com/remote-jobs/${job.slug || ''}`,
+    };
+  });
+};
+
+// Helper function to parse Arbeitnow API response
+const parseArbeitnowJobs = (data: any): Job[] => {
+  if (!data.data || !Array.isArray(data.data)) return [];
+
+  return data.data.slice(0, 20).map((job: any, index: number) => {
+    const description = job.description || 'No description available';
+    const cleanDescription = description.replace(/<[^>]*>/g, '').substring(0, 300) + '...';
+
+    return {
+      id: `arbeitnow-${job.slug || index}`,
+      title: job.title || 'Untitled Position',
+      company: job.company_name || 'Company Not Listed',
+      location: job.location || 'Remote',
+      type: job.job_types?.[0] || 'Full-time',
+      salary: undefined,
+      postedDate: job.created_at ? new Date(job.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
+      category: categorizeJob(job.title || '', description),
+      description: cleanDescription,
+      requirements: job.tags?.slice(0, 5) || ['Check job posting for requirements'],
+      responsibilities: ['Check job posting for detailed responsibilities'],
+      applicationUrl: job.url || 'https://arbeitnow.com',
+    };
+  });
+};
+
 const JobUpdates: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All Jobs');
-  const [selectedJob, setSelectedJob] = useState<Job | null>(sampleJobs[0]);
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [jobs, setJobs] = useState<Job[]>(sampleJobs);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch jobs data from free job APIs on component mount
+  useEffect(() => {
+    const fetchJobs = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        let allJobs: Job[] = [];
+
+        // Try fetching from multiple sources in parallel
+        const fetchPromises = [];
+
+        // Fetch from Remotive API
+        fetchPromises.push(
+          fetch(JOB_APIS.REMOTIVE)
+            .then(res => res.json())
+            .then(data => parseRemotiveJobs(data))
+            .catch(err => {
+              console.warn('Remotive API failed:', err);
+              return [];
+            })
+        );
+
+        // Fetch from Arbeitnow API
+        fetchPromises.push(
+          fetch(JOB_APIS.ARBEITNOW)
+            .then(res => res.json())
+            .then(data => parseArbeitnowJobs(data))
+            .catch(err => {
+              console.warn('Arbeitnow API failed:', err);
+              return [];
+            })
+        );
+
+        // Wait for all API calls to complete
+        const results = await Promise.all(fetchPromises);
+
+        // Combine all jobs from different sources
+        allJobs = results.flat();
+
+        if (allJobs.length > 0) {
+          // Shuffle jobs to mix different sources
+          const shuffledJobs = allJobs.sort(() => Math.random() - 0.5);
+          setJobs(shuffledJobs);
+          setSelectedJob(shuffledJobs[0]);
+          console.log(`Successfully loaded ${shuffledJobs.length} real-time jobs`);
+        } else {
+          // Fallback to sample data if no jobs found
+          console.warn('No jobs fetched from APIs, using sample data');
+          setError('Could not fetch real-time jobs. Showing sample opportunities.');
+          setJobs(sampleJobs);
+          setSelectedJob(sampleJobs[0]);
+        }
+      } catch (err) {
+        console.error('Error fetching jobs:', err);
+        setError('Failed to load real-time jobs. Showing sample opportunities.');
+        setJobs(sampleJobs);
+        setSelectedJob(sampleJobs[0]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJobs();
+
+    // Auto-refresh jobs every 5 minutes (optional)
+    const refreshInterval = setInterval(fetchJobs, 5 * 60 * 1000);
+
+    return () => clearInterval(refreshInterval);
+  }, []);
 
   const filteredJobs = selectedCategory === 'All Jobs'
-    ? sampleJobs
-    : sampleJobs.filter(job => job.category === selectedCategory);
+    ? jobs
+    : jobs.filter(job => job.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -182,6 +337,21 @@ const JobUpdates: React.FC = () => {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Discover exciting career opportunities and find your dream job
           </p>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mt-4 max-w-2xl mx-auto bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <p className="text-yellow-800 text-sm">{error}</p>
+            </div>
+          )}
+
+          {/* Loading Indicator */}
+          {loading && (
+            <div className="mt-4 flex items-center justify-center gap-2">
+              <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+              <span className="text-gray-600">Loading latest jobs...</span>
+            </div>
+          )}
         </div>
 
         {/* Category Filter */}
