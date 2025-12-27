@@ -191,6 +191,19 @@ const getRelativeTime = (dateString: string): string => {
   }
 };
 
+// Helper function to check if job is within last 30 days
+const isJobRecent = (dateString: string): boolean => {
+  try {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    return diffDays >= 0 && diffDays <= 30; // Only jobs from last 30 days
+  } catch {
+    return false; // Exclude jobs with invalid dates
+  }
+};
+
 // Helper function to categorize jobs based on title and description
 const categorizeJob = (title: string, description: string): string => {
   const text = (title + ' ' + description).toLowerCase();
@@ -209,7 +222,12 @@ const categorizeJob = (title: string, description: string): string => {
 const parseRemotiveJobs = (data: any): Job[] => {
   if (!data.jobs || !Array.isArray(data.jobs)) return [];
 
-  return data.jobs.slice(0, 20).map((job: any, index: number) => {
+  // Filter jobs to only include those from last 30 days
+  const recentJobs = data.jobs.filter((job: any) =>
+    job.publication_date && isJobRecent(job.publication_date)
+  );
+
+  return recentJobs.slice(0, 20).map((job: any, index: number) => {
     const description = job.description || 'No description available';
 
     // Clean HTML and format description - show full content
@@ -273,7 +291,12 @@ const parseRemotiveJobs = (data: any): Job[] => {
 const parseArbeitnowJobs = (data: any): Job[] => {
   if (!data.data || !Array.isArray(data.data)) return [];
 
-  return data.data.slice(0, 20).map((job: any, index: number) => {
+  // Filter jobs to only include those from last 30 days
+  const recentJobs = data.data.filter((job: any) =>
+    job.created_at && isJobRecent(job.created_at)
+  );
+
+  return recentJobs.slice(0, 20).map((job: any, index: number) => {
     const description = job.description || 'No description available';
 
     // Clean HTML and format description - show full content
