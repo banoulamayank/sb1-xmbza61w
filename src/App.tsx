@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import MyloChatbot from './components/MyloChatbot';
 import HomePage from './pages/HomePage';
 import VideoTutorialsPage from './pages/VideoTutorialsPage';
 import ArticlesPage from './pages/ArticlesPage';
@@ -42,6 +43,7 @@ function App() {
           <Route path="/job-updates" element={<JobUpdatesPage />} />
         </Routes>
         <Footer />
+        <MyloChatbot />
       </div>
     </BrowserRouter>
   );
