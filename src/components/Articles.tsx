@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BookOpen, Calendar } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { BookOpen, Calendar, Eye } from 'lucide-react';
 import ArticleModal from './ArticleModal';
 import { fullArticles, FullArticle } from '../data/allArticles';
 
@@ -57,6 +57,20 @@ export default function Articles() {
   const ArticleCard = ({ article }: { article: FullArticle }) => {
     const [imageError, setImageError] = React.useState(false);
     const [imageLoaded, setImageLoaded] = React.useState(false);
+    const [currentViews, setCurrentViews] = React.useState(article.views);
+
+    // Simulate real-time view counter
+    useEffect(() => {
+      const interval = setInterval(() => {
+        // Randomly increment views by 0-2 every 3-8 seconds
+        if (Math.random() > 0.5) {
+          const increment = Math.floor(Math.random() * 3);
+          setCurrentViews(prev => prev + increment);
+        }
+      }, Math.random() * 5000 + 3000);
+
+      return () => clearInterval(interval);
+    }, []);
 
     return (
       <div
@@ -117,12 +131,18 @@ export default function Articles() {
           <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
             {article.description}
           </p>
-          {article.readTime && (
-            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <BookOpen className="w-4 h-4 mr-1" />
-              {article.readTime}
+          <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+            {article.readTime && (
+              <div className="flex items-center">
+                <BookOpen className="w-4 h-4 mr-1" />
+                {article.readTime}
+              </div>
+            )}
+            <div className="flex items-center">
+              <Eye className="w-4 h-4 mr-1" />
+              <span className="font-medium">{currentViews.toLocaleString()}</span>
             </div>
-          )}
+          </div>
         </div>
       </div>
     );

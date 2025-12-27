@@ -10,6 +10,7 @@ export interface FullArticle {
   category: string;
   type: 'Article' | 'Ebook' | 'Guide';
   date: string;
+  views: number;
   thumbnail: string;
   readTime: string;
   content: {
@@ -32,7 +33,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to ChatGPT prompts. Learn advanced techniques, best practices, real-world applications, and expert strategies for prompt engineering in 2026.",
     "category": "ChatGPT Articles",
     "type": "Guide",
-    "date": "Jan 15, 2026",
+    "date": "Jan 15, 2024",
+    "views": 1493,
     "thumbnail": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -96,7 +98,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to ChatGPT API. Learn advanced techniques, best practices, real-world applications, and expert strategies for OpenAI API integration in 2026.",
     "category": "ChatGPT Articles",
     "type": "Article",
-    "date": "Jan 16, 2026",
+    "date": "Jan 22, 2024",
+    "views": 1812,
     "thumbnail": "https://images.unsplash.com/photo-1676277791608-ac5cf6d5e60c?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -160,7 +163,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to business automation. Learn advanced techniques, best practices, real-world applications, and expert strategies for ChatGPT for business in 2026.",
     "category": "ChatGPT Articles",
     "type": "Ebook",
-    "date": "Jan 17, 2026",
+    "date": "Feb 5, 2024",
+    "views": 1610,
     "thumbnail": "https://images.unsplash.com/photo-1675271591293-9b2f078e5c0e?w=800&auto=format&fit=crop",
     "readTime": "14 min read",
     "keywords": [
@@ -224,7 +228,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to ChatGPT vs Gemini. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI chatbot comparison in 2026.",
     "category": "ChatGPT Articles",
     "type": "Guide",
-    "date": "Jan 18, 2026",
+    "date": "Feb 18, 2024",
+    "views": 575,
     "thumbnail": "https://images.unsplash.com/photo-1684487747385-7548cf679e32?w=800&auto=format&fit=crop",
     "readTime": "15 min read",
     "keywords": [
@@ -288,7 +293,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI content creation. Learn advanced techniques, best practices, real-world applications, and expert strategies for ChatGPT writing in 2026.",
     "category": "ChatGPT Articles",
     "type": "Article",
-    "date": "Jan 19, 2026",
+    "date": "Mar 3, 2024",
+    "views": 709,
     "thumbnail": "https://images.unsplash.com/photo-1655720828018-edd2daec9349?w=800&auto=format&fit=crop",
     "readTime": "16 min read",
     "keywords": [
@@ -352,7 +358,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to ChatGPT coding. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI programming assistant in 2026.",
     "category": "ChatGPT Articles",
     "type": "Ebook",
-    "date": "Jan 20, 2026",
+    "date": "Mar 12, 2024",
+    "views": 451,
     "thumbnail": "https://images.unsplash.com/photo-1655720406770-c638d3fd3819?w=800&auto=format&fit=crop",
     "readTime": "17 min read",
     "keywords": [
@@ -416,7 +423,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to ChatGPT Plus. Learn advanced techniques, best practices, real-world applications, and expert strategies for ChatGPT pricing in 2026.",
     "category": "ChatGPT Articles",
     "type": "Guide",
-    "date": "Jan 21, 2026",
+    "date": "Mar 28, 2024",
+    "views": 1270,
     "thumbnail": "https://images.unsplash.com/photo-1655720408291-e3c092ce2c50?w=800&auto=format&fit=crop",
     "readTime": "18 min read",
     "keywords": [
@@ -480,7 +488,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to ChatGPT education. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI in teaching in 2026.",
     "category": "ChatGPT Articles",
     "type": "Article",
-    "date": "Jan 22, 2026",
+    "date": "Apr 8, 2024",
+    "views": 1198,
     "thumbnail": "https://images.unsplash.com/photo-1655720408323-76c07f8bbee0?w=800&auto=format&fit=crop",
     "readTime": "19 min read",
     "keywords": [
@@ -544,7 +553,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to ChatGPT security. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI privacy in 2026.",
     "category": "ChatGPT Articles",
     "type": "Ebook",
-    "date": "Jan 23, 2026",
+    "date": "Apr 19, 2024",
+    "views": 709,
     "thumbnail": "https://images.unsplash.com/photo-1655721530289-6e4e18d7cb01?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -608,7 +618,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to ChatGPT features. Learn advanced techniques, best practices, real-world applications, and expert strategies for ChatGPT tricks in 2026.",
     "category": "ChatGPT Articles",
     "type": "Guide",
-    "date": "Jan 24, 2026",
+    "date": "Apr 30, 2024",
+    "views": 963,
     "thumbnail": "https://images.unsplash.com/photo-1666364666044-7f2e09e8f23a?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -672,7 +683,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Google Gemini. Learn advanced techniques, best practices, real-world applications, and expert strategies for Gemini AI in 2026.",
     "category": "Google Gemini Articles",
     "type": "Guide",
-    "date": "Jan 15, 2026",
+    "date": "May 10, 2024",
+    "views": 1322,
     "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -736,7 +748,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Gemini vs ChatGPT. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI comparison in 2026.",
     "category": "Google Gemini Articles",
     "type": "Article",
-    "date": "Jan 16, 2026",
+    "date": "May 22, 2024",
+    "views": 1147,
     "thumbnail": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -800,7 +813,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Gemini API. Learn advanced techniques, best practices, real-world applications, and expert strategies for Google AI API in 2026.",
     "category": "Google Gemini Articles",
     "type": "Ebook",
-    "date": "Jan 17, 2026",
+    "date": "Jun 5, 2024",
+    "views": 1085,
     "thumbnail": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&auto=format&fit=crop",
     "readTime": "14 min read",
     "keywords": [
@@ -864,7 +878,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Gemini Ultra. Learn advanced techniques, best practices, real-world applications, and expert strategies for advanced AI features in 2026.",
     "category": "Google Gemini Articles",
     "type": "Guide",
-    "date": "Jan 18, 2026",
+    "date": "Jun 17, 2024",
+    "views": 425,
     "thumbnail": "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800&auto=format&fit=crop",
     "readTime": "15 min read",
     "keywords": [
@@ -928,7 +943,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Gemini business. Learn advanced techniques, best practices, real-world applications, and expert strategies for enterprise AI in 2026.",
     "category": "Google Gemini Articles",
     "type": "Article",
-    "date": "Jan 19, 2026",
+    "date": "Jun 28, 2024",
+    "views": 457,
     "thumbnail": "https://images.unsplash.com/photo-1677756119517-756a188d2d94?w=800&auto=format&fit=crop",
     "readTime": "16 min read",
     "keywords": [
@@ -992,7 +1008,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to multimodal AI. Learn advanced techniques, best practices, real-world applications, and expert strategies for Gemini features in 2026.",
     "category": "Google Gemini Articles",
     "type": "Ebook",
-    "date": "Jan 20, 2026",
+    "date": "Jul 9, 2024",
+    "views": 1374,
     "thumbnail": "https://images.unsplash.com/photo-1676299081847-824916de030a?w=800&auto=format&fit=crop",
     "readTime": "17 min read",
     "keywords": [
@@ -1056,7 +1073,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Gemini prompts. Learn advanced techniques, best practices, real-world applications, and expert strategies for prompt engineering in 2026.",
     "category": "Google Gemini Articles",
     "type": "Guide",
-    "date": "Jan 21, 2026",
+    "date": "Jul 20, 2024",
+    "views": 1824,
     "thumbnail": "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&auto=format&fit=crop",
     "readTime": "18 min read",
     "keywords": [
@@ -1120,7 +1138,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI safety. Learn advanced techniques, best practices, real-world applications, and expert strategies for ethical AI in 2026.",
     "category": "Google Gemini Articles",
     "type": "Article",
-    "date": "Jan 22, 2026",
+    "date": "Aug 2, 2024",
+    "views": 1567,
     "thumbnail": "https://images.unsplash.com/photo-1677442136003-e5c8a1c5c1b7?w=800&auto=format&fit=crop",
     "readTime": "19 min read",
     "keywords": [
@@ -1184,7 +1203,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Gemini pricing. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI costs in 2026.",
     "category": "Google Gemini Articles",
     "type": "Ebook",
-    "date": "Jan 23, 2026",
+    "date": "Aug 15, 2024",
+    "views": 756,
     "thumbnail": "https://images.unsplash.com/photo-1677442135858-05d8d7e3e1b9?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -1248,7 +1268,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI future. Learn advanced techniques, best practices, real-world applications, and expert strategies for Gemini roadmap in 2026.",
     "category": "Google Gemini Articles",
     "type": "Guide",
-    "date": "Jan 24, 2026",
+    "date": "Aug 27, 2024",
+    "views": 1891,
     "thumbnail": "https://images.unsplash.com/photo-1686191128892-81c5c05a4b5e?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -1312,7 +1333,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI learning path. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI roadmap in 2026.",
     "category": "AI Roadmap",
     "type": "Guide",
-    "date": "Jan 15, 2026",
+    "date": "Sep 8, 2024",
+    "views": 419,
     "thumbnail": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -1376,7 +1398,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to ML career. Learn advanced techniques, best practices, real-world applications, and expert strategies for machine learning jobs in 2026.",
     "category": "AI Roadmap",
     "type": "Article",
-    "date": "Jan 16, 2026",
+    "date": "Sep 19, 2024",
+    "views": 180,
     "thumbnail": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -1440,7 +1463,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to deep learning. Learn advanced techniques, best practices, real-world applications, and expert strategies for neural networks in 2026.",
     "category": "AI Roadmap",
     "type": "Ebook",
-    "date": "Jan 17, 2026",
+    "date": "Oct 3, 2024",
+    "views": 939,
     "thumbnail": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&auto=format&fit=crop",
     "readTime": "14 min read",
     "keywords": [
@@ -1504,7 +1528,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI engineer skills. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI training in 2026.",
     "category": "AI Roadmap",
     "type": "Guide",
-    "date": "Jan 18, 2026",
+    "date": "Oct 14, 2024",
+    "views": 1237,
     "thumbnail": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop",
     "readTime": "15 min read",
     "keywords": [
@@ -1568,7 +1593,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to NLP roadmap. Learn advanced techniques, best practices, real-world applications, and expert strategies for natural language processing in 2026.",
     "category": "AI Roadmap",
     "type": "Article",
-    "date": "Jan 19, 2026",
+    "date": "Oct 28, 2024",
+    "views": 1988,
     "thumbnail": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop",
     "readTime": "16 min read",
     "keywords": [
@@ -1632,7 +1658,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to computer vision. Learn advanced techniques, best practices, real-world applications, and expert strategies for image AI in 2026.",
     "category": "AI Roadmap",
     "type": "Ebook",
-    "date": "Jan 20, 2026",
+    "date": "Nov 7, 2024",
+    "views": 213,
     "thumbnail": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&auto=format&fit=crop",
     "readTime": "17 min read",
     "keywords": [
@@ -1696,7 +1723,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI specialization. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI career paths in 2026.",
     "category": "AI Roadmap",
     "type": "Guide",
-    "date": "Jan 21, 2026",
+    "date": "Nov 18, 2024",
+    "views": 172,
     "thumbnail": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&auto=format&fit=crop",
     "readTime": "18 min read",
     "keywords": [
@@ -1760,7 +1788,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI learning plan. Learn advanced techniques, best practices, real-world applications, and expert strategies for become AI expert in 2026.",
     "category": "AI Roadmap",
     "type": "Article",
-    "date": "Jan 22, 2026",
+    "date": "Nov 29, 2024",
+    "views": 1167,
     "thumbnail": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop",
     "readTime": "19 min read",
     "keywords": [
@@ -1824,7 +1853,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI certification. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI courses in 2026.",
     "category": "AI Roadmap",
     "type": "Ebook",
-    "date": "Jan 23, 2026",
+    "date": "Dec 10, 2024",
+    "views": 264,
     "thumbnail": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -1888,7 +1918,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI jobs. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI salary in 2026.",
     "category": "AI Roadmap",
     "type": "Guide",
-    "date": "Jan 24, 2026",
+    "date": "Dec 20, 2024",
+    "views": 1941,
     "thumbnail": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -1952,7 +1983,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI video generation. Learn advanced techniques, best practices, real-world applications, and expert strategies for video AI tools in 2026.",
     "category": "Video Generation Tools",
     "type": "Guide",
-    "date": "Jan 15, 2026",
+    "date": "Jan 8, 2025",
+    "views": 1730,
     "thumbnail": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -2016,7 +2048,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Runway AI. Learn advanced techniques, best practices, real-world applications, and expert strategies for Gen-4 in 2026.",
     "category": "Video Generation Tools",
     "type": "Article",
-    "date": "Jan 16, 2026",
+    "date": "Jan 19, 2025",
+    "views": 520,
     "thumbnail": "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -2080,7 +2113,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Synthesia. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI avatars in 2026.",
     "category": "Video Generation Tools",
     "type": "Ebook",
-    "date": "Jan 17, 2026",
+    "date": "Feb 2, 2025",
+    "views": 794,
     "thumbnail": "https://images.unsplash.com/photo-1536240478700-b869070f9279?w=800&auto=format&fit=crop",
     "readTime": "14 min read",
     "keywords": [
@@ -2144,7 +2178,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Pika Labs. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI video in 2026.",
     "category": "Video Generation Tools",
     "type": "Guide",
-    "date": "Jan 18, 2026",
+    "date": "Feb 13, 2025",
+    "views": 220,
     "thumbnail": "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&auto=format&fit=crop",
     "readTime": "15 min read",
     "keywords": [
@@ -2208,7 +2243,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI video editing. Learn advanced techniques, best practices, real-world applications, and expert strategies for automated editing in 2026.",
     "category": "Video Generation Tools",
     "type": "Article",
-    "date": "Jan 19, 2026",
+    "date": "Feb 25, 2025",
+    "views": 1351,
     "thumbnail": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&auto=format&fit=crop",
     "readTime": "16 min read",
     "keywords": [
@@ -2272,7 +2308,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to text to video. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI video creation in 2026.",
     "category": "Video Generation Tools",
     "type": "Ebook",
-    "date": "Jan 20, 2026",
+    "date": "Mar 7, 2025",
+    "views": 905,
     "thumbnail": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&auto=format&fit=crop",
     "readTime": "17 min read",
     "keywords": [
@@ -2336,7 +2373,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to video marketing. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI marketing in 2026.",
     "category": "Video Generation Tools",
     "type": "Guide",
-    "date": "Jan 21, 2026",
+    "date": "Mar 18, 2025",
+    "views": 980,
     "thumbnail": "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&auto=format&fit=crop",
     "readTime": "18 min read",
     "keywords": [
@@ -2400,7 +2438,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to professional videos. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI production in 2026.",
     "category": "Video Generation Tools",
     "type": "Article",
-    "date": "Jan 22, 2026",
+    "date": "Apr 1, 2025",
+    "views": 1588,
     "thumbnail": "https://images.unsplash.com/photo-1633167606207-d840b5070fc2?w=800&auto=format&fit=crop",
     "readTime": "19 min read",
     "keywords": [
@@ -2464,7 +2503,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to video AI pricing. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI costs in 2026.",
     "category": "Video Generation Tools",
     "type": "Ebook",
-    "date": "Jan 23, 2026",
+    "date": "Apr 12, 2025",
+    "views": 612,
     "thumbnail": "https://images.unsplash.com/photo-1635776062127-d379bfcba9f8?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -2528,7 +2568,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI video future. Learn advanced techniques, best practices, real-world applications, and expert strategies for video AI trends in 2026.",
     "category": "Video Generation Tools",
     "type": "Guide",
-    "date": "Jan 24, 2026",
+    "date": "Apr 23, 2025",
+    "views": 1780,
     "thumbnail": "https://images.unsplash.com/photo-1638913662584-731da41f5a59?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -2592,7 +2633,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Midjourney. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI art in 2026.",
     "category": "Image Generation Tools",
     "type": "Guide",
-    "date": "Jan 15, 2026",
+    "date": "May 5, 2025",
+    "views": 1206,
     "thumbnail": "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -2656,7 +2698,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to DALL-E 3. Learn advanced techniques, best practices, real-world applications, and expert strategies for OpenAI images in 2026.",
     "category": "Image Generation Tools",
     "type": "Article",
-    "date": "Jan 16, 2026",
+    "date": "May 16, 2025",
+    "views": 1305,
     "thumbnail": "https://images.unsplash.com/photo-1617791160505-6f00504e3519?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -2720,7 +2763,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Stable Diffusion. Learn advanced techniques, best practices, real-world applications, and expert strategies for SD AI in 2026.",
     "category": "Image Generation Tools",
     "type": "Ebook",
-    "date": "Jan 17, 2026",
+    "date": "May 28, 2025",
+    "views": 1324,
     "thumbnail": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop",
     "readTime": "14 min read",
     "keywords": [
@@ -2784,7 +2828,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Midjourney vs DALL-E. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI image comparison in 2026.",
     "category": "Image Generation Tools",
     "type": "Guide",
-    "date": "Jan 18, 2026",
+    "date": "Jun 9, 2025",
+    "views": 200,
     "thumbnail": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=800&auto=format&fit=crop",
     "readTime": "15 min read",
     "keywords": [
@@ -2848,7 +2893,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to image prompts. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI art prompts in 2026.",
     "category": "Image Generation Tools",
     "type": "Article",
-    "date": "Jan 19, 2026",
+    "date": "Jun 20, 2025",
+    "views": 1563,
     "thumbnail": "https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=800&auto=format&fit=crop",
     "readTime": "16 min read",
     "keywords": [
@@ -2912,7 +2958,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to Leonardo AI. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI art tools in 2026.",
     "category": "Image Generation Tools",
     "type": "Ebook",
-    "date": "Jan 20, 2026",
+    "date": "Jul 2, 2025",
+    "views": 834,
     "thumbnail": "https://images.unsplash.com/photo-1610721847196-c3559047daa2?w=800&auto=format&fit=crop",
     "readTime": "17 min read",
     "keywords": [
@@ -2976,7 +3023,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI art licensing. Learn advanced techniques, best practices, real-world applications, and expert strategies for commercial AI in 2026.",
     "category": "Image Generation Tools",
     "type": "Guide",
-    "date": "Jan 21, 2026",
+    "date": "Jul 14, 2025",
+    "views": 265,
     "thumbnail": "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&auto=format&fit=crop",
     "readTime": "18 min read",
     "keywords": [
@@ -3040,7 +3088,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI photo editing. Learn advanced techniques, best practices, real-world applications, and expert strategies for image enhancement in 2026.",
     "category": "Image Generation Tools",
     "type": "Article",
-    "date": "Jan 22, 2026",
+    "date": "Jul 26, 2025",
+    "views": 1736,
     "thumbnail": "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=800&auto=format&fit=crop",
     "readTime": "19 min read",
     "keywords": [
@@ -3104,7 +3153,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to character design. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI characters in 2026.",
     "category": "Image Generation Tools",
     "type": "Ebook",
-    "date": "Jan 23, 2026",
+    "date": "Aug 7, 2025",
+    "views": 1945,
     "thumbnail": "https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -3168,7 +3218,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI art styles. Learn advanced techniques, best practices, real-world applications, and expert strategies for artistic styles in 2026.",
     "category": "Image Generation Tools",
     "type": "Guide",
-    "date": "Jan 24, 2026",
+    "date": "Aug 18, 2025",
+    "views": 548,
     "thumbnail": "https://images.unsplash.com/photo-1561998338-13ad7883b20f?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -3232,7 +3283,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI productivity. Learn advanced techniques, best practices, real-world applications, and expert strategies for productivity tools in 2026.",
     "category": "Productivity Articles",
     "type": "Guide",
-    "date": "Jan 15, 2026",
+    "date": "Sep 1, 2025",
+    "views": 1628,
     "thumbnail": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -3296,7 +3348,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to work automation. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI automation in 2026.",
     "category": "Productivity Articles",
     "type": "Article",
-    "date": "Jan 16, 2026",
+    "date": "Sep 12, 2025",
+    "views": 306,
     "thumbnail": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
@@ -3360,7 +3413,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI writing. Learn advanced techniques, best practices, real-world applications, and expert strategies for writing tools in 2026.",
     "category": "Productivity Articles",
     "type": "Ebook",
-    "date": "Jan 17, 2026",
+    "date": "Sep 24, 2025",
+    "views": 157,
     "thumbnail": "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?w=800&auto=format&fit=crop",
     "readTime": "14 min read",
     "keywords": [
@@ -3424,7 +3478,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI email. Learn advanced techniques, best practices, real-world applications, and expert strategies for email automation in 2026.",
     "category": "Productivity Articles",
     "type": "Guide",
-    "date": "Jan 18, 2026",
+    "date": "Oct 6, 2025",
+    "views": 1576,
     "thumbnail": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&auto=format&fit=crop",
     "readTime": "15 min read",
     "keywords": [
@@ -3488,7 +3543,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI meetings. Learn advanced techniques, best practices, real-world applications, and expert strategies for meeting tools in 2026.",
     "category": "Productivity Articles",
     "type": "Article",
-    "date": "Jan 19, 2026",
+    "date": "Oct 17, 2025",
+    "views": 1459,
     "thumbnail": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop",
     "readTime": "16 min read",
     "keywords": [
@@ -3552,7 +3608,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI task management. Learn advanced techniques, best practices, real-world applications, and expert strategies for productivity organization in 2026.",
     "category": "Productivity Articles",
     "type": "Ebook",
-    "date": "Jan 20, 2026",
+    "date": "Oct 29, 2025",
+    "views": 172,
     "thumbnail": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop",
     "readTime": "17 min read",
     "keywords": [
@@ -3616,7 +3673,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI research. Learn advanced techniques, best practices, real-world applications, and expert strategies for research tools in 2026.",
     "category": "Productivity Articles",
     "type": "Guide",
-    "date": "Jan 21, 2026",
+    "date": "Nov 10, 2025",
+    "views": 422,
     "thumbnail": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=800&auto=format&fit=crop",
     "readTime": "18 min read",
     "keywords": [
@@ -3680,7 +3738,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI time management. Learn advanced techniques, best practices, real-world applications, and expert strategies for efficiency tools in 2026.",
     "category": "Productivity Articles",
     "type": "Article",
-    "date": "Jan 22, 2026",
+    "date": "Nov 21, 2025",
+    "views": 1436,
     "thumbnail": "https://images.unsplash.com/photo-1542626991-cbc4e32524cc?w=800&auto=format&fit=crop",
     "readTime": "19 min read",
     "keywords": [
@@ -3744,7 +3803,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to AI collaboration. Learn advanced techniques, best practices, real-world applications, and expert strategies for team tools in 2026.",
     "category": "Productivity Articles",
     "type": "Ebook",
-    "date": "Jan 23, 2026",
+    "date": "Dec 3, 2025",
+    "views": 1822,
     "thumbnail": "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop",
     "readTime": "12 min read",
     "keywords": [
@@ -3808,7 +3868,8 @@ export const fullArticles: FullArticle[] = [
     "description": "Comprehensive guide to productivity ROI. Learn advanced techniques, best practices, real-world applications, and expert strategies for AI benefits in 2026.",
     "category": "Productivity Articles",
     "type": "Guide",
-    "date": "Jan 24, 2026",
+    "date": "Dec 15, 2025",
+    "views": 141,
     "thumbnail": "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&auto=format&fit=crop",
     "readTime": "13 min read",
     "keywords": [
