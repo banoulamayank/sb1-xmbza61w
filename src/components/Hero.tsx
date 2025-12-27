@@ -81,7 +81,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Master cutting-edge technologies with video tutorials
+            Master cutting-edge technologies with tutorials, articles
             and stay updated with the latest job opportunities in tech.
           </p>
 
