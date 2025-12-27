@@ -170,6 +170,27 @@ const sampleJobs: Job[] = [
   }
 ];
 
+// Helper function to calculate relative time from date
+const getRelativeTime = (dateString: string): string => {
+  try {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) return 'Recently'; // Future date, shouldn't happen
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return '1 day ago';
+    if (diffDays < 7) return `${diffDays} days ago`;
+    if (diffDays < 14) return '1 week ago';
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+    if (diffDays < 60) return '1 month ago';
+    return `${Math.floor(diffDays / 30)} months ago`;
+  } catch {
+    return 'Recently';
+  }
+};
+
 // Helper function to categorize jobs based on title and description
 const categorizeJob = (title: string, description: string): string => {
   const text = (title + ' ' + description).toLowerCase();
@@ -238,7 +259,7 @@ const parseRemotiveJobs = (data: any): Job[] => {
       location: 'Remote',
       type: job.job_type || 'Full-time',
       salary: job.salary || undefined,
-      postedDate: job.publication_date ? new Date(job.publication_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
+      postedDate: job.publication_date ? getRelativeTime(job.publication_date) : 'Recently',
       category: job.category || categorizeJob(job.title || '', description),
       description: descriptionPreview,
       requirements: requirements,
@@ -305,7 +326,7 @@ const parseArbeitnowJobs = (data: any): Job[] => {
       location: job.location || 'Remote',
       type: job.job_types?.[0] || 'Full-time',
       salary: undefined,
-      postedDate: job.created_at ? new Date(job.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
+      postedDate: job.created_at ? getRelativeTime(job.created_at) : 'Recently',
       category: categorizeJob(job.title || '', description),
       description: descriptionPreview,
       requirements: requirements,
