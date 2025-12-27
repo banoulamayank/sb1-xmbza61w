@@ -1,6 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Linkedin, Youtube, Instagram } from 'lucide-react';
+import { Youtube, Instagram } from 'lucide-react';
 import logo from './logo.png';
 
 interface NewsletterStatus {
@@ -90,20 +90,23 @@ const Footer = () => {
               Empowering learners worldwide with cutting-edge technology education and career opportunities.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 transition-all duration-300">
-                <Facebook size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 transition-all duration-300">
-                <Twitter size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 transition-all duration-300">
-                <Linkedin size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 transition-all duration-300">
-                <Youtube size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 transition-all duration-300">
+              <a
+                href="https://www.instagram.com/ailoop.co.in?igsh=YmEyNmJ0OHB1dHk%3D&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 transition-all duration-300"
+                aria-label="Instagram"
+              >
                 <Instagram size={18} />
+              </a>
+              <a
+                href="https://www.youtube.com/@AILooop"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 transition-all duration-300"
+                aria-label="YouTube"
+              >
+                <Youtube size={18} />
               </a>
             </div>
           </div>
@@ -112,7 +115,7 @@ const Footer = () => {
             <h3 className="text-white font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li><Link to="/video-tutorials" className="hover:text-cyan-400 transition-colors">Video Tutorials</Link></li>
-              <li><a href="#jobs" className="hover:text-cyan-400 transition-colors">Job Updates</a></li>
+              <li><Link to="/job-updates" className="hover:text-cyan-400 transition-colors">Job Updates</Link></li>
               <li><Link to="/articles" className="hover:text-cyan-400 transition-colors">Articles</Link></li>
               <li><a href="#contact" className="hover:text-cyan-400 transition-colors">Contact Us</a></li>
             </ul>
