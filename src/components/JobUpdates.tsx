@@ -18,18 +18,16 @@ interface Job {
 
 const categories = ['All Jobs', 'Technology', 'Marketing', 'Sales', 'Design', 'Management', 'Content'];
 
-// Google Sheets Configuration
-// To use real-time data from Google Sheets:
-// 1. Create a Google Sheet with your job data
-// 2. Go to File > Share > Publish to web > Choose "Comma-separated values (.csv)"
-// 3. Copy the URL and replace GOOGLE_SHEETS_CSV_URL below
-// 4. Or use Google Sheets API (see README-JOBS.md for detailed instructions)
+// Free Job API Configuration
+// This component fetches real-time jobs from multiple free job APIs:
+// 1. Remotive.io API - Remote jobs (https://remotive.com/api)
+// 2. Arbeitnow API - Tech jobs (https://arbeitnow.com/api)
+// No API keys required! These are completely free public APIs.
 
-const GOOGLE_SHEETS_CSV_URL = ''; // Add your published Google Sheets CSV URL here
-
-// Alternative: Use Google Sheets API with a public sheet
-// Format: https://sheets.googleapis.com/v4/spreadsheets/{SPREADSHEET_ID}/values/{RANGE}?key={API_KEY}
-const GOOGLE_SHEETS_API_URL = ''; // Add your Google Sheets API URL here
+const JOB_APIS = {
+  REMOTIVE: 'https://remotive.com/api/remote-jobs?limit=50',
+  ARBEITNOW: 'https://www.arbeitnow.com/api/job-board-api',
+};
 
 // Sample jobs data - used as fallback when no real-time data is available
 const sampleJobs: Job[] = [
@@ -174,61 +172,74 @@ const sampleJobs: Job[] = [
   }
 ];
 
-// Helper function to parse CSV data into Job objects
-const parseCSVToJobs = (csv: string): Job[] => {
-  const lines = csv.split('\n');
-  const headers = lines[0].split(',').map(h => h.trim());
-  const jobs: Job[] = [];
+// Helper function to categorize jobs based on title and description
+const categorizeJob = (title: string, description: string): string => {
+  const text = (title + ' ' + description).toLowerCase();
 
-  for (let i = 1; i < lines.length; i++) {
-    if (!lines[i].trim()) continue;
+  if (text.match(/marketing|seo|content marketing|brand|campaign/i)) return 'Marketing';
+  if (text.match(/sales|business development|account executive/i)) return 'Sales';
+  if (text.match(/design|ui|ux|graphic|figma|adobe/i)) return 'Design';
+  if (text.match(/manager|director|lead|head|vp|ceo|cto/i)) return 'Management';
+  if (text.match(/writer|content|copywriter|editor|blog/i)) return 'Content';
+  if (text.match(/developer|engineer|programmer|software|tech|frontend|backend|full-stack/i)) return 'Technology';
 
-    const values = lines[i].split(',').map(v => v.trim());
-    const job: any = {};
-
-    headers.forEach((header, index) => {
-      const value = values[index] || '';
-      if (header === 'requirements' || header === 'responsibilities') {
-        job[header] = value.split('|').map(item => item.trim());
-      } else {
-        job[header] = value;
-      }
-    });
-
-    if (job.title && job.company) {
-      jobs.push(job as Job);
-    }
-  }
-
-  return jobs;
+  return 'Technology'; // Default category
 };
 
-// Helper function to parse Google Sheets API response
-const parseGoogleSheetsAPI = (data: any): Job[] => {
-  if (!data.values || data.values.length < 2) return [];
+// Helper function to parse Remotive API response
+const parseRemotiveJobs = (data: any): Job[] => {
+  if (!data.jobs || !Array.isArray(data.jobs)) return [];
 
-  const headers = data.values[0];
-  const jobs: Job[] = [];
+  return data.jobs.slice(0, 20).map((job: any, index: number) => {
+    const description = job.description || 'No description available';
+    const cleanDescription = description.replace(/<[^>]*>/g, '').substring(0, 300) + '...';
 
-  for (let i = 1; i < data.values.length; i++) {
-    const row = data.values[i];
-    const job: any = {};
+    return {
+      id: `remotive-${job.id || index}`,
+      title: job.title || 'Untitled Position',
+      company: job.company_name || 'Company Not Listed',
+      location: 'Remote',
+      type: job.job_type || 'Full-time',
+      salary: job.salary || undefined,
+      postedDate: job.publication_date ? new Date(job.publication_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
+      category: job.category || categorizeJob(job.title || '', description),
+      description: cleanDescription,
+      requirements: [
+        'Check job posting for detailed requirements',
+        'Remote work experience preferred',
+        'Strong communication skills'
+      ],
+      responsibilities: [
+        'Check job posting for detailed responsibilities'
+      ],
+      applicationUrl: job.url || `https://remotive.com/remote-jobs/${job.slug || ''}`,
+    };
+  });
+};
 
-    headers.forEach((header: string, index: number) => {
-      const value = row[index] || '';
-      if (header === 'requirements' || header === 'responsibilities') {
-        job[header] = value.split('|').map((item: string) => item.trim());
-      } else {
-        job[header] = value;
-      }
-    });
+// Helper function to parse Arbeitnow API response
+const parseArbeitnowJobs = (data: any): Job[] => {
+  if (!data.data || !Array.isArray(data.data)) return [];
 
-    if (job.title && job.company) {
-      jobs.push(job as Job);
-    }
-  }
+  return data.data.slice(0, 20).map((job: any, index: number) => {
+    const description = job.description || 'No description available';
+    const cleanDescription = description.replace(/<[^>]*>/g, '').substring(0, 300) + '...';
 
-  return jobs;
+    return {
+      id: `arbeitnow-${job.slug || index}`,
+      title: job.title || 'Untitled Position',
+      company: job.company_name || 'Company Not Listed',
+      location: job.location || 'Remote',
+      type: job.job_types?.[0] || 'Full-time',
+      salary: undefined,
+      postedDate: job.created_at ? new Date(job.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
+      category: categorizeJob(job.title || '', description),
+      description: cleanDescription,
+      requirements: job.tags?.slice(0, 5) || ['Check job posting for requirements'],
+      responsibilities: ['Check job posting for detailed responsibilities'],
+      applicationUrl: job.url || 'https://arbeitnow.com',
+    };
+  });
 };
 
 const JobUpdates: React.FC = () => {
@@ -238,46 +249,62 @@ const JobUpdates: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch jobs data from Google Sheets on component mount
+  // Fetch jobs data from free job APIs on component mount
   useEffect(() => {
     const fetchJobs = async () => {
-      // Only fetch if a URL is configured
-      if (!GOOGLE_SHEETS_CSV_URL && !GOOGLE_SHEETS_API_URL) {
-        setSelectedJob(sampleJobs[0]);
-        return;
-      }
-
       setLoading(true);
       setError(null);
 
       try {
-        let fetchedJobs: Job[] = [];
+        let allJobs: Job[] = [];
 
-        if (GOOGLE_SHEETS_API_URL) {
-          // Fetch from Google Sheets API
-          const response = await fetch(GOOGLE_SHEETS_API_URL);
-          if (!response.ok) throw new Error('Failed to fetch from Google Sheets API');
-          const data = await response.json();
-          fetchedJobs = parseGoogleSheetsAPI(data);
-        } else if (GOOGLE_SHEETS_CSV_URL) {
-          // Fetch from published CSV
-          const response = await fetch(GOOGLE_SHEETS_CSV_URL);
-          if (!response.ok) throw new Error('Failed to fetch from Google Sheets CSV');
-          const csvText = await response.text();
-          fetchedJobs = parseCSVToJobs(csvText);
-        }
+        // Try fetching from multiple sources in parallel
+        const fetchPromises = [];
 
-        if (fetchedJobs.length > 0) {
-          setJobs(fetchedJobs);
-          setSelectedJob(fetchedJobs[0]);
+        // Fetch from Remotive API
+        fetchPromises.push(
+          fetch(JOB_APIS.REMOTIVE)
+            .then(res => res.json())
+            .then(data => parseRemotiveJobs(data))
+            .catch(err => {
+              console.warn('Remotive API failed:', err);
+              return [];
+            })
+        );
+
+        // Fetch from Arbeitnow API
+        fetchPromises.push(
+          fetch(JOB_APIS.ARBEITNOW)
+            .then(res => res.json())
+            .then(data => parseArbeitnowJobs(data))
+            .catch(err => {
+              console.warn('Arbeitnow API failed:', err);
+              return [];
+            })
+        );
+
+        // Wait for all API calls to complete
+        const results = await Promise.all(fetchPromises);
+
+        // Combine all jobs from different sources
+        allJobs = results.flat();
+
+        if (allJobs.length > 0) {
+          // Shuffle jobs to mix different sources
+          const shuffledJobs = allJobs.sort(() => Math.random() - 0.5);
+          setJobs(shuffledJobs);
+          setSelectedJob(shuffledJobs[0]);
+          console.log(`Successfully loaded ${shuffledJobs.length} real-time jobs`);
         } else {
           // Fallback to sample data if no jobs found
+          console.warn('No jobs fetched from APIs, using sample data');
+          setError('Could not fetch real-time jobs. Showing sample opportunities.');
           setJobs(sampleJobs);
           setSelectedJob(sampleJobs[0]);
         }
       } catch (err) {
         console.error('Error fetching jobs:', err);
-        setError('Failed to load jobs. Showing sample data.');
+        setError('Failed to load real-time jobs. Showing sample opportunities.');
         setJobs(sampleJobs);
         setSelectedJob(sampleJobs[0]);
       } finally {
@@ -286,6 +313,11 @@ const JobUpdates: React.FC = () => {
     };
 
     fetchJobs();
+
+    // Auto-refresh jobs every 5 minutes (optional)
+    const refreshInterval = setInterval(fetchJobs, 5 * 60 * 1000);
+
+    return () => clearInterval(refreshInterval);
   }, []);
 
   const filteredJobs = selectedCategory === 'All Jobs'
