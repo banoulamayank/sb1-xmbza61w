@@ -1,26 +1,15 @@
 import React, { useState } from 'react';
 import { Video, Play, Filter } from 'lucide-react';
-
-interface VideoItem {
-  id: string;
-  title: string;
-  description: string;
-  youtubeId: string; // YouTube video ID (the part after v= in the URL)
-  category: string;
-  duration: string;
-  thumbnail?: string; // Optional custom thumbnail
-}
+import { aiLoopVideos, videoCategories as importedCategories, VideoItem } from '../data/aiLoopVideos';
 
 const VideoTutorials = () => {
-  // Define your video categories
-  const categories = ['All', 'ChatGPT Tutorials', 'Google Gemini Tutorials', 'AI Roadmap', 'Video Generation Tools', 'Image Generation Tools', 'Productivity Tutorials'];
+  // Use categories from data file
+  const categories = importedCategories;
 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  // Add your YouTube videos here
-  // To get the YouTube ID: from https://www.youtube.com/watch?v=dQw4w9WgXcQ
-  // the ID is: dQw4w9WgXcQ
-  const videos: VideoItem[] = [
+  // Manual videos (kept for reference or additional videos not from AI Loop)
+  const manualVideos: VideoItem[] = [
     {
       id: '1',
       title: 'ChatGPT Image Generator Model - Image 1.5 2026',
@@ -136,10 +125,21 @@ const VideoTutorials = () => {
     // Add more videos as needed
   ];
 
+  // Merge AI Loop videos with manual videos (AI Loop videos take priority)
+  // Remove duplicates based on youtubeId
+  const allVideos: VideoItem[] = [...aiLoopVideos];
+
+  // Add manual videos that are not already in AI Loop videos
+  manualVideos.forEach(manualVideo => {
+    if (!allVideos.find(v => v.youtubeId === manualVideo.youtubeId)) {
+      allVideos.push(manualVideo);
+    }
+  });
+
   // Filter videos based on selected category
   const filteredVideos = selectedCategory === 'All'
-    ? videos
-    : videos.filter(video => video.category === selectedCategory);
+    ? allVideos
+    : allVideos.filter(video => video.category === selectedCategory);
 
   return (
     <section id="tutorials" className="py-20 px-6 bg-gray-50">
