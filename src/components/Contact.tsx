@@ -139,7 +139,12 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 mb-1">Email</div>
-                    <div className="text-gray-600">connectwithailoop@gmail.com</div>
+                    <a
+                      href="mailto:connectwithailoop@gmail.com"
+                      className="text-gray-600 hover:text-cyan-600 transition-colors cursor-pointer"
+                    >
+                      connectwithailoop@gmail.com
+                    </a>
                   </div>
                 </div>
 
@@ -149,7 +154,12 @@ const Contact = () => {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 mb-1">Phone</div>
-                    <div className="text-gray-600">+91 7701922376</div>
+                    <a
+                      href="tel:+917701922376"
+                      className="text-gray-600 hover:text-cyan-600 transition-colors cursor-pointer"
+                    >
+                      +91 7701922376
+                    </a>
                   </div>
                 </div>
 
