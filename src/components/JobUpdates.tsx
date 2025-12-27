@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Briefcase, MapPin, Clock, DollarSign, Building2, ExternalLink, Loader2, Search } from 'lucide-react';
+import { Briefcase, MapPin, Clock, DollarSign, Building2, ExternalLink, Loader2, Search, Youtube, GraduationCap } from 'lucide-react';
 
 interface Job {
   id: string;
@@ -702,6 +702,42 @@ const JobUpdates: React.FC = () => {
                   </p>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+
+        {/* Upskilling Section */}
+        <div className="max-w-7xl mx-auto mt-16">
+          <div className="bg-gradient-to-r from-red-50 via-orange-50 to-yellow-50 rounded-3xl shadow-xl p-8 md:p-12 border-2 border-red-100">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="flex-1 text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-orange-500 rounded-full flex items-center justify-center animate-pulse-slow">
+                    <GraduationCap className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                    Not Ready for a Job Yet?
+                  </h2>
+                </div>
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-2">
+                  Want to upskill and boost your career prospects?
+                </p>
+                <p className="text-base text-gray-600">
+                  Learn from industry experts with our comprehensive video tutorials covering AI, technology, and professional development.
+                </p>
+              </div>
+              <div className="flex-shrink-0">
+                <a
+                  href="https://www.youtube.com/@AILooop"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-600 to-red-500 text-white text-lg font-bold rounded-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                >
+                  <Youtube className="w-6 h-6 group-hover:animate-pulse" />
+                  Visit Our YouTube Channel
+                  <ExternalLink className="w-5 h-5" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
