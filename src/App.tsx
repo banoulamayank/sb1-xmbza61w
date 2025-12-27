@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import VideoTutorialsPage from './pages/VideoTutorialsPage';
 import ArticlesPage from './pages/ArticlesPage';
+import JobUpdatesPage from './pages/JobUpdatesPage';
 
 // Component to handle scrolling to hash anchors
 function ScrollToHash() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/video-tutorials" element={<VideoTutorialsPage />} />
           <Route path="/articles" element={<ArticlesPage />} />
+          <Route path="/job-updates" element={<JobUpdatesPage />} />
         </Routes>
         <Footer />
       </div>
