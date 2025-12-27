@@ -192,7 +192,46 @@ const parseRemotiveJobs = (data: any): Job[] => {
 
   return data.jobs.slice(0, 20).map((job: any, index: number) => {
     const description = job.description || 'No description available';
-    const cleanDescription = description.replace(/<[^>]*>/g, '').substring(0, 300) + '...';
+
+    // Clean HTML and format description - show full content
+    const cleanDescription = description
+      .replace(/<[^>]*>/g, ' ')  // Remove HTML tags
+      .replace(/&nbsp;/g, ' ')   // Remove &nbsp;
+      .replace(/\s+/g, ' ')      // Normalize whitespace
+      .trim();
+
+    // Extract requirements from description if available
+    const requirementsMatch = cleanDescription.match(/requirements?:(.+?)(?:responsibilities|qualifications|what we offer|benefits|about|$)/is);
+    const responsibilitiesMatch = cleanDescription.match(/responsibilities:(.+?)(?:requirements|qualifications|what we offer|benefits|about|$)/is);
+
+    // Parse requirements
+    let requirements = ['Remote work experience preferred', 'Strong communication skills'];
+    if (requirementsMatch) {
+      const reqText = requirementsMatch[1];
+      const reqList = reqText
+        .split(/[•\n-]/)
+        .map(r => r.trim())
+        .filter(r => r.length > 10 && r.length < 200)
+        .slice(0, 6);
+      if (reqList.length > 0) requirements = reqList;
+    }
+
+    // Parse responsibilities
+    let responsibilities = ['See full job posting for detailed responsibilities'];
+    if (responsibilitiesMatch) {
+      const respText = responsibilitiesMatch[1];
+      const respList = respText
+        .split(/[•\n-]/)
+        .map(r => r.trim())
+        .filter(r => r.length > 10 && r.length < 200)
+        .slice(0, 6);
+      if (respList.length > 0) responsibilities = respList;
+    }
+
+    // Get a good preview of the description (first 800 chars for detail view)
+    const descriptionPreview = cleanDescription.length > 800
+      ? cleanDescription.substring(0, 800) + '...'
+      : cleanDescription;
 
     return {
       id: `remotive-${job.id || index}`,
@@ -203,15 +242,9 @@ const parseRemotiveJobs = (data: any): Job[] => {
       salary: job.salary || undefined,
       postedDate: job.publication_date ? new Date(job.publication_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
       category: job.category || categorizeJob(job.title || '', description),
-      description: cleanDescription,
-      requirements: [
-        'Check job posting for detailed requirements',
-        'Remote work experience preferred',
-        'Strong communication skills'
-      ],
-      responsibilities: [
-        'Check job posting for detailed responsibilities'
-      ],
+      description: descriptionPreview,
+      requirements: requirements,
+      responsibilities: responsibilities,
       applicationUrl: job.url || `https://remotive.com/remote-jobs/${job.slug || ''}`,
     };
   });
@@ -223,7 +256,49 @@ const parseArbeitnowJobs = (data: any): Job[] => {
 
   return data.data.slice(0, 20).map((job: any, index: number) => {
     const description = job.description || 'No description available';
-    const cleanDescription = description.replace(/<[^>]*>/g, '').substring(0, 300) + '...';
+
+    // Clean HTML and format description - show full content
+    const cleanDescription = description
+      .replace(/<[^>]*>/g, ' ')  // Remove HTML tags
+      .replace(/&nbsp;/g, ' ')   // Remove &nbsp;
+      .replace(/\s+/g, ' ')      // Normalize whitespace
+      .trim();
+
+    // Extract requirements from description if available
+    const requirementsMatch = cleanDescription.match(/requirements?:(.+?)(?:responsibilities|qualifications|what we offer|benefits|about|$)/is);
+    const responsibilitiesMatch = cleanDescription.match(/responsibilities:(.+?)(?:requirements|qualifications|what we offer|benefits|about|$)/is);
+    const qualificationsMatch = cleanDescription.match(/qualifications?:(.+?)(?:responsibilities|requirements|what we offer|benefits|about|$)/is);
+
+    // Parse requirements - try tags first, then extract from description
+    let requirements = ['See job posting for detailed requirements'];
+    if (job.tags && job.tags.length > 0) {
+      requirements = job.tags.slice(0, 6);
+    } else if (requirementsMatch || qualificationsMatch) {
+      const reqText = (requirementsMatch || qualificationsMatch)?.[1] || '';
+      const reqList = reqText
+        .split(/[•\n-]/)
+        .map(r => r.trim())
+        .filter(r => r.length > 10 && r.length < 200)
+        .slice(0, 6);
+      if (reqList.length > 0) requirements = reqList;
+    }
+
+    // Parse responsibilities
+    let responsibilities = ['See full job posting for detailed responsibilities'];
+    if (responsibilitiesMatch) {
+      const respText = responsibilitiesMatch[1];
+      const respList = respText
+        .split(/[•\n-]/)
+        .map(r => r.trim())
+        .filter(r => r.length > 10 && r.length < 200)
+        .slice(0, 6);
+      if (respList.length > 0) responsibilities = respList;
+    }
+
+    // Get a good preview of the description (first 800 chars for detail view)
+    const descriptionPreview = cleanDescription.length > 800
+      ? cleanDescription.substring(0, 800) + '...'
+      : cleanDescription;
 
     return {
       id: `arbeitnow-${job.slug || index}`,
@@ -234,9 +309,9 @@ const parseArbeitnowJobs = (data: any): Job[] => {
       salary: undefined,
       postedDate: job.created_at ? new Date(job.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Recently',
       category: categorizeJob(job.title || '', description),
-      description: cleanDescription,
-      requirements: job.tags?.slice(0, 5) || ['Check job posting for requirements'],
-      responsibilities: ['Check job posting for detailed responsibilities'],
+      description: descriptionPreview,
+      requirements: requirements,
+      responsibilities: responsibilities,
       applicationUrl: job.url || 'https://arbeitnow.com',
     };
   });
@@ -536,8 +611,26 @@ const JobUpdates: React.FC = () => {
                     </ul>
                   </div>
 
+                  {/* Apply Button - Bottom */}
+                  {selectedJob.applicationUrl && (
+                    <div className="mb-6 pb-6 border-b border-gray-200">
+                      <a
+                        href={selectedJob.applicationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white text-lg rounded-xl font-bold hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                      >
+                        Apply for this Position
+                        <ExternalLink className="w-6 h-6 ml-2" />
+                      </a>
+                      <p className="text-center text-sm text-gray-500 mt-3">
+                        You'll be redirected to the job posting to complete your application
+                      </p>
+                    </div>
+                  )}
+
                   {/* Google Jobs Integration Placeholder */}
-                  <div className="mt-8 p-6 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl border border-blue-200">
+                  <div className="mt-4 p-6 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl border border-blue-200">
                     <p className="text-sm text-gray-600 mb-3">
                       Find more jobs on Google:
                     </p>
