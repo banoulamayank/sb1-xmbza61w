@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Calendar, Eye } from 'lucide-react';
+import { BookOpen, Calendar, Eye, Search, X } from 'lucide-react';
 import ArticleModal from './ArticleModal';
 import { fullArticles, FullArticle } from '../data/allArticles';
 
@@ -17,10 +17,25 @@ export default function Articles() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedArticle, setSelectedArticle] = useState<FullArticle | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredArticles = selectedCategory === 'All'
+  // Filter by category first
+  const categoryFilteredArticles = selectedCategory === 'All'
     ? fullArticles
     : fullArticles.filter(article => article.category === selectedCategory);
+
+  // Then filter by search query
+  const filteredArticles = searchQuery.trim() === ''
+    ? categoryFilteredArticles
+    : categoryFilteredArticles.filter(article => {
+        const query = searchQuery.toLowerCase();
+        return (
+          article.title.toLowerCase().includes(query) ||
+          article.description.toLowerCase().includes(query) ||
+          article.category.toLowerCase().includes(query) ||
+          (article.type && article.type.toLowerCase().includes(query))
+        );
+      });
 
   const getArticleCountByCategory = (category: string) => {
     if (category === 'All') return fullArticles.length;
@@ -192,7 +207,36 @@ export default function Articles() {
 
           {/* Main Content - Articles */}
           <main className="flex-1">
-            {selectedCategory === 'All' ? (
+            {/* Search Bar */}
+            <div className="mb-8">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Search className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search articles by title, description, or category..."
+                  className="w-full pl-12 pr-12 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 shadow-sm"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                )}
+              </div>
+              {searchQuery && (
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  Found <span className="font-semibold text-blue-600 dark:text-blue-400">{filteredArticles.length}</span> article{filteredArticles.length !== 1 ? 's' : ''} matching "{searchQuery}"
+                </p>
+              )}
+            </div>
+
+            {selectedCategory === 'All' && !searchQuery ? (
               // Show articles grouped by category
               <div className="space-y-12">
                 {categories.slice(1).map((category) => {
@@ -228,21 +272,44 @@ export default function Articles() {
                 })}
               </div>
             ) : (
-              // Show filtered articles for selected category
+              // Show filtered articles for selected category or search results
               <div>
-                <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                    {selectedCategory}
-                  </h2>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''} found
-                  </p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredArticles.map((article) => (
-                    <ArticleCard key={article.id} article={article} />
-                  ))}
-                </div>
+                {!searchQuery && (
+                  <div className="mb-8">
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                      {selectedCategory}
+                    </h2>
+                    <p className="text-gray-500 dark:text-gray-400">
+                      {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''} found
+                    </p>
+                  </div>
+                )}
+                {filteredArticles.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredArticles.map((article) => (
+                      <ArticleCard key={article.id} article={article} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-16">
+                    <Search className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                      No articles found
+                    </h3>
+                    <p className="text-gray-500 dark:text-gray-400 mb-4">
+                      Try adjusting your search query or browse different categories
+                    </p>
+                    <button
+                      onClick={() => {
+                        setSearchQuery('');
+                        setSelectedCategory('All');
+                      }}
+                      className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      Clear Filters
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </main>
