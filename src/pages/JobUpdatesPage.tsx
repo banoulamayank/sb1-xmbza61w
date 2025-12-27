@@ -3,7 +3,7 @@ import JobUpdates from '../components/JobUpdates';
 
 const JobUpdatesPage: React.FC = () => {
   return (
-    <div>
+    <div className="pt-48">
       <JobUpdates />
     </div>
   );
