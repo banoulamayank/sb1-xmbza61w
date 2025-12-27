@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { MessageCircle, X, Send } from 'lucide-react';
+import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
 
 const MyloChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([
     {
       text: "Hey! Welcome to upGrad! 🎓✨\n\nI'm Mylo, your AI assistant. I can help you with:\n• Articles and resources\n• Video tutorials\n• Job updates\n• Career guidance\n• Program information\n\nWhat would you like to explore today?",
@@ -21,26 +22,119 @@ const MyloChatbot: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const getAIResponse = async (userMessage: string, conversationHistory: Array<{ text: string; isUser: boolean }>) => {
+    try {
+      // Build context about the website
+      const websiteContext = `You are Mylo, an AI assistant for upGrad's website. upGrad offers programs from top universities like Liverpool John Moores, Golden Gate, IIIT-B, IMT, MICA, Jindal Global, and many more.
 
-  const handleSendMessage = () => {
-    if (message.trim()) {
-      setMessages([...messages, { text: message, isUser: true }]);
-      setMessage('');
+The website has the following sections:
+1. Articles - Educational articles about career growth, skill development, and industry trends
+2. Video Tutorials - Educational videos covering various topics and skills
+3. Job Updates - Latest job opportunities and career openings
+4. Career Guidance - Help with career transition and growth
 
-      // Simulate AI response
-      setTimeout(() => {
-        setMessages(prev => [...prev, {
-          text: "Thanks for your question! I'm here to help you navigate our website. You can explore our articles, tutorials, and job updates. What specific topic interests you?",
-          isUser: false
-        }]);
-      }, 1000);
+You should help users by:
+- Answering questions about the website content
+- Guiding them to relevant sections
+- Providing career advice
+- Explaining upGrad programs
+- Being friendly, concise, and helpful
+
+Keep responses brief (2-3 sentences max unless explaining something complex).`;
+
+      // Use OpenAI API (more accessible than Claude for most users)
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY || ''}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            { role: 'system', content: websiteContext },
+            ...conversationHistory.slice(-6).map(msg => ({
+              role: msg.isUser ? 'user' : 'assistant',
+              content: msg.text
+            })),
+            { role: 'user', content: userMessage }
+          ],
+          temperature: 0.7,
+          max_tokens: 200,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+
+      const data = await response.json();
+      return data.choices[0]?.message?.content || "I'm here to help! Could you please rephrase your question?";
+    } catch (error) {
+      console.error('Error calling AI API:', error);
+      // Fallback to intelligent static responses
+      return getFallbackResponse(userMessage);
     }
   };
 
-  const handleQuickAction = (action: string) => {
-    setMessages([...messages, { text: action, isUser: true }]);
+  const getFallbackResponse = (userMessage: string) => {
+    const lowerMessage = userMessage.toLowerCase();
 
-    setTimeout(() => {
+    if (lowerMessage.includes('article') || lowerMessage.includes('read') || lowerMessage.includes('blog')) {
+      return "Check out our Articles section for insightful content on career growth, technology trends, and skill development. You can find it in the main navigation menu!";
+    }
+    if (lowerMessage.includes('video') || lowerMessage.includes('tutorial') || lowerMessage.includes('watch')) {
+      return "Our Video Tutorials section has comprehensive learning content covering various topics. Click on 'Video Tutorials' in the menu to explore!";
+    }
+    if (lowerMessage.includes('job') || lowerMessage.includes('career') || lowerMessage.includes('opportunity')) {
+      return "Visit our Job Updates section to find the latest career opportunities. We regularly update it with new openings across different domains!";
+    }
+    if (lowerMessage.includes('program') || lowerMessage.includes('course') || lowerMessage.includes('upgrad')) {
+      return "upGrad offers programs from top universities like Liverpool John Moores, Golden Gate, IIIT-B, IMT, MICA, and Jindal Global. These programs cover various domains to help you upskill. What specific area interests you?";
+    }
+    if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+      return "Hello! I'm Mylo, your upGrad assistant. I can help you find articles, tutorials, job updates, or answer questions about our programs. What are you interested in?";
+    }
+
+    return "I can help you explore our articles, video tutorials, job updates, and programs. What would you like to know more about?";
+  };
+
+  const handleSendMessage = async () => {
+    if (message.trim() && !isLoading) {
+      const userMessage = message.trim();
+      setMessages([...messages, { text: userMessage, isUser: true }]);
+      setMessage('');
+      setIsLoading(true);
+
+      try {
+        const aiResponse = await getAIResponse(userMessage, messages);
+        setMessages(prev => [...prev, {
+          text: aiResponse,
+          isUser: false
+        }]);
+      } catch (error) {
+        setMessages(prev => [...prev, {
+          text: "I'm having trouble connecting right now. Please try asking your question again!",
+          isUser: false
+        }]);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const handleQuickAction = async (action: string) => {
+    setMessages([...messages, { text: action, isUser: true }]);
+    setIsLoading(true);
+
+    try {
+      const aiResponse = await getAIResponse(action, messages);
+      setMessages(prev => [...prev, {
+        text: aiResponse,
+        isUser: false
+      }]);
+    } catch (error) {
+      // Fallback responses for quick actions
       let response = '';
       switch(action) {
         case 'I am looking for career growth/transition':
@@ -56,7 +150,9 @@ const MyloChatbot: React.FC = () => {
           response = "I'm here to help! Let me know what you'd like to explore.";
       }
       setMessages(prev => [...prev, { text: response, isUser: false }]);
-    }, 1000);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -133,10 +229,19 @@ const MyloChatbot: React.FC = () => {
                   </div>
                 </div>
               ))}
+
+              {/* Loading Indicator */}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 px-4 py-3 rounded-2xl rounded-bl-sm">
+                    <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Quick Action Buttons */}
-            {messages.length === 1 && (
+            {messages.length === 1 && !isLoading && (
               <div className="px-6 py-4 space-y-2 border-t border-gray-100">
                 <button
                   onClick={() => handleQuickAction('I am looking for career growth/transition')}
@@ -166,15 +271,21 @@ const MyloChatbot: React.FC = () => {
                   type="text"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                  onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSendMessage()}
                   placeholder="Type your message..."
-                  className="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm"
+                  disabled={isLoading}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm disabled:bg-gray-200 disabled:cursor-not-allowed"
                 />
                 <button
                   onClick={handleSendMessage}
-                  className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white p-3 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                  disabled={isLoading || !message.trim()}
+                  className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white p-3 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
-                  <Send className="w-5 h-5" />
+                  {isLoading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <Send className="w-5 h-5" />
+                  )}
                 </button>
               </div>
             </div>
