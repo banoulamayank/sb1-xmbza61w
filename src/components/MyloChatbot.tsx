@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
+import { fullArticles } from '../data/allArticles';
 
 const MyloChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([
+  const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean; html?: string }>>([
     {
-      text: "Hey! Welcome to upGrad! 🎓✨\n\nI'm Mylo, your AI assistant. I can help you with:\n• Articles and resources\n• Video tutorials\n• Job updates\n• Career guidance\n• Program information\n\nWhat would you like to explore today?",
+      text: "Hey! Welcome to AI Loop! 🎓✨\n\nI'm Mylo, your AI assistant. I can help you with:\n• Articles and resources\n• Video tutorials\n• Job updates\n• AI tools and guides\n• Career guidance\n\nWhat would you like to explore today?",
       isUser: false
     }
   ]);
@@ -22,22 +23,47 @@ const MyloChatbot: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const getAIResponse = async (userMessage: string, conversationHistory: Array<{ text: string; isUser: boolean }>) => {
+  const searchArticles = (query: string) => {
+    const lowerQuery = query.toLowerCase();
+    return fullArticles.filter(article =>
+      article.title.toLowerCase().includes(lowerQuery) ||
+      article.category.toLowerCase().includes(lowerQuery) ||
+      article.description.toLowerCase().includes(lowerQuery) ||
+      article.keywords.some(keyword => keyword.toLowerCase().includes(lowerQuery))
+    );
+  };
+
+  const formatArticlesList = (articles: typeof fullArticles, searchTerm: string) => {
+    if (articles.length === 0) {
+      return `I couldn't find any articles about "${searchTerm}". Try browsing our Articles section to see all available content!`;
+    }
+
+    const articlesList = articles.slice(0, 5).map(article =>
+      `• <a href="/articles#${article.id}" class="text-blue-600 hover:text-blue-800 underline font-medium">${article.title}</a> (${article.readTime})`
+    ).join('\n');
+
+    const total = articles.length;
+    const showing = Math.min(5, total);
+
+    return `I found ${total} article${total > 1 ? 's' : ''} about "${searchTerm}". Here ${showing > 1 ? 'are' : 'is'} ${showing === total ? 'all of them' : `the top ${showing}`}:\n\n${articlesList}${total > 5 ? `\n\nAnd ${total - 5} more! Visit the <a href="/articles" class="text-blue-600 hover:text-blue-800 underline">Articles page</a> to see all.` : ''}`;
+  };
+
+  const getAIResponse = async (userMessage: string, conversationHistory: Array<{ text: string; isUser: boolean; html?: string }>) => {
     try {
       // Build context about the website
-      const websiteContext = `You are Mylo, an AI assistant for upGrad's website. upGrad offers programs from top universities like Liverpool John Moores, Golden Gate, IIIT-B, IMT, MICA, Jindal Global, and many more.
+      const websiteContext = `You are Mylo, an AI assistant for AI Loop's website. AI Loop is a platform focused on AI education and tutorials.
 
 The website has the following sections:
-1. Articles - Educational articles about career growth, skill development, and industry trends
-2. Video Tutorials - Educational videos covering various topics and skills
-3. Job Updates - Latest job opportunities and career openings
-4. Career Guidance - Help with career transition and growth
+1. Articles - Educational articles about AI tools, ChatGPT, Google Gemini, career growth, and AI trends
+2. Video Tutorials - YouTube videos covering ChatGPT, Google Gemini, AI tools, and productivity
+3. Job Updates - Latest job opportunities in tech and AI fields
+4. AI Tools & Guides - Resources for learning AI technologies
 
 You should help users by:
-- Answering questions about the website content
-- Guiding them to relevant sections
+- Answering questions about AI and the website content
+- Guiding them to relevant articles and tutorials
 - Providing career advice
-- Explaining upGrad programs
+- Helping them find specific content
 - Being friendly, concise, and helpful
 
 Keep responses brief (2-3 sentences max unless explaining something complex).`;
@@ -80,23 +106,29 @@ Keep responses brief (2-3 sentences max unless explaining something complex).`;
   const getFallbackResponse = (userMessage: string) => {
     const lowerMessage = userMessage.toLowerCase();
 
-    if (lowerMessage.includes('article') || lowerMessage.includes('read') || lowerMessage.includes('blog')) {
-      return "Check out our Articles section for insightful content on career growth, technology trends, and skill development. You can find it in the main navigation menu!";
-    }
-    if (lowerMessage.includes('video') || lowerMessage.includes('tutorial') || lowerMessage.includes('watch')) {
-      return "Our Video Tutorials section has comprehensive learning content covering various topics. Click on 'Video Tutorials' in the menu to explore!";
-    }
-    if (lowerMessage.includes('job') || lowerMessage.includes('career') || lowerMessage.includes('opportunity')) {
-      return "Visit our Job Updates section to find the latest career opportunities. We regularly update it with new openings across different domains!";
-    }
-    if (lowerMessage.includes('program') || lowerMessage.includes('course') || lowerMessage.includes('upgrad')) {
-      return "upGrad offers programs from top universities like Liverpool John Moores, Golden Gate, IIIT-B, IMT, MICA, and Jindal Global. These programs cover various domains to help you upskill. What specific area interests you?";
-    }
-    if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
-      return "Hello! I'm Mylo, your upGrad assistant. I can help you find articles, tutorials, job updates, or answer questions about our programs. What are you interested in?";
+    // Check for specific article searches (e.g., "ChatGPT articles", "Gemini tutorials")
+    const searchTerms = ['chatgpt', 'gemini', 'midjourney', 'ai', 'prompt', 'sora', 'dalle', 'stable diffusion', 'leonardo'];
+    for (const term of searchTerms) {
+      if (lowerMessage.includes(term) && (lowerMessage.includes('article') || lowerMessage.includes('about') || lowerMessage.includes('guide'))) {
+        const results = searchArticles(term);
+        return formatArticlesList(results, term);
+      }
     }
 
-    return "I can help you explore our articles, video tutorials, job updates, and programs. What would you like to know more about?";
+    if (lowerMessage.includes('article') || lowerMessage.includes('read') || lowerMessage.includes('blog')) {
+      return "Check out our Articles section for insightful content on AI tools, ChatGPT, Google Gemini, and more. You can find it in the main navigation menu! Try asking me about specific topics like 'ChatGPT articles' or 'Gemini guides'.";
+    }
+    if (lowerMessage.includes('video') || lowerMessage.includes('tutorial') || lowerMessage.includes('watch')) {
+      return "Our <a href='/video-tutorials' class='text-blue-600 hover:text-blue-800 underline'>Video Tutorials section</a> has comprehensive learning content from our AI Loop YouTube channel. Explore tutorials on ChatGPT, Google Gemini, AI tools, and more!";
+    }
+    if (lowerMessage.includes('job') || lowerMessage.includes('career') || lowerMessage.includes('opportunity')) {
+      return "Visit our <a href='/job-updates' class='text-blue-600 hover:text-blue-800 underline'>Job Updates section</a> to find the latest career opportunities in tech and AI fields. We regularly update it with new openings!";
+    }
+    if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+      return "Hello! I'm Mylo, your AI Loop assistant. I can help you find articles, tutorials, job updates, or answer questions about AI tools. Try asking 'Show me ChatGPT articles' or 'Find Gemini tutorials'!";
+    }
+
+    return "I can help you explore our articles, video tutorials, and job updates. Try asking me things like:<br>• 'Show me ChatGPT articles'<br>• 'Find Gemini guides'<br>• 'What articles do you have?'";
   };
 
   const handleSendMessage = async () => {
@@ -108,9 +140,11 @@ Keep responses brief (2-3 sentences max unless explaining something complex).`;
 
       try {
         const aiResponse = await getAIResponse(userMessage, messages);
+        const hasHTML = aiResponse.includes('<a ') || aiResponse.includes('<br');
         setMessages(prev => [...prev, {
           text: aiResponse,
-          isUser: false
+          isUser: false,
+          html: hasHTML ? aiResponse : undefined
         }]);
       } catch (error) {
         setMessages(prev => [...prev, {
@@ -129,27 +163,38 @@ Keep responses brief (2-3 sentences max unless explaining something complex).`;
 
     try {
       const aiResponse = await getAIResponse(action, messages);
+      const hasHTML = aiResponse.includes('<a ') || aiResponse.includes('<br');
       setMessages(prev => [...prev, {
         text: aiResponse,
-        isUser: false
+        isUser: false,
+        html: hasHTML ? aiResponse : undefined
       }]);
     } catch (error) {
       // Fallback responses for quick actions
       let response = '';
+      let hasHTML = false;
       switch(action) {
         case 'I am looking for career growth/transition':
-          response = "Great! We have comprehensive resources for career growth. Check out our articles section for career tips, our video tutorials for skill development, and job updates for opportunities. Which area would you like to explore first?";
+          response = "Great! We have resources for career growth. Check out our <a href='/articles' class='text-blue-600 hover:text-blue-800 underline'>articles</a> for career tips, <a href='/video-tutorials' class='text-blue-600 hover:text-blue-800 underline'>video tutorials</a> for skill development, and <a href='/job-updates' class='text-blue-600 hover:text-blue-800 underline'>job updates</a> for opportunities!";
+          hasHTML = true;
           break;
-        case 'Learn about upGrad programs':
-          response = "We offer programs from top universities like Liverpool John Moores, Golden Gate, IIIT-B, IMT, MICA, Jindal Global, and many more. Our programs cover various domains to help you upskill. Would you like to know about any specific domain?";
+        case 'Show me ChatGPT articles':
+          const chatgptArticles = searchArticles('chatgpt');
+          response = formatArticlesList(chatgptArticles, 'ChatGPT');
+          hasHTML = true;
           break;
         case 'I am just exploring':
-          response = "Perfect! Feel free to browse through our articles for insights, video tutorials for learning, and job updates for opportunities. Is there anything specific you'd like to know about?";
+          response = "Perfect! Feel free to browse through our <a href='/articles' class='text-blue-600 hover:text-blue-800 underline'>articles</a>, <a href='/video-tutorials' class='text-blue-600 hover:text-blue-800 underline'>video tutorials</a>, and <a href='/job-updates' class='text-blue-600 hover:text-blue-800 underline'>job updates</a>. What topic interests you?";
+          hasHTML = true;
           break;
         default:
           response = "I'm here to help! Let me know what you'd like to explore.";
       }
-      setMessages(prev => [...prev, { text: response, isUser: false }]);
+      setMessages(prev => [...prev, {
+        text: response,
+        isUser: false,
+        html: hasHTML ? response : undefined
+      }]);
     } finally {
       setIsLoading(false);
     }
@@ -225,7 +270,14 @@ Keep responses brief (2-3 sentences max unless explaining something complex).`;
                         : 'bg-gray-100 text-gray-800 rounded-bl-sm'
                     }`}
                   >
-                    <p className="text-sm whitespace-pre-line">{msg.text}</p>
+                    {msg.html ? (
+                      <div
+                        className="text-sm whitespace-pre-line"
+                        dangerouslySetInnerHTML={{ __html: msg.html }}
+                      />
+                    ) : (
+                      <p className="text-sm whitespace-pre-line">{msg.text}</p>
+                    )}
                   </div>
                 </div>
               ))}
@@ -250,10 +302,10 @@ Keep responses brief (2-3 sentences max unless explaining something complex).`;
                   I am looking for career growth/transition
                 </button>
                 <button
-                  onClick={() => handleQuickAction('Learn about upGrad programs')}
+                  onClick={() => handleQuickAction('Show me ChatGPT articles')}
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-full text-sm font-medium text-gray-800 hover:border-blue-600 hover:text-blue-600 transition-all duration-300"
                 >
-                  Learn about upGrad programs
+                  Show me ChatGPT articles
                 </button>
                 <button
                   onClick={() => handleQuickAction('I am just exploring')}
