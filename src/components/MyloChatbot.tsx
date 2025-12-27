@@ -21,17 +21,6 @@ const MyloChatbot: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -96,13 +85,10 @@ const MyloChatbot: React.FC = () => {
         </button>
       </div>
 
-      {/* Chat Modal */}
+      {/* Chat Popup */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end md:items-center justify-center p-4">
-          <div
-            className="bg-white rounded-3xl shadow-2xl w-full max-w-md max-h-[80vh] md:max-h-[600px] flex flex-col overflow-hidden transform transition-all duration-300"
-            onClick={(e) => e.stopPropagation()}
-          >
+        <div className="fixed bottom-24 right-4 md:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] md:w-[400px]">
+          <div className="bg-white rounded-3xl shadow-2xl h-[500px] md:h-[550px] flex flex-col overflow-hidden transform transition-all duration-300">
             {/* Header */}
             <div className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-6 py-4 flex items-center justify-between rounded-t-3xl">
               <div className="flex items-center gap-3">
