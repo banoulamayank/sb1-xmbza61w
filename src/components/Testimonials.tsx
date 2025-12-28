@@ -9,75 +9,99 @@ const Testimonials = () => {
   const testimonials = [
     {
       name: 'Ratnam Sirsat',
-      role: 'Software Engineer',
+      role: 'AI Engineer',
       company: 'Tech Innovations',
       rating: 5,
       image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
-      text: 'The video tutorials are crystal clear and easy to follow! Each concept is explained step-by-step with real coding examples. I can pause, rewind, and learn at my own pace. Absolutely love it!'
+      text: 'The ChatGPT and AI tutorials are incredibly detailed! The way complex AI concepts are broken down makes it so easy to understand. I\'ve implemented AI agents in my projects thanks to these videos!'
     },
     {
       name: 'Kaushal Bisht',
-      role: 'Data Scientist',
-      company: 'Analytics Pro',
+      role: 'Machine Learning Engineer',
+      company: 'AI Research Lab',
       rating: 5,
       image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
-      text: 'These video tutorials are a game-changer! The visual explanations make complex AI concepts so much easier to understand. The instructor\'s teaching style is engaging and practical.'
+      text: 'These AI and ML tutorials are game-changers! The Google Gemini and image generation tool tutorials helped me understand generative AI deeply. Highly practical and industry-relevant!'
     },
     {
       name: 'Shiwani Jha',
-      role: 'Full Stack Developer',
-      company: 'Digital Solutions',
+      role: 'Gen AI Developer',
+      company: 'Digital AI Solutions',
       rating: 5,
       image: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
-      text: 'Best video tutorials I\'ve ever watched! The production quality is excellent, and the content is perfectly structured. I learned full-stack development from scratch with these videos.'
+      text: 'Best Gen AI tutorials ever! The video generation tools and ChatGPT deep-dives are exactly what I needed. Crystal clear explanations with real-world applications. Absolutely amazing!'
     },
     {
       name: 'Anubhav Sharma',
-      role: 'ML Engineer',
-      company: 'AI Dynamics',
+      role: 'AI/ML Freelancer',
+      company: 'Independent Consultant',
       rating: 5,
       image: 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
-      text: 'The video quality and audio are top-notch! Every tutorial is well-organized with clear objectives. I appreciate how each video builds upon the previous one. Highly recommended!'
+      text: 'As a freelancer, these tutorials are gold! The productivity tools and AI automation videos helped me streamline my workflow. I\'ve landed multiple Gen AI projects using what I learned here!'
     },
     {
       name: 'Aditya Chamoli',
-      role: 'Backend Developer',
-      company: 'Cloud Systems',
+      role: 'Computer Science Student',
+      company: 'IIT Delhi',
       rating: 5,
       image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
-      text: 'These tutorials are incredibly detailed yet easy to digest. The instructor explains everything thoroughly with live coding sessions. I can watch and code along simultaneously!'
+      text: 'These tutorials made AI accessible for students like me! The AI roadmap videos helped me chart my learning path. The explanations are beginner-friendly yet comprehensive!'
     },
     {
       name: 'Sagar Bisht',
-      role: 'DevOps Engineer',
-      company: 'Infrastructure Inc',
+      role: 'MLOps Engineer',
+      company: 'Cloud AI Systems',
       rating: 5,
       image: 'https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
-      text: 'Perfect for visual learners like me! The video tutorials break down complicated topics into bite-sized, understandable chunks. The examples are practical and industry-relevant.'
+      text: 'Perfect for implementing production AI systems! The tutorials on Google Gemini and ChatGPT integration are top-notch. I use these techniques daily in my MLOps work!'
     },
     {
       name: 'Mrityunjay Joshi',
-      role: 'Data Analyst',
-      company: 'Insights Corp',
+      role: 'Data Science Student',
+      company: 'University of Mumbai',
       rating: 5,
       image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
-      text: 'Amazing video content! The tutorials are comprehensive and the instructor\'s explanations are crystal clear. I finally understand data science concepts that seemed impossible before.'
+      text: 'Amazing AI content for students! The image generation and video AI tutorials opened up a whole new world for me. The step-by-step approach is perfect for learning!'
     },
     {
       name: 'Bhumitra Nayal',
-      role: 'Frontend Developer',
-      company: 'Creative Digital',
+      role: 'Gen AI Specialist',
+      company: 'Creative AI Studio',
       rating: 5,
       image: 'https://images.pexels.com/photos/1212984/pexels-photo-1212984.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
-      text: 'The best investment in my learning journey! These video tutorials are professionally made with excellent pacing. The real-world projects helped me build a strong portfolio.'
+      text: 'The best investment in my Gen AI journey! The Midjourney, DALL-E, and video generation tutorials are professionally made. I\'ve created stunning AI art using these techniques!'
     },
     {
       name: 'Hari Shankar',
-      role: 'UI/UX Designer',
-      company: 'Design Studio',
+      role: 'AI Product Manager',
+      company: 'Tech Startup',
       rating: 5,
       image: 'https://images.pexels.com/photos/1933873/pexels-photo-1933873.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
-      text: 'Outstanding video tutorials with practical examples! The visual demonstrations make learning design principles and coding so much easier. I can\'t recommend these enough!'
+      text: 'Outstanding AI tutorials with practical examples! As a PM, these videos help me understand the technical aspects of AI products. The ChatGPT and Gemini comparisons are invaluable!'
+    },
+    {
+      name: 'Priya Mehta',
+      role: 'AI Research Student',
+      company: 'Stanford University',
+      rating: 5,
+      image: 'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
+      text: 'These tutorials bridge the gap between research and practical AI! The AI agents and automation videos are exactly what students need. Clear, concise, and cutting-edge content!'
+    },
+    {
+      name: 'Vikram Singh',
+      role: 'Gen AI Freelancer',
+      company: 'Independent Creator',
+      rating: 5,
+      image: 'https://images.pexels.com/photos/2787341/pexels-photo-2787341.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
+      text: 'As a freelance AI developer, these tutorials are my go-to resource! The productivity and automation content saves me hours. The quality is unmatched in the Gen AI space!'
+    },
+    {
+      name: 'Sneha Reddy',
+      role: 'ML Engineering Intern',
+      company: 'Microsoft',
+      rating: 5,
+      image: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop',
+      text: 'These videos helped me land my ML internship! The Google Gemini and ChatGPT tutorials prepared me for technical interviews. The content is industry-standard and highly practical!'
     }
   ];
 
