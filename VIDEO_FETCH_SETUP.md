@@ -1,75 +1,110 @@
-# AI Loop YouTube Video Auto-Fetch Setup
+# AI Loop YouTube Video Auto-Fetch Setup (Playlist-Based)
 
-This guide explains how to automatically fetch and display videos from the AI Loop YouTube channel in your video tutorials section.
+This guide explains how to automatically fetch and display videos from the AI Loop YouTube channel based on playlists.
 
-## Features
+## 🎯 Features
 
-✅ **Automatic Video Fetching** - Fetches all videos from AI Loop YouTube channel
+✅ **Playlist-Based Categorization** - Videos are categorized by their YouTube playlists
+✅ **Automatic Updates** - Upload videos to playlists on YouTube, run script to update website
 ✅ **Shorts Filtering** - Automatically excludes YouTube Shorts (videos < 60 seconds)
-✅ **Smart Categorization** - Categorizes videos based on title keywords
-✅ **No Duplicates** - Merges with manual videos and removes duplicates
-✅ **Fresh Content** - Run the script anytime to get latest videos
+✅ **No Duplicates** - Handles videos in multiple playlists intelligently
+✅ **Fresh Content** - Run the script anytime to sync with your YouTube channel
 
-## How It Works
+## 🔄 How It Works
+
+### The Workflow
+
+```
+YouTube Channel → Playlists → Videos → Website
+```
+
+1. **Upload video to YouTube** - Add your new video to the AI Loop channel
+2. **Add to playlist** - Place the video in the appropriate playlist (e.g., "ChatGPT Tutorials")
+3. **Run fetch script** - Execute `npm run fetch-videos`
+4. **Automatic categorization** - Video appears in the correct category on your website
+
+### System Components
 
 1. **fetchYouTubeVideos.cjs** - Node.js script that:
-   - Fetches all videos from AI Loop channel using YouTube Data API
+   - Fetches all playlists from AI Loop channel using YouTube Data API
+   - For each playlist, fetches all videos
+   - Maps playlist names to website categories
    - Filters out shorts (videos less than 60 seconds)
-   - Categorizes videos automatically based on title keywords
+   - Removes duplicate videos (if in multiple playlists)
    - Generates TypeScript data file with all videos
 
 2. **src/data/aiLoopVideos.ts** - Auto-generated data file containing:
-   - Array of all fetched videos
-   - Video metadata (title, description, duration, category)
+   - Array of all fetched videos with metadata
+   - Video information (title, description, duration, category, playlist)
    - Video categories list
 
-3. **src/components/VideoTutorials.tsx** - Component that:
+3. **src/components/VideoTutorials.tsx** - React component that:
    - Imports AI Loop videos automatically
    - Merges with any manual videos
    - Displays videos with filtering by category
 
-## Category Mapping
+## 📂 Playlist to Category Mapping
 
-Videos are automatically categorized based on these keywords in their titles:
+Videos are automatically categorized based on which playlist they belong to:
 
-| Category | Keywords |
-|----------|----------|
-| **ChatGPT Tutorials** | chatgpt, gpt, openai, chat gpt |
-| **Google Gemini Tutorials** | gemini, google, bard, firebase, veo |
-| **AI Roadmap** | roadmap, guide, learn, beginner, tutorial, course |
-| **Video Generation Tools** | video, veo, sora, gen-2, runway, heygen, synthesis |
-| **Image Generation Tools** | image, dall-e, midjourney, stable diffusion, imagen, picture, art |
-| **Productivity Tutorials** | productivity, workflow, automation, tool, app, efficiency |
+| Website Category | YouTube Playlist Name Contains |
+|-----------------|-------------------------------|
+| **ChatGPT Tutorials** | "chatgpt", "gpt", "openai" |
+| **Google Gemini Tutorials** | "gemini", "google", "bard" |
+| **AI Roadmap** | "roadmap", "ai roadmap", "learning path" |
+| **Video Generation Tools** | "video generation", "video ai", "ai video" |
+| **Image Generation Tools** | "image generation", "ai image", "dall-e", "midjourney" |
+| **Productivity Tutorials** | "productivity", "automation", "workflow" |
 
-If no keywords match, videos default to **AI Roadmap** category.
+### How Mapping Works
 
-## Usage
+The script checks each playlist name against the keywords above:
+- Playlist named "ChatGPT Tips and Tricks" → **ChatGPT Tutorials**
+- Playlist named "Google Gemini Features" → **Google Gemini Tutorials**
+- Playlist named "Best AI Video Tools" → **Video Generation Tools**
+- Playlist named "Custom Playlist XYZ" → **AI Roadmap** (default)
 
-### Fetch Videos (One-Time Setup or Updates)
+## 🚀 Usage
 
-Run this command to fetch all latest videos from AI Loop channel:
+### Setup Your YouTube Playlists
+
+1. Go to [YouTube Studio](https://studio.youtube.com/)
+2. Create playlists with names matching the keywords above:
+   - "ChatGPT Tutorials"
+   - "Google Gemini Tutorials"
+   - "AI Roadmap"
+   - "Video Generation Tools"
+   - "Image Generation Tools"
+   - "Productivity Tutorials"
+3. Add videos to the appropriate playlists
+
+### Fetch Videos
+
+Run this command to fetch all latest videos from your playlists:
 
 ```bash
 npm run fetch-videos
 ```
 
-This will:
-1. Connect to YouTube Data API using credentials from `.env`
-2. Fetch all videos from the AI Loop channel
-3. Filter out shorts automatically
-4. Categorize each video based on its title
-5. Generate/update `src/data/aiLoopVideos.ts`
-6. Show statistics about fetched videos
+**What happens:**
+1. ✅ Connects to YouTube Data API using credentials from `.env`
+2. 📂 Fetches all playlists from the AI Loop channel
+3. 📹 For each playlist, fetches all videos
+4. 🏷️ Maps playlist names to website categories
+5. ⏭️ Filters out shorts automatically (< 60 seconds)
+6. ✂️ Removes duplicate videos (same video in multiple playlists)
+7. 💾 Generates/updates `src/data/aiLoopVideos.ts`
+8. 📊 Shows statistics (total videos, by category, by playlist)
 
 ### View Videos on Website
 
-The videos are automatically displayed in the Video Tutorials section:
-- Homepage: Scroll to "Video Tutorials" section
-- Dedicated page: `/tutorials`
-- Filter by category using the category buttons
-- Click any video to watch on YouTube
+Videos automatically appear in the Video Tutorials section:
+- **Homepage**: Scroll to "Video Tutorials" section
+- **Dedicated page**: Navigate to `/tutorials`
+- **Filter by category**: Use category buttons
+- **Watch**: Click any video to watch on YouTube
 
-## Configuration
+## ⚙️ Configuration
 
 ### Environment Variables
 
@@ -82,19 +117,19 @@ VITE_YOUTUBE_CHANNEL_ID=UCm4qtW9GIh8C8sMmKxSlZZA
 
 See [YOUTUBE_SETUP.md](./YOUTUBE_SETUP.md) for detailed YouTube API setup instructions.
 
-### Customizing Categories
+### Customizing Playlist Mapping
 
-To add or modify categories, edit `fetchYouTubeVideos.cjs`:
+To add or modify playlist-to-category mappings, edit `fetchYouTubeVideos.cjs`:
 
 ```javascript
-const categoryKeywords = {
-  'ChatGPT Tutorials': ['chatgpt', 'gpt', 'openai', 'chat gpt'],
+const playlistMapping = {
+  'ChatGPT Tutorials': ['chatgpt', 'gpt', 'openai'],
   'Your New Category': ['keyword1', 'keyword2'],
-  // Add more categories...
+  // Add more mappings...
 };
 ```
 
-Also update the categories in `src/data/aiLoopVideos.ts`:
+**Important:** Also update the categories in `src/data/aiLoopVideos.ts`:
 
 ```typescript
 export const videoCategories = [
@@ -105,32 +140,37 @@ export const videoCategories = [
 ];
 ```
 
-## Manual Videos
+## 📝 Workflow Examples
 
-You can still add manual videos alongside AI Loop videos. Edit `src/components/VideoTutorials.tsx`:
+### Example 1: Adding a New ChatGPT Tutorial
 
-```typescript
-const manualVideos: VideoItem[] = [
-  {
-    id: 'unique-id',
-    title: 'Your Video Title',
-    description: 'Video description',
-    youtubeId: 'YouTube_Video_ID',
-    category: 'ChatGPT Tutorials',
-    duration: '10:30',
-  },
-  // Add more manual videos...
-];
-```
+1. Upload video to YouTube: "ChatGPT 5.3 New Features"
+2. Add to playlist: "ChatGPT Tutorials"
+3. Run: `npm run fetch-videos`
+4. Result: Video appears in "ChatGPT Tutorials" category on website
 
-The component automatically:
-- Merges AI Loop videos with manual videos
-- Removes duplicates (same youtubeId)
-- Prioritizes AI Loop videos over manual videos
+### Example 2: Adding a Video to Multiple Playlists
 
-## Updating Videos
+1. Upload video: "Google Gemini for Productivity"
+2. Add to playlists: "Google Gemini Tutorials" AND "Productivity Tutorials"
+3. Run: `npm run fetch-videos`
+4. Result: Video appears in "Google Gemini Tutorials" only (first match wins, duplicates skipped)
 
-### Regular Updates
+### Example 3: Creating a New Category
+
+1. Edit `fetchYouTubeVideos.cjs`:
+   ```javascript
+   'AI News': ['ai news', 'news', 'updates']
+   ```
+2. Create YouTube playlist: "AI News Weekly"
+3. Add videos to that playlist
+4. Run: `npm run fetch-videos`
+5. Update website UI to show "AI News" category
+6. Result: Videos automatically appear in new category
+
+## 🔄 Regular Updates
+
+### Manual Updates
 
 To keep videos fresh, run the fetch script periodically:
 
@@ -138,98 +178,137 @@ To keep videos fresh, run the fetch script periodically:
 npm run fetch-videos
 ```
 
-### Automated Updates (Optional)
+### Automated Updates (Recommended)
 
-You can automate video fetching by:
+#### Option 1: GitHub Actions (Scheduled)
 
-1. **Adding to build process** - Update `package.json`:
-   ```json
-   "scripts": {
-     "build": "npm run fetch-videos && vite build"
-   }
-   ```
+Create `.github/workflows/update-videos.yml`:
 
-2. **GitHub Actions** - Create `.github/workflows/update-videos.yml`:
-   ```yaml
-   name: Update Videos
-   on:
-     schedule:
-       - cron: '0 0 * * 0'  # Weekly on Sundays
-     workflow_dispatch:  # Manual trigger
+```yaml
+name: Update AI Loop Videos
 
-   jobs:
-     update:
-       runs-on: ubuntu-latest
-       steps:
-         - uses: actions/checkout@v3
-         - uses: actions/setup-node@v3
-         - run: npm run fetch-videos
-         - run: |
-             git config user.name github-actions
-             git config user.email github-actions@github.com
-             git add src/data/aiLoopVideos.ts
-             git commit -m "Update AI Loop videos" || exit 0
-             git push
-   ```
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight
+  workflow_dispatch:  # Allow manual trigger
 
-3. **Vercel Deploy Hook** - Set up a webhook that:
-   - Runs `npm run fetch-videos`
-   - Commits changes
-   - Triggers rebuild
+jobs:
+  update-videos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-## Troubleshooting
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Fetch latest videos
+        env:
+          VITE_YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          VITE_YOUTUBE_CHANNEL_ID: ${{ secrets.YOUTUBE_CHANNEL_ID }}
+        run: npm run fetch-videos
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add src/data/aiLoopVideos.ts
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update AI Loop videos" && git push)
+```
+
+Add secrets to your GitHub repository:
+- `YOUTUBE_API_KEY` - Your YouTube API key
+- `YOUTUBE_CHANNEL_ID` - Your channel ID
+
+#### Option 2: Build-Time Updates
+
+Update `package.json` to fetch videos during build:
+
+```json
+"scripts": {
+  "prebuild": "npm run fetch-videos",
+  "build": "vite build"
+}
+```
+
+**Note:** This increases build time but ensures videos are always fresh on deployment.
+
+#### Option 3: Webhook Trigger
+
+Set up a webhook that:
+1. Triggers when you upload a new video to YouTube
+2. Runs `npm run fetch-videos`
+3. Commits changes
+4. Triggers deployment
+
+## 🛠️ Troubleshooting
 
 ### "YouTube API credentials not configured"
 
+**Solution:**
 - Verify `.env` file exists with correct API key and channel ID
-- Restart your development server after adding env variables
-- See [YOUTUBE_SETUP.md](./YOUTUBE_SETUP.md) for setup instructions
+- Restart development server after adding env variables
+- Check [YOUTUBE_SETUP.md](./YOUTUBE_SETUP.md) for setup instructions
 
 ### "403 Forbidden" or "API Error"
 
+**Solution:**
 - Check YouTube Data API v3 is enabled in Google Cloud Console
 - Verify API key restrictions allow YouTube Data API
 - Check API quota (10,000 units/day default)
-- Ensure API key is not domain-restricted or allows current domain
+- Ensure API key works for playlists and playlistItems endpoints
 
-### No videos appearing
+### "No playlists found in the channel"
 
-- Run `npm run fetch-videos` first to populate data
-- Check `src/data/aiLoopVideos.ts` has videos array with items
-- Verify channel ID is correct (UCm4qtW9GIh8C8sMmKxSlZZA)
-- Check browser console for errors
+**Solution:**
+- Create public playlists in YouTube Studio
+- Ensure playlists are set to "Public" not "Private" or "Unlisted"
+- Wait a few minutes after creating playlists
+- Verify channel ID is correct
 
 ### Videos not categorized correctly
 
-- Review title keywords in `fetchYouTubeVideos.cjs`
-- Add missing keywords for your specific video titles
+**Solution:**
+- Check playlist names match the keywords in `playlistMapping`
+- Update mapping in `fetchYouTubeVideos.cjs` if needed
+- Rename playlists on YouTube to match expected keywords
 - Re-run `npm run fetch-videos` after changes
+
+### Duplicates appearing
+
+**Solution:**
+- The script automatically handles duplicates
+- If same video is in multiple playlists, only first match is used
+- Check console output to see which videos were skipped as duplicates
 
 ### Network errors
 
+**Solution:**
 - Check internet connection
 - Verify googleapis.com is accessible
-- Try running script with delay between API calls
+- Script includes automatic delays between requests
 - Check firewall/proxy settings
 
-## API Quota Management
+## 📊 API Quota Management
 
 YouTube Data API has daily quotas:
 - **Default quota**: 10,000 units/day
-- **Channel search**: ~1 unit per request
-- **Video details**: ~1 unit per request
-- **Typical usage**: ~100-200 units per full fetch
+- **List playlists**: ~1 unit per request
+- **List playlist items**: ~1 unit per request
+- **Get video details**: ~1 unit per request
+- **Typical usage**: 50-200 units per full fetch (depends on playlist count)
 
-The script is designed to:
-- Batch requests efficiently (50 videos per page)
-- Add delays between requests
-- Limit to 10 pages max (500 videos) per run
+The script is optimized to:
+- Batch requests efficiently (50 items per page)
+- Add delays between requests (500ms-1000ms)
+- Minimize redundant API calls
+- Use pagination effectively
 
-## File Structure
+## 📁 File Structure
 
 ```
 .
-├── fetchYouTubeVideos.cjs          # Video fetch script
+├── fetchYouTubeVideos.cjs          # Playlist-based video fetch script
 ├── src/
 │   ├── components/
 │   │   └── VideoTutorials.tsx      # Video display component
@@ -240,18 +319,53 @@ The script is designed to:
 └── VIDEO_FETCH_SETUP.md            # This file
 ```
 
-## Support
+## 💡 Best Practices
+
+1. **Organize playlists clearly**: Use descriptive names matching the categories
+2. **Run fetch regularly**: Set up automated updates (daily or weekly)
+3. **Monitor API quota**: Check usage in Google Cloud Console
+4. **Test before deploying**: Run `npm run fetch-videos` locally first
+5. **Version control**: Commit generated `aiLoopVideos.ts` file
+6. **Backup strategy**: Keep manual videos as fallback
+
+## 🎓 Tips & Tricks
+
+### Tip 1: Quick Category Change
+Move a video to a different category by:
+1. Remove from current playlist on YouTube
+2. Add to target playlist
+3. Run `npm run fetch-videos`
+
+### Tip 2: Bulk Import
+To add many videos at once:
+1. Create playlist on YouTube
+2. Add all videos to that playlist
+3. Run script once to import all
+
+### Tip 3: Preview Before Publishing
+Use "Unlisted" playlists for testing, then change to "Public" when ready
+
+### Tip 4: Manage Duplicates
+If a video fits multiple categories:
+- Add to most specific category first
+- Script will use first match, skip duplicates
+
+## 🆘 Support
 
 For more information:
 - [YouTube Data API Documentation](https://developers.google.com/youtube/v3)
+- [YouTube Playlists API](https://developers.google.com/youtube/v3/docs/playlists)
 - [YouTube API Setup Guide](./YOUTUBE_SETUP.md)
 - [Google Cloud Console](https://console.cloud.google.com/)
 
-## Summary
+## 📝 Summary
 
-1. ✅ YouTube API is configured in `.env`
-2. ✅ Run `npm run fetch-videos` to get latest videos
-3. ✅ Videos automatically categorized and filtered
-4. ✅ Shorts excluded automatically
-5. ✅ Videos displayed in Video Tutorials section
-6. ✅ Run script periodically to keep content fresh
+1. ✅ Create playlists on YouTube matching category keywords
+2. ✅ Upload videos and add them to appropriate playlists
+3. ✅ Run `npm run fetch-videos` to sync with website
+4. ✅ Videos automatically categorized based on playlist
+5. ✅ Shorts filtered out automatically
+6. ✅ Duplicates handled intelligently
+7. ✅ Repeat whenever you add new videos
+
+**The system is fully automatic - just organize your YouTube playlists and run the script!** 🎉
