@@ -90,6 +90,15 @@ const VideoTutorials = () => {
       category: 'Productivity Tutorials',
       duration: '06:04',
     },
+
+  {
+      id: '11',
+      title: 'AI Engineer Roadmap 2026',
+      description: 'How To Learn AI In 2026',
+      youtubeId: '9kHoWkCYOpI',
+      category: 'AI Roadmap',
+      duration: '07:44',
+    },
     // Add more videos as needed
   ];
 
