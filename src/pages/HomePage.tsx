@@ -1,5 +1,4 @@
 import Hero from '../components/Hero';
-import VideoCarousel from '../components/VideoCarousel';
 import Features from '../components/Features';
 import ArticlesPreview from '../components/ArticlesPreview';
 import Stats from '../components/Stats';
@@ -10,7 +9,6 @@ const HomePage = () => {
   return (
     <>
       <Hero />
-      <VideoCarousel />
       <Features />
       <ArticlesPreview />
       <Stats />
