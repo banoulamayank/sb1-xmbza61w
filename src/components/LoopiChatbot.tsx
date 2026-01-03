@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
 import { fullArticles } from '../data/allArticles';
 
-const MyloChatbot: React.FC = () => {
+const LoopiChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean; html?: string }>>([
     {
-      text: "Hey! Welcome to AI Loop! 🎓✨\n\nI'm Mylo, your AI assistant. I can help you with:\n• Articles and resources\n• Video tutorials\n• Job updates\n• AI tools and guides\n• Career guidance\n\nWhat would you like to explore today?",
+      text: "Hey! Welcome to AI Loop! 🎓✨\n\nI'm Loopi, your AI assistant. I can help you with:\n• Articles and resources\n• Video tutorials\n• Job updates\n• AI tools and guides\n• Career guidance\n\nWhat would you like to explore today?",
       isUser: false
     }
   ]);
@@ -51,7 +51,7 @@ const MyloChatbot: React.FC = () => {
   const getAIResponse = async (userMessage: string, conversationHistory: Array<{ text: string; isUser: boolean; html?: string }>) => {
     try {
       // Build context about the website
-      const websiteContext = `You are Mylo, an AI assistant for AI Loop's website. AI Loop is a platform focused on AI education and tutorials.
+      const websiteContext = `You are Loopi, an AI assistant for AI Loop's website. AI Loop is a platform focused on AI education and tutorials.
 
 The website has the following sections:
 1. Articles - Educational articles about AI tools, ChatGPT, Google Gemini, career growth, and AI trends
@@ -125,7 +125,7 @@ Keep responses brief (2-3 sentences max unless explaining something complex).`;
       return "Visit our <a href='/job-updates' class='text-blue-600 hover:text-blue-800 underline'>Job Updates section</a> to find the latest career opportunities in tech and AI fields. We regularly update it with new openings!";
     }
     if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
-      return "Hello! I'm Mylo, your AI Loop assistant. I can help you find articles, tutorials, job updates, or answer questions about AI tools. Try asking 'Show me ChatGPT articles' or 'Find Gemini tutorials'!";
+      return "Hello! I'm Loopi, your AI Loop assistant. I can help you find articles, tutorials, job updates, or answer questions about AI tools. Try asking 'Show me ChatGPT articles' or 'Find Gemini tutorials'!";
     }
 
     return "I can help you explore our articles, video tutorials, and job updates. Try asking me things like:<br>• 'Show me ChatGPT articles'<br>• 'Find Gemini guides'<br>• 'What articles do you have?'";
@@ -208,7 +208,7 @@ Keep responses brief (2-3 sentences max unless explaining something complex).`;
         {showTooltip && !isOpen && (
           <div className="absolute bottom-20 right-0 bg-white shadow-lg rounded-2xl px-4 py-3 mb-2 animate-pulse-slow">
             <div className="text-sm font-medium text-gray-800 whitespace-nowrap">
-              Ask your doubts to Mylo 💬
+              Ask your doubts to Loopi 💬
             </div>
             <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white transform rotate-45"></div>
           </div>
@@ -237,7 +237,7 @@ Keep responses brief (2-3 sentences max unless explaining something complex).`;
                   <MessageCircle className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">Mylo</h3>
+                  <h3 className="font-bold text-lg">Loopi</h3>
                   <p className="text-xs text-white/90">We are online!</p>
                 </div>
               </div>
@@ -348,4 +348,4 @@ Keep responses brief (2-3 sentences max unless explaining something complex).`;
   );
 };
 
-export default MyloChatbot;
+export default LoopiChatbot;
