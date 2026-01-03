@@ -156,14 +156,9 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div className="flex justify-center items-center">
             <div className="text-gray-400 text-sm">
-              &copy; 2025 AI Loop. All rights reserved.
-            </div>
-            <div className="flex space-x-6 text-sm">
-              <a href="#" className="hover:text-cyan-400 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-cyan-400 transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-cyan-400 transition-colors">Cookie Policy</a>
+              &copy; 2026 AI Loop. All rights reserved.
             </div>
           </div>
         </div>
