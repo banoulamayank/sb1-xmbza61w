@@ -1,39 +1,139 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { aiLoopVideos, videoCategories, VideoItem } from '../data/aiLoopVideos';
 
 const Hero = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  // Latest 5 videos
-  const latestVideos = [
+  // Manual videos (same as in VideoTutorials for consistency)
+  const manualVideos: VideoItem[] = [
     {
       id: '1',
       title: 'ChatGPT Image Generator Model - Image 1.5 2026',
+      description: 'Learn the basics of ChatGPT Image 1.5 and how to use it effectively',
       youtubeId: 'Hg6PFwBdTwg',
+      category: 'Image Generation Tools',
+      duration: '10:09',
     },
     {
       id: '2',
-      title: 'Claude OPUS 4.5, Gemini 3 Pro, or Chatgpt 5.1 2026',
-      youtubeId: 'WUXR-H9FUVw',
+      title: 'ChatGPT AI Agents Tutorial 2026',
+      description: 'Your complete guide to building ChatGPT AI Agents',
+      youtubeId: 'L12PYcIcaj8',
+      category: 'Productivity Tutorials',
+      duration: '18:05',
     },
     {
       id: '3',
-      title: 'ChatGPT 5.2 Tutorial With Demo 2026',
-      youtubeId: '1HJAZU94OpY',
+      title: 'Google Flow Tutorial 2026',
+      description: 'Explore Google Flow AI capabilities and features for productivity',
+      youtubeId: 'rXNCPen0Lzs',
+      category: 'Productivity Tutorials',
+      duration: '11:50',
     },
     {
       id: '4',
-      title: 'ChatGPT AI Agents Tutorial 2026',
-      youtubeId: 'L12PYcIcaj8',
+      title: 'Google VEO 3.1 Tutorial 2026',
+      description: 'Create AI Videos with VEO',
+      youtubeId: '39W9D2j1_30',
+      category: 'Video Generation Tools',
+      duration: '10:54',
     },
     {
       id: '5',
-      title: 'Google Flow Tutorial 2026',
-      youtubeId: 'rXNCPen0Lzs',
+      title: 'Claude OPUS 4.5, Gemini 3 Pro, or Chatgpt 5.1 2026',
+      description: 'Learn Differences Between Claude OPUS 4.5, Gemini 3 Pro, or Chatgpt 5.1',
+      youtubeId: 'WUXR-H9FUVw',
+      category: 'ChatGPT Tutorials',
+      duration: '15:06',
+    },
+    {
+      id: '6',
+      title: 'ChatGPT 5.2 Tutorial With Demo 2026',
+      description: 'Explore ChatGPT 5.2 capabilities and features with Demo',
+      youtubeId: '1HJAZU94OpY',
+      category: 'ChatGPT Tutorials',
+      duration: '12:41',
+    },
+    {
+      id: '7',
+      title: 'Gemini 3 Pro Tutorial 2026',
+      description: 'Learn all about Google Gemini 3 Pro Capabilities and features',
+      youtubeId: 'b7z_J50HcOw',
+      category: 'Google Gemini Tutorials',
+      duration: '10:37',
+    },
+    {
+      id: '8',
+      title: 'Google Firebase Studio 2026',
+      description: 'Google Firebase Studio - Create Apps In Seconds',
+      youtubeId: 'kAT_s86yjVw',
+      category: 'Google Gemini Tutorials',
+      duration: '07:06',
+    },
+    {
+      id: '9',
+      title: 'Heygen AI Video Generator 2026',
+      description: 'Explore Heygen AI capabilities and features',
+      youtubeId: 'S3_2VMpD_vo',
+      category: 'Video Generation Tools',
+      duration: '09:15',
+    },
+    {
+      id: '10',
+      title: 'New ChatGPT Apps You Must Know 2026',
+      description: 'Explore ChatGPT apps for productivity',
+      youtubeId: 'd9ZAsI6Cnl4',
+      category: 'Productivity Tutorials',
+      duration: '06:04',
+    },
+    {
+      id: '11',
+      title: 'AI Engineer Roadmap 2026',
+      description: 'How To Learn AI In 2026',
+      youtubeId: '9kHoWkCYOpI',
+      category: 'AI Roadmap',
+      duration: '07:44',
     },
   ];
+
+  // Get latest videos from each category
+  const latestVideos = useMemo(() => {
+    // Merge AI Loop videos with manual videos (AI Loop videos take priority)
+    const allVideos: VideoItem[] = [...aiLoopVideos];
+
+    // Add manual videos that are not already in AI Loop videos
+    manualVideos.forEach(manualVideo => {
+      if (!allVideos.find(v => v.youtubeId === manualVideo.youtubeId)) {
+        allVideos.push(manualVideo);
+      }
+    });
+
+    // Get one latest video from each category (excluding "All")
+    const categoriesWithoutAll = videoCategories.filter(cat => cat !== 'All');
+    const latestByCategory: VideoItem[] = [];
+
+    categoriesWithoutAll.forEach(category => {
+      // Get all videos in this category
+      const categoryVideos = allVideos.filter(v => v.category === category);
+
+      if (categoryVideos.length > 0) {
+        // Sort by publishedAt (if available) to get the latest, otherwise take the first one
+        const sortedVideos = categoryVideos.sort((a, b) => {
+          if (a.publishedAt && b.publishedAt) {
+            return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+          }
+          return 0; // If no publishedAt, keep original order
+        });
+
+        latestByCategory.push(sortedVideos[0]);
+      }
+    });
+
+    return latestByCategory;
+  }, []);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
