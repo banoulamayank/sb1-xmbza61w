@@ -31,7 +31,7 @@ const VideoTutorials = () => {
       title: 'Google Flow Tutorial 2026',
       description: 'Explore Google Flow AI capabilities and features for productivity',
       youtubeId: 'rXNCPen0Lzs',
-      category: 'Productivity Tutorials',
+      category: 'Video Generation Tools',
       duration: '11:50',
     },
     {
@@ -99,16 +99,24 @@ const VideoTutorials = () => {
       category: 'AI Roadmap',
       duration: '07:44',
     },
+    {
+      id: '12',
+      title: 'Google Flow Tutorial 2026',
+      description: 'Explore Google Flow AI capabilities and features for productivity',
+      youtubeId: 'rXNCPen0Lzs',
+      category: 'Google Gemini Tutorials',
+      duration: '11:50',
+    },
     // Add more videos as needed
   ];
 
   // Merge AI Loop videos with manual videos (AI Loop videos take priority)
-  // Remove duplicates based on youtubeId
+  // Allow duplicates with different categories so same video can appear in multiple categories
   const allVideos: VideoItem[] = [...aiLoopVideos];
 
-  // Add manual videos that are not already in AI Loop videos
+  // Add manual videos that are not already in AI Loop videos (same youtubeId AND category)
   manualVideos.forEach(manualVideo => {
-    if (!allVideos.find(v => v.youtubeId === manualVideo.youtubeId)) {
+    if (!allVideos.find(v => v.youtubeId === manualVideo.youtubeId && v.category === manualVideo.category)) {
       allVideos.push(manualVideo);
     }
   });
