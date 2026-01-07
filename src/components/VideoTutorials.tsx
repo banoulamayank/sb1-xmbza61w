@@ -123,6 +123,14 @@ const VideoTutorials = () => {
       category: 'Image Generation Tools',
       duration: '09:09',
     },
+    {
+      id: '15',
+      title: 'Google Flow Tutorial 2026',
+      description: 'Explore Google Flow AI capabilities and features for productivity',
+      youtubeId: 'rXNCPen0Lzs',
+      category: 'Productivity Tutorials',
+      duration: '11:50',
+    },
     // Add more videos as needed
   ];
 
