@@ -134,8 +134,12 @@ const VideoTutorials = () => {
   });
 
   // Filter videos based on selected category
+  // For 'All', deduplicate by youtubeId to prevent same video appearing multiple times
+  // For specific categories, show all videos in that category
   const filteredVideos = selectedCategory === 'All'
-    ? allVideos
+    ? allVideos.filter((video, index, self) =>
+        index === self.findIndex(v => v.youtubeId === video.youtubeId)
+      )
     : allVideos.filter(video => video.category === selectedCategory);
 
   return (
