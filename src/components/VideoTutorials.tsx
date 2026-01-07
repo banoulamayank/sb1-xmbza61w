@@ -113,6 +113,18 @@ const VideoTutorials = () => {
     }
   });
 
+  // Sort all videos by publishedAt date (newest first)
+  // Videos without publishedAt will appear at the end
+  allVideos.sort((a, b) => {
+    if (a.publishedAt && b.publishedAt) {
+      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    }
+    // Videos with publishedAt appear before those without
+    if (a.publishedAt && !b.publishedAt) return -1;
+    if (!a.publishedAt && b.publishedAt) return 1;
+    return 0;
+  });
+
   // Filter videos based on selected category
   const filteredVideos = selectedCategory === 'All'
     ? allVideos
