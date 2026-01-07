@@ -98,6 +98,7 @@ const VideoTutorials = () => {
       youtubeId: '9kHoWkCYOpI',
       category: 'AI Roadmap',
       duration: '07:44',
+      publishedAt: '2026-01-07T11:00:00Z',
     },
     {
       id: '12',
