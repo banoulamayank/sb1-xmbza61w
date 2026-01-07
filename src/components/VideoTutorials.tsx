@@ -114,6 +114,7 @@ const VideoTutorials = () => {
       youtubeId: 'QMw42YaosW0',
       category: 'Productivity Tutorials',
       duration: '09:09',
+      publishedAt: '2026-01-07T12:00:00Z',
     },
      {
       id: '14',
