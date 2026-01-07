@@ -30,7 +30,7 @@ const Hero = () => {
       title: 'Google Flow Tutorial 2026',
       description: 'Explore Google Flow AI capabilities and features for productivity',
       youtubeId: 'rXNCPen0Lzs',
-      category: 'Productivity Tutorials',
+      category: 'Video Generation Tools',
       duration: '11:50',
     },
     {
@@ -89,50 +89,81 @@ const Hero = () => {
       category: 'Productivity Tutorials',
       duration: '06:04',
     },
-    {
+
+  {
       id: '11',
       title: 'AI Engineer Roadmap 2026',
       description: 'How To Learn AI In 2026',
       youtubeId: '9kHoWkCYOpI',
       category: 'AI Roadmap',
       duration: '07:44',
+      publishedAt: '2026-01-07T11:00:00Z',
+    },
+    {
+      id: '12',
+      title: 'Google Flow Tutorial 2026',
+      description: 'Explore Google Flow AI capabilities and features for productivity',
+      youtubeId: 'rXNCPen0Lzs',
+      category: 'Google Gemini Tutorials',
+      duration: '11:50',
+    },
+     {
+      id: '13',
+      title: 'How To Create High CTR Thumbnails Using AI',
+      description: 'High CTR Thumbnail Design Using Leonardo AI',
+      youtubeId: 'QMw42YaosW0',
+      category: 'Productivity Tutorials',
+      duration: '09:09',
+      publishedAt: '2026-01-07T12:00:00Z',
+    },
+     {
+      id: '14',
+      title: 'How To Create High CTR Thumbnails Using AI',
+      description: 'High CTR Thumbnail Design Using Leonardo AI',
+      youtubeId: 'QMw42YaosW0',
+      category: 'Image Generation Tools',
+      duration: '09:09',
+    },
+    {
+      id: '15',
+      title: 'Google Flow Tutorial 2026',
+      description: 'Explore Google Flow AI capabilities and features for productivity',
+      youtubeId: 'rXNCPen0Lzs',
+      category: 'Productivity Tutorials',
+      duration: '11:50',
     },
   ];
 
-  // Get latest videos from each category
+  // Get top 5 videos from ALL section (same logic as VideoTutorials ALL category)
   const latestVideos = useMemo(() => {
     // Merge AI Loop videos with manual videos (AI Loop videos take priority)
     const allVideos: VideoItem[] = [...aiLoopVideos];
 
-    // Add manual videos that are not already in AI Loop videos
+    // Add manual videos that are not already in AI Loop videos (same youtubeId AND category)
     manualVideos.forEach(manualVideo => {
-      if (!allVideos.find(v => v.youtubeId === manualVideo.youtubeId)) {
+      if (!allVideos.find(v => v.youtubeId === manualVideo.youtubeId && v.category === manualVideo.category)) {
         allVideos.push(manualVideo);
       }
     });
 
-    // Get one latest video from each category (excluding "All")
-    const categoriesWithoutAll = videoCategories.filter(cat => cat !== 'All');
-    const latestByCategory: VideoItem[] = [];
-
-    categoriesWithoutAll.forEach(category => {
-      // Get all videos in this category
-      const categoryVideos = allVideos.filter(v => v.category === category);
-
-      if (categoryVideos.length > 0) {
-        // Sort by publishedAt (if available) to get the latest, otherwise take the first one
-        const sortedVideos = categoryVideos.sort((a, b) => {
-          if (a.publishedAt && b.publishedAt) {
-            return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-          }
-          return 0; // If no publishedAt, keep original order
-        });
-
-        latestByCategory.push(sortedVideos[0]);
+    // Sort all videos by publishedAt date (newest first)
+    allVideos.sort((a, b) => {
+      if (a.publishedAt && b.publishedAt) {
+        return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
       }
+      // Videos with publishedAt appear before those without
+      if (a.publishedAt && !b.publishedAt) return -1;
+      if (!a.publishedAt && b.publishedAt) return 1;
+      return 0;
     });
 
-    return latestByCategory;
+    // Deduplicate by youtubeId (same as ALL section logic)
+    const uniqueVideos = allVideos.filter((video, index, self) =>
+      index === self.findIndex(v => v.youtubeId === video.youtubeId)
+    );
+
+    // Return top 5 videos
+    return uniqueVideos.slice(0, 5);
   }, []);
 
   useEffect(() => {
