@@ -107,6 +107,22 @@ const VideoTutorials = () => {
       category: 'Google Gemini Tutorials',
       duration: '11:50',
     },
+     {
+      id: '13',
+      title: 'How To Create High CTR Thumbnails Using AI',
+      description: 'High CTR Thumbnail Design Using Leonardo AI',
+      youtubeId: 'QMw42YaosW0',
+      category: 'Productivity Tutorials',
+      duration: '09:09',
+    },
+     {
+      id: '14',
+      title: 'How To Create High CTR Thumbnails Using AI',
+      description: 'High CTR Thumbnail Design Using Leonardo AI',
+      youtubeId: 'QMw42YaosW0',
+      category: 'Image Generation Tools',
+      duration: '09:09',
+    },
     // Add more videos as needed
   ];
 
