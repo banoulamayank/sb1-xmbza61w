@@ -76,8 +76,49 @@ const GenAINews = () => {
                 const title = item.querySelector('title')?.textContent || '';
                 const link = item.querySelector('link')?.textContent || '';
                 const pubDate = item.querySelector('pubDate')?.textContent || '';
-                const description = item.querySelector('description')?.textContent?.replace(/<[^>]*>/g, '') || '';
+                const descriptionRaw = item.querySelector('description')?.textContent || '';
+                const description = descriptionRaw.replace(/<[^>]*>/g, '');
                 const source = item.querySelector('source')?.textContent || 'Google News';
+
+                // Try to extract image from various sources
+                let image = '';
+
+                // Try media:content tag
+                const mediaContent = item.querySelector('content, media\\:content');
+                if (mediaContent) {
+                  image = mediaContent.getAttribute('url') || '';
+                }
+
+                // Try enclosure tag
+                if (!image) {
+                  const enclosure = item.querySelector('enclosure');
+                  if (enclosure && enclosure.getAttribute('type')?.startsWith('image/')) {
+                    image = enclosure.getAttribute('url') || '';
+                  }
+                }
+
+                // Try to extract image from description HTML
+                if (!image && descriptionRaw.includes('<img')) {
+                  const imgMatch = descriptionRaw.match(/<img[^>]+src="([^">]+)"/);
+                  if (imgMatch && imgMatch[1]) {
+                    image = imgMatch[1];
+                  }
+                }
+
+                // Fallback to curated AI images
+                if (!image) {
+                  const fallbackImages = [
+                    'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1655635643532-fa9ba2648cbe?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1676277791608-ac5a0b5f6f8a?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1686191128892-c49b930e8389?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1655721531369-3a0f4b7c0c4c?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1675557009806-8a396f64c9e7?w=400&h=300&fit=crop'
+                  ];
+                  image = fallbackImages[allArticles.length % fallbackImages.length];
+                }
 
                 allArticles.push({
                   title,
@@ -86,7 +127,7 @@ const GenAINews = () => {
                   pubDate,
                   source,
                   category: topic.category,
-                  image: `https://source.unsplash.com/400x300/?artificial-intelligence,technology,${topic.query.replace(' ', ',')}`
+                  image
                 });
               }
             });
@@ -245,9 +286,10 @@ const GenAINews = () => {
                         <img
                           src={article.image}
                           alt={article.title}
-                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500"
+                          loading="lazy"
                           onError={(e) => {
-                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%2306b6d4"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="48" fill="white"%3EAI%3C/text%3E%3C/svg%3E';
                           }}
                         />
                         {/* Category Badge */}
