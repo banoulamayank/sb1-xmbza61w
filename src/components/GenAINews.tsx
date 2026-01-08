@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Calendar, ExternalLink, TrendingUp, Sparkles, Brain, Loader2, RefreshCw } from 'lucide-react';
+import { Calendar, ExternalLink, TrendingUp, Sparkles, Brain, Loader2, RefreshCw, Database } from 'lucide-react';
+import { saveNewsArticles, fetchNewsArticles, getArticleCount } from '../services/newsService';
 
 interface NewsArticle {
   title: string;
   description: string;
   link: string;
   pubDate: string;
+  pub_date?: string;
   source: string;
   category: string;
   image?: string;
@@ -16,6 +18,8 @@ const GenAINews = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [dbArticleCount, setDbArticleCount] = useState<number>(0);
+  const [lastSaved, setLastSaved] = useState<number>(0);
 
   // Fetch news from multiple RSS feeds
   const fetchNews = async (isRefresh = false) => {
@@ -172,16 +176,73 @@ const GenAINews = () => {
       localStorage.setItem(cacheKey, JSON.stringify(recentArticles));
       localStorage.setItem(cacheTimeKey, Date.now().toString());
 
-      setNews(recentArticles);
+      // Save articles to database instantly
+      if (allArticles.length > 0) {
+        const articlesToSave = allArticles.map(article => ({
+          ...article,
+          pub_date: article.pubDate
+        }));
+
+        const saveResult = await saveNewsArticles(articlesToSave);
+        console.log(`Saved ${saveResult.saved} new articles to database`);
+        setLastSaved(Date.now());
+
+        // Update article count from database
+        const count = await getArticleCount();
+        setDbArticleCount(count);
+      }
+
+      // Load articles from database and merge with fetched articles
+      const dbArticles = await fetchNewsArticles(7);
+      const dbArticlesWithPubDate = dbArticles.map(article => ({
+        ...article,
+        pubDate: article.pub_date || article.pubDate
+      }));
+
+      // Merge database articles with newly fetched articles
+      const allMergedArticles = [...dbArticlesWithPubDate, ...recentArticles];
+      const finalUniqueArticles = allMergedArticles.filter((article, index, self) =>
+        index === self.findIndex((a) => a.link === article.link)
+      );
+
+      // Sort by date (newest first)
+      finalUniqueArticles.sort((a, b) =>
+        new Date(b.pubDate || b.pub_date || '').getTime() -
+        new Date(a.pubDate || a.pub_date || '').getTime()
+      );
+
+      setNews(finalUniqueArticles);
     } catch (err) {
       console.error('Error fetching news:', err);
-      setError('Failed to fetch news. Please try again later.');
+      setError('Failed to fetch news. Showing articles from database.');
 
-      // Load cached data as fallback
-      const cachedData = localStorage.getItem('genai_news_cache');
-      if (cachedData) {
-        setNews(JSON.parse(cachedData));
-        setError('Showing cached news. Unable to fetch latest updates.');
+      // Load from database as primary fallback
+      try {
+        const dbArticles = await fetchNewsArticles(7);
+        const dbArticlesWithPubDate = dbArticles.map(article => ({
+          ...article,
+          pubDate: article.pub_date || article.pubDate
+        }));
+
+        if (dbArticlesWithPubDate.length > 0) {
+          setNews(dbArticlesWithPubDate);
+          setError('Showing saved articles from database. Unable to fetch new updates.');
+        } else {
+          // Load cached data as last resort
+          const cachedData = localStorage.getItem('genai_news_cache');
+          if (cachedData) {
+            setNews(JSON.parse(cachedData));
+            setError('Showing cached news. Unable to fetch latest updates.');
+          }
+        }
+      } catch (dbErr) {
+        console.error('Error loading from database:', dbErr);
+        // Load cached data as last resort
+        const cachedData = localStorage.getItem('genai_news_cache');
+        if (cachedData) {
+          setNews(JSON.parse(cachedData));
+          setError('Showing cached news. Unable to fetch latest updates.');
+        }
       }
     } finally {
       setLoading(false);
@@ -191,6 +252,22 @@ const GenAINews = () => {
 
   useEffect(() => {
     fetchNews();
+
+    // Load initial article count from database
+    getArticleCount().then(count => setDbArticleCount(count));
+  }, []);
+
+  // Continuous regeneration mechanism - auto-fetch and save every 15 minutes
+  useEffect(() => {
+    const AUTO_REFRESH_INTERVAL = 15 * 60 * 1000; // 15 minutes in milliseconds
+
+    const intervalId = setInterval(() => {
+      console.log('Auto-refreshing news articles...');
+      fetchNews(true);
+    }, AUTO_REFRESH_INTERVAL);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   // Format date
@@ -254,8 +331,20 @@ const GenAINews = () => {
 
         {/* Main Content */}
         <div className="container mx-auto px-6 py-12">
-          {/* Refresh Button */}
-          <div className="flex justify-end mb-8">
+          {/* Refresh Button and Database Info */}
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <div className="flex items-center space-x-3 bg-white px-4 py-2 rounded-full shadow-md">
+              <Database size={18} className="text-blue-600" />
+              <span className="text-sm font-medium text-gray-700">
+                {dbArticleCount} articles in database
+              </span>
+              {lastSaved > 0 && (
+                <span className="text-xs text-green-600 font-semibold">
+                  ✓ Saved {new Date(lastSaved).toLocaleTimeString()}
+                </span>
+              )}
+            </div>
+
             <button
               onClick={() => fetchNews(true)}
               disabled={refreshing}
@@ -362,7 +451,10 @@ const GenAINews = () => {
           {/* Auto-refresh Info */}
           <div className="mt-12 text-center">
             <p className="text-gray-500 text-sm">
-              News updates automatically every 30 minutes • Last updated: {new Date().toLocaleTimeString()}
+              🔄 News automatically refreshes every 15 minutes and saves to database for SEO • All articles persisted permanently
+            </p>
+            <p className="text-gray-400 text-xs mt-1">
+              Last updated: {new Date().toLocaleTimeString()}
             </p>
           </div>
         </div>
