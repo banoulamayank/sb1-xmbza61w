@@ -105,12 +105,20 @@ const GenAINews = () => {
       // Sort by date (newest first)
       allArticles.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
 
+      // Filter to show only articles from the last 7 days
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const recentArticles = allArticles.filter(article => {
+        const articleDate = new Date(article.pubDate);
+        return articleDate >= sevenDaysAgo;
+      });
+
       // Cache the results
-      localStorage.setItem(cacheKey, JSON.stringify(allArticles));
+      localStorage.setItem(cacheKey, JSON.stringify(recentArticles));
       localStorage.setItem(cacheTimeKey, Date.now().toString());
 
-      setNews(allArticles);
-      setFilteredNews(allArticles);
+      setNews(recentArticles);
+      setFilteredNews(recentArticles);
     } catch (err) {
       console.error('Error fetching news:', err);
       setError('Failed to fetch news. Please try again later.');
