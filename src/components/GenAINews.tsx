@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Calendar, ExternalLink, TrendingUp, Sparkles, Brain, Loader2, RefreshCw } from 'lucide-react';
+import { Calendar, ExternalLink, TrendingUp, Sparkles, Brain, Loader2, RefreshCw } from 'lucide-react';
 
 interface NewsArticle {
   title: string;
@@ -13,14 +13,9 @@ interface NewsArticle {
 
 const GenAINews = () => {
   const [news, setNews] = useState<NewsArticle[]>([]);
-  const [filteredNews, setFilteredNews] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
   const [refreshing, setRefreshing] = useState(false);
-
-  const categories = ['All', 'Generative AI', 'Machine Learning', 'AI Tools', 'Research', 'Industry News'];
 
   // Fetch news from multiple RSS feeds
   const fetchNews = async (isRefresh = false) => {
@@ -42,7 +37,6 @@ const GenAINews = () => {
         const timeDiff = Date.now() - parseInt(cacheTime);
         if (timeDiff < 30 * 60 * 1000) { // 30 minutes
           setNews(JSON.parse(cachedData));
-          setFilteredNews(JSON.parse(cachedData));
           setLoading(false);
           return;
         }
@@ -118,7 +112,6 @@ const GenAINews = () => {
       localStorage.setItem(cacheTimeKey, Date.now().toString());
 
       setNews(recentArticles);
-      setFilteredNews(recentArticles);
     } catch (err) {
       console.error('Error fetching news:', err);
       setError('Failed to fetch news. Please try again later.');
@@ -127,7 +120,6 @@ const GenAINews = () => {
       const cachedData = localStorage.getItem('genai_news_cache');
       if (cachedData) {
         setNews(JSON.parse(cachedData));
-        setFilteredNews(JSON.parse(cachedData));
         setError('Showing cached news. Unable to fetch latest updates.');
       }
     } finally {
@@ -139,26 +131,6 @@ const GenAINews = () => {
   useEffect(() => {
     fetchNews();
   }, []);
-
-  // Filter news based on search and category
-  useEffect(() => {
-    let filtered = news;
-
-    // Filter by category
-    if (selectedCategory !== 'All') {
-      filtered = filtered.filter(article => article.category === selectedCategory);
-    }
-
-    // Filter by search query
-    if (searchQuery) {
-      filtered = filtered.filter(article =>
-        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        article.description.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    setFilteredNews(filtered);
-  }, [searchQuery, selectedCategory, news]);
 
   // Format date
   const formatDate = (dateString: string) => {
@@ -213,45 +185,16 @@ const GenAINews = () => {
             <h1 className="text-5xl md:text-6xl font-bold text-center text-white mb-4">
               Gen AI Latest News
             </h1>
-            <p className="text-xl text-center text-white/90 max-w-3xl mx-auto mb-8">
+            <p className="text-xl text-center text-white/90 max-w-3xl mx-auto">
               Stay ahead with real-time updates on Generative AI, Machine Learning, and cutting-edge AI technology
             </p>
-
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                <input
-                  type="text"
-                  placeholder="Search AI news..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-white/30 bg-white/20 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:border-white/50 transition-all duration-300"
-                />
-              </div>
-            </div>
           </div>
         </div>
 
         {/* Main Content */}
         <div className="container mx-auto px-6 py-12">
-          {/* Category Filter & Refresh */}
-          <div className="flex flex-wrap items-center justify-between mb-8 gap-4">
-            <div className="flex flex-wrap gap-3">
-              {categories.map(category => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-                    selectedCategory === category
-                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-105'
-                      : 'bg-white text-gray-700 hover:bg-gray-100 shadow'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
+          {/* Refresh Button */}
+          <div className="flex justify-end mb-8">
             <button
               onClick={() => fetchNews(true)}
               disabled={refreshing}
@@ -281,18 +224,18 @@ const GenAINews = () => {
               <div className="mb-6 flex items-center space-x-2">
                 <TrendingUp className="text-blue-600" size={20} />
                 <p className="text-gray-700 font-medium">
-                  {filteredNews.length} {filteredNews.length === 1 ? 'article' : 'articles'} found
+                  {news.length} {news.length === 1 ? 'article' : 'articles'} found
                 </p>
               </div>
 
               {/* News Grid */}
-              {filteredNews.length === 0 ? (
+              {news.length === 0 ? (
                 <div className="text-center py-20">
-                  <p className="text-gray-500 text-lg">No news articles found. Try adjusting your filters.</p>
+                  <p className="text-gray-500 text-lg">No news articles found. Please try refreshing.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {filteredNews.map((article, index) => (
+                  {news.map((article, index) => (
                     <article
                       key={index}
                       className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
