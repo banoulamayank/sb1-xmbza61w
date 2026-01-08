@@ -10,8 +10,8 @@ const Header = () => {
     { name: 'Home', href: '/', isRoute: true },
     { name: 'Video Tutorials', href: '/video-tutorials', isRoute: true },
     { name: 'Articles', href: '/articles', isRoute: true },
+    { name: 'Gen AI News', href: '/gen-ai-news', isRoute: true },
     { name: 'Job Updates', href: '/job-updates', isRoute: true },
-    { name: 'Contact Us', href: '/#contact', isRoute: false },
   ];
 
   return (

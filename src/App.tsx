@@ -6,6 +6,7 @@ import LoopiChatbot from './components/LoopiChatbot';
 import HomePage from './pages/HomePage';
 import VideoTutorialsPage from './pages/VideoTutorialsPage';
 import ArticlesPage from './pages/ArticlesPage';
+import GenAINewsPage from './pages/GenAINewsPage';
 import JobUpdatesPage from './pages/JobUpdatesPage';
 
 // Component to handle scrolling to hash anchors
@@ -40,6 +41,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/video-tutorials" element={<VideoTutorialsPage />} />
           <Route path="/articles" element={<ArticlesPage />} />
+          <Route path="/gen-ai-news" element={<GenAINewsPage />} />
           <Route path="/job-updates" element={<JobUpdatesPage />} />
         </Routes>
         <Footer />
