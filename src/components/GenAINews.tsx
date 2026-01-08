@@ -140,10 +140,30 @@ const GenAINews = () => {
       // Sort by date (newest first)
       allArticles.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
 
+      // Get existing cached news to merge with new articles
+      const existingCachedData = localStorage.getItem(cacheKey);
+      let existingArticles: NewsArticle[] = [];
+      if (existingCachedData) {
+        try {
+          existingArticles = JSON.parse(existingCachedData);
+        } catch (e) {
+          console.error('Error parsing cached data:', e);
+        }
+      }
+
+      // Merge existing articles with new ones, removing duplicates by link
+      const mergedArticles = [...existingArticles, ...allArticles];
+      const uniqueArticles = mergedArticles.filter((article, index, self) =>
+        index === self.findIndex((a) => a.link === article.link)
+      );
+
+      // Sort merged articles by date (newest first)
+      uniqueArticles.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
+
       // Filter to show only articles from the last 7 days
       const sevenDaysAgo = new Date();
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-      const recentArticles = allArticles.filter(article => {
+      const recentArticles = uniqueArticles.filter(article => {
         const articleDate = new Date(article.pubDate);
         return articleDate >= sevenDaysAgo;
       });
