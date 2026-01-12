@@ -5,6 +5,7 @@ import { fullArticles, FullArticle } from '../data/allArticles';
 
 const categories = [
   'All',
+  'AI and ML Articles',
   'ChatGPT Articles',
   'Google Gemini Articles',
   'AI Roadmap',
