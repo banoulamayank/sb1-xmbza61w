@@ -133,6 +133,24 @@ const VideoTutorials = () => {
       category: 'Productivity Tutorials',
       duration: '11:50',
     },
+    {
+      id: '16',
+      title: 'AI Video generation With Hindi Audio',
+      description: 'Learn how to create AI-generated videos with Hindi audio narration',
+      youtubeId: '_rs1uHk82Uo',
+      category: 'Video Generation Tools',
+      duration: '10:00',
+      publishedAt: '2026-01-16T00:00:00Z',
+    },
+    {
+      id: '17',
+      title: 'AI Video generation With Hindi Audio',
+      description: 'Learn how to create AI-generated videos with Hindi audio narration',
+      youtubeId: '_rs1uHk82Uo',
+      category: 'Productivity Tutorials',
+      duration: '10:00',
+      publishedAt: '2026-01-16T00:00:00Z',
+    },
     // Add more videos as needed
   ];
 
