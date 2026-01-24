@@ -167,7 +167,7 @@ const VideoTutorials = () => {
       youtubeId: 'TFqQiJPX8Zw',
       category: 'Google Gemini Tutorials',
       duration: '14:50',
-      publishedAt: '2026-24-16T00:00:00Z',
+      publishedAt: '2026-01-16T00:00:00Z',
     },
     // Add more videos as needed
   ];
