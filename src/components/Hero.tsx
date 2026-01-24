@@ -150,6 +150,24 @@ const Hero = () => {
       duration: '10:00',
       publishedAt: '2026-01-16T00:00:00Z',
     },
+    {
+      id: '18',
+      title: 'Build 3D Animated Website using AI',
+      description: 'Learn how to create Animated website Using Google Antigravity',
+      youtubeId: 'TFqQiJPX8Zw',
+      category: 'Productivity Tutorials',
+      duration: '14:50',
+      publishedAt: '2026-01-24T00:00:00Z',
+    },
+    {
+      id: '19',
+      title: 'Build 3D Animated Website using AI',
+      description: 'Learn how to create Animated website Using Google Antigravity',
+      youtubeId: 'TFqQiJPX8Zw',
+      category: 'Google Gemini Tutorials',
+      duration: '14:50',
+      publishedAt: '2026-01-24T00:00:00Z',
+    },
   ];
 
   // Get top 5 videos from ALL section (same logic as VideoTutorials ALL category)
