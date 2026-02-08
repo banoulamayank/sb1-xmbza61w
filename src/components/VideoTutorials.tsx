@@ -181,7 +181,7 @@ const VideoTutorials = () => {
     {
       id: '21',
       title: 'AI Tool Made my Tutorial Video In Just 10 Mins',
-      description: 'Learn AI In 2 Hours',
+      description: 'Create tutorials without Voiceover',
       youtubeId: 'Zxs9hOzusrU',
       category: 'Productivity Tutorials',
       duration: '09:42',
