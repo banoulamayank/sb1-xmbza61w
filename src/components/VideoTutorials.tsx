@@ -169,6 +169,24 @@ const VideoTutorials = () => {
       duration: '14:50',
       publishedAt: '2026-01-24T00:00:00Z',
     },
+    {
+      id: '20',
+      title: 'Artificial Intelligence Course | AI Tools Course',
+      description: 'Learn AI In 2 Hours',
+      youtubeId: 'EtDbtfahmvM',
+      category: 'Productivity Tutorials',
+      duration: '01:33:18',
+      publishedAt: '2026-02-07T00:00:00Z',
+    },
+    {
+      id: '21',
+      title: 'AI Tool Made my Tutorial Video In Just 10 Mins',
+      description: 'Learn AI In 2 Hours',
+      youtubeId: 'Zxs9hOzusrU',
+      category: 'Productivity Tutorials',
+      duration: '09:42',
+      publishedAt: '2026-02-08T00:00:00Z',
+    },
     // Add more videos as needed
   ];
 
