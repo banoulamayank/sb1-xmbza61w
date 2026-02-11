@@ -186,6 +186,15 @@ const Hero = () => {
       duration: '09:42',
       publishedAt: '2026-02-08T00:00:00Z',
     },
+    {
+      id: '22',
+      title: 'How To Create FREE AI Influencer',
+      description: 'Create Viral AI influencer FREE',
+      youtubeId: '3CqGX3ZZIa8',
+      category: 'Productivity Tutorials',
+      duration: '08:15',
+      publishedAt: '2026-02-10T00:00:00Z',
+    },
   ];
 
   // Get top 5 videos from ALL section (same logic as VideoTutorials ALL category)
