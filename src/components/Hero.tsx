@@ -195,6 +195,15 @@ const Hero = () => {
       duration: '08:15',
       publishedAt: '2026-02-10T00:00:00Z',
     },
+    {
+      id: '23',
+      title: 'What is Claude Opus 4.6 Actually Good at',
+      description: 'Claude Opus 4.6 best model for Non Coders',
+      youtubeId: '5oZctgsiY5U',
+      category: 'Productivity Tutorials',
+      duration: '07:35',
+      publishedAt: '2026-02-11T00:00:00Z',
+    },
   ];
 
   // Get top 5 videos from ALL section (same logic as VideoTutorials ALL category)
