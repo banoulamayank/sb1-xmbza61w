@@ -206,7 +206,7 @@ const VideoTutorials = () => {
       publishedAt: '2026-02-10T00:00:00Z',
     },
     {
-      id: '22',
+      id: '23',
       title: 'What is Claude Opus 4.6 Actually Good at',
       description: 'Claude Opus 4.6 best model for Non Coders',
       youtubeId: '5oZctgsiY5U',
