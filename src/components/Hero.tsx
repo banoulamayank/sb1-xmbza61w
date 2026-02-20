@@ -204,6 +204,15 @@ const Hero = () => {
       duration: '07:35',
       publishedAt: '2026-02-11T00:00:00Z',
     },
+    {
+      id: '24',
+      title: 'How To Create Spiritual AI Influencer FREE',
+      description: 'Leaern how to create spiritual videos for free',
+      youtubeId: 'o8liXmJCFyQ',
+      category: 'Video Generation Tools',
+      duration: '07:35',
+      publishedAt: '2026-02-12T00:00:00Z',
+    },
   ];
 
   // Get top 5 videos from ALL section (same logic as VideoTutorials ALL category)
