@@ -223,6 +223,15 @@ const VideoTutorials = () => {
       duration: '07:35',
       publishedAt: '2026-02-12T00:00:00Z',
     },
+    {
+      id: '25',
+      title: 'High Paying AI Tools In 2026',
+      description: 'Leaern about High Paying AI Tools In 2026',
+      youtubeId: 'zxlj7BxdjUE',
+      category: 'AI Roadmap',
+      duration: '05:50',
+      publishedAt: '2026-02-13T00:00:00Z',
+    },
     // Add more videos as needed
   ];
 
