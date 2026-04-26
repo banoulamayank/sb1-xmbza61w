@@ -232,6 +232,24 @@ const VideoTutorials = () => {
       duration: '05:50',
       publishedAt: '2026-02-13T00:00:00Z',
     },
+    {
+      id: '26',
+      title: 'How To Create Object Talking Videos',
+      description: 'Create Viral Object Talking AI Videos In FREE',
+      youtubeId: 'o0kNRuc1_Bg',
+      category: 'Video Generation Tools',
+      duration: '06:36',
+      publishedAt: '2026-02-14T00:00:00Z',
+    },
+    {
+      id: '27',
+      title: 'ChatGPT images 2.0 Tutorial',
+      description: 'how to use chatgpt images 2.0 in simplest way',
+      youtubeId: 'LySCr-byoos',
+      category: 'Image Generation Tools',
+      duration: '11:18',
+      publishedAt: '2026-02-15T00:00:00Z',
+    },
     // Add more videos as needed
   ];
 
