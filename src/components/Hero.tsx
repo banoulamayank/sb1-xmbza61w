@@ -253,7 +253,7 @@ const Hero = () => {
       id: '29',
       title: 'Image Background Remover',
       description: 'how we can change or remove image background in just one click',
-      youtubeId: 'RE_nt3tbdiI',
+      youtubeId: 'ZUFzhJvVjXQ',
       category: 'Productivity Tutorials',
       duration: '09:13',
       publishedAt: '2026-02-17T00:00:00Z',
