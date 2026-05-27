@@ -250,6 +250,24 @@ const VideoTutorials = () => {
       duration: '11:18',
       publishedAt: '2026-02-15T00:00:00Z',
     },
+    {
+      id: '28',
+      title: 'Chatgpt Use Kaise Kare',
+      description: 'Chatgpt tutorial for beginners',
+      youtubeId: 'RE_nt3tbdiI',
+      category: 'ChatGPT Tutorials',
+      duration: '09:09',
+      publishedAt: '2026-02-16T00:00:00Z',
+    },
+    {
+      id: '29',
+      title: 'Image Background Remover',
+      description: 'how we can change or remove image background in just one click',
+      youtubeId: 'RE_nt3tbdiI',
+      category: 'Productivity Tutorials',
+      duration: '09:13',
+      publishedAt: '2026-02-17T00:00:00Z',
+    },
     // Add more videos as needed
   ];
 
